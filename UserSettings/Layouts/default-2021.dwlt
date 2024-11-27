@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 31290
+  controlID: 771
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 31291
+  controlID: 772
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 31292
+  controlID: 773
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -404,7 +404,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: daceffff2cfbffff10750000b87500001e7d0000e47f0000c68000006a810000
+      m_ExpandedIDs: 1afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1041,22 +1041,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Game/Scripts/Enemies/Witch
+    - Assets/Game/Prefabs/Magic/Fire
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Game/Scripts/Enemies/Witch
+  - Assets/Game/Prefabs/Magic/Fire
   m_LastFoldersGridSize: -1
   m_LastProjectPath: F:\MyProjects\UnityProjects\DarkForest
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 184}
-    m_SelectedIDs: 5e980000
-    m_LastClickedID: 39006
-    m_ExpandedIDs: 00000000229800002498000026980000289800002a9800002c9800002e98000030980000329800003498000036980000389800003a980000
+    scrollPos: {x: 0, y: 56}
+    m_SelectedIDs: b0980000
+    m_LastClickedID: 39088
+    m_ExpandedIDs: 00000000789800007a9800007c9800007e98000080980000829800008498000086980000889800008a9800008c9800008e98000090980000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1084,7 +1084,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000229800002498000026980000289800002a9800002c9800002e98000030980000329800003498000036980000389800003a980000
+    m_ExpandedIDs: 00000000789800007a9800007c9800007e98000080980000829800008498000086980000889800008a9800008c9800008e98000090980000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

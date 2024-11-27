@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2903952507623339844}
   - component: {fileID: 6663080947179792032}
   m_Layer: 1
-  m_Name: Explosion
+  m_Name: FireExplosion
   m_TagString: Splash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

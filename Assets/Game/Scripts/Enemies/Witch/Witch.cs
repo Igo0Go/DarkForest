@@ -25,8 +25,6 @@ public class Witch : Enemy
     [Space(20)]
     [SerializeField, Min(1f)]
     private float spellLifeTime = 15;
-    [SerializeField, Min(1f)]
-    private float spellTime = 7;
     [SerializeField, Min(0.01f)]
     private float shootDelay = 0.01f;
     [SerializeField]

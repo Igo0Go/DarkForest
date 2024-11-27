@@ -273,7 +273,7 @@ public class DarkMagican : Enemy
         Vector3 direction = (player.transform.position + Vector3.up*0.5f) - spellSpawnPoint.position;
         currentBullet.transform.forward = direction;
 
-        currentBullet.LaunchBullet(spellSpeed, spellLifeTime, damage, true);
+        currentBullet.LaunchBullet(spellSpeed, spellLifeTime, spellDamage, true);
     }
 
     private void ReturnShield()
