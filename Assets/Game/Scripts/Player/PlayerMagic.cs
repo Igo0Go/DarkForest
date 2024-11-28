@@ -37,6 +37,10 @@ public class PlayerMagic : MonoBehaviour
         {
             SetSpell(1);
         }
+        else if (Input.GetKeyUp(KeyCode.Alpha3))
+        {
+            SetSpell(2);
+        }
 
 
         currentSpell.UseMainSpel();

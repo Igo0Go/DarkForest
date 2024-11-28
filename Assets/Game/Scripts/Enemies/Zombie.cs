@@ -30,6 +30,12 @@ public class Zombie : Enemy
 
         while (true)
         {
+            if (isStunned )
+            {
+                yield return null;
+                continue;
+            }
+
             direction = player.transform.position - transform.position;
 
             if(direction.magnitude > attackDistance)
@@ -51,13 +57,16 @@ public class Zombie : Enemy
         }
     }
 
-
+    private Coroutine currentReturnActiveCoroutine;
     public override void GetDamage(int damage)
     {
         m_Agent.isStopped = isStunned = true;
         m_Animator.SetTrigger("Hit");
-        StopCoroutine(ReturnActive());
-        StartCoroutine(ReturnActive());
+        if(currentReturnActiveCoroutine != null)
+        {
+            StopCoroutine(currentReturnActiveCoroutine);
+        }
+        currentReturnActiveCoroutine = StartCoroutine(ReturnActive());
         base.GetDamage(damage);
     }
 
@@ -76,6 +85,7 @@ public class Zombie : Enemy
     {
         yield return new WaitForSeconds(hitDelay);
         m_Agent.isStopped = isStunned = false;
+        currentReturnActiveCoroutine = null;
     }
 
     private void OnTriggerEnter(Collider other)
