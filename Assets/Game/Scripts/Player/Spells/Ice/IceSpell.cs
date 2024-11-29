@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class IceSpell : MagicSpell
@@ -29,11 +27,6 @@ public class IceSpell : MagicSpell
     {
         useSpell = false;
         altSplash.SetActive(false);
-
-    }
-
-    private void Start()
-    {
 
     }
 
@@ -76,5 +69,13 @@ public class IceSpell : MagicSpell
         yield return new WaitForSeconds(spellDelay);
         altSplash.SetActive(false);
         useSpell = false;
+    }
+
+    public override void UseGrandSpell()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -47,6 +47,14 @@ public class SparksSpell : MagicSpell
         }
     }
 
+    public override void UseGrandSpell()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     private void ActivateSparks()
     {
         sparksLine.SetActive(true);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using UnityEngine.UI;
 
 public class PlayerMagic : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerMagic : MonoBehaviour
     private List<MagicSpell> spells;
     [SerializeField]
     public Animator handsAnimator;
+    [SerializeField]
+    private Slider magicSlider;
 
     private MagicSpell currentSpell;
 
@@ -20,11 +23,14 @@ public class PlayerMagic : MonoBehaviour
         {
             spell.spellCamera = look;
             spell.hands = handsAnimator;
+            spell.ChangeGrandSpellValue.AddListener(OnSpellGrandValueChanged);
             spell.gameObject.SetActive(false);
         }
 
         currentSpell = spells[0];
         currentSpell.gameObject.SetActive(true);
+        magicSlider.maxValue = currentSpell.GrandSpellRate;
+        magicSlider.value = 0;
     }
 
     private void Update()
@@ -45,6 +51,7 @@ public class PlayerMagic : MonoBehaviour
 
         currentSpell.UseMainSpel();
         currentSpell.UseAltSpell();
+        currentSpell.UseGrandSpell();
     }
 
     private void SetSpell(int number)
@@ -55,5 +62,12 @@ public class PlayerMagic : MonoBehaviour
         }
         currentSpell = spells[number];
         currentSpell.gameObject.SetActive(true);
+        magicSlider.maxValue = currentSpell.GrandSpellRate;
+        magicSlider.value = currentSpell.GrandSpellValue;
+    }
+
+    private void OnSpellGrandValueChanged(float value)
+    {
+        magicSlider.value = value;
     }
 }

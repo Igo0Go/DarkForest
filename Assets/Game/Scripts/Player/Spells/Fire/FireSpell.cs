@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Burst.CompilerServices;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -36,6 +37,10 @@ public class FireSpell : MagicSpell
     [SerializeField, Range(0.1f, 10f)]
     private float damagePerSecond = 1;
 
+    [Space(20)]
+    [Header("Вспышки для всех")]
+    [SerializeField] private GameObject explosionPrefab;
+
     private bool useRay;
     private Vector3 currentRayPoint;
 
@@ -63,9 +68,11 @@ public class FireSpell : MagicSpell
 
                 if (hitInfo.collider.TryGetComponent(out Enemy enemy))
                 {
+                    GrandSpellValue += Time.deltaTime;
                     currentRayDamage += Time.deltaTime * damagePerSecond;
                     if(currentRayDamage > 1)
                     {
+
                         enemy.GetDamage(1);
                         currentRayDamage -= 1;
                     }
@@ -111,6 +118,8 @@ public class FireSpell : MagicSpell
         currentFireBall = Instantiate(fireBallPrefab, startSpawnPoint.position, Quaternion.identity, startSpawnPoint).
             GetComponent<FireBall>();
 
+
+
         hands.SetTrigger("UseFireBall");
         hands.SetFloat("SpellForce", t);
 
@@ -124,7 +133,7 @@ public class FireSpell : MagicSpell
             currentFireBall.SetFireballScale(t);
             yield return null;
         }
-
+        GrandSpellValue += t * 10;
         hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
         hands.SetTrigger("Push");
 
@@ -133,5 +142,28 @@ public class FireSpell : MagicSpell
         currentFireBall.LaunchBullet(fireballSpeed, fireballLifeTime, currentDamage, false);
 
         useFireBall = false;
+    }
+
+    public override void UseGrandSpell()
+    {
+        if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue == GrandSpellRate)
+        {
+            GrandSpellValue = 0;
+            StartCoroutine(ExplosionsForAllEnemiesCoroutine());
+        }
+    }
+
+    private IEnumerator ExplosionsForAllEnemiesCoroutine()
+    {
+        List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
+
+        hands.SetTrigger("UseFireGrand");
+        yield return new WaitForSeconds(1);
+
+        foreach(Enemy enemy in enemies)
+        {
+            Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+            yield return null;
+        }
     }
 }
