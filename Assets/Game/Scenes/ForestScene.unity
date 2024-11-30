@@ -20433,7 +20433,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.4
+  m_fontSize: 23.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -23344,9 +23344,13 @@ MonoBehaviour:
   damage: 3
   bulletSpeed: 15
   bulletLiveTime: 10
-  altSplash: {fileID: 759668762}
-  spellDelay: 0.5
   spawnPoint: {fileID: 1363390888}
+  spellDelay: 0.5
+  altSplash: {fileID: 759668762}
+  SpellRune: {fileID: 6219321785146034279, guid: bfb1a981ffa6bb24e921424fe9605fa3,
+    type: 3}
+  RuneHeight: 7
+  RuneTime: 7
 --- !u!1 &1024694425 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 9cb717c8378f7294b989570ede15c8c3,
@@ -56132,7 +56136,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.8
+  m_fontSize: 29.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

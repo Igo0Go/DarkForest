@@ -25,6 +25,8 @@ public class Witch : Enemy
     [Space(20)]
     [SerializeField, Min(1f)]
     private float spellLifeTime = 15;
+    [SerializeField, Min(1f)]
+    private float spellSpeed = 15;
     [SerializeField, Min(0.01f)]
     private float shootDelay = 0.01f;
     [SerializeField]
@@ -42,7 +44,7 @@ public class Witch : Enemy
         SpellRune rune = spellRunePrefab.GetComponent<SpellRune>();
         rune.damage = damage;
         rune.spellLifeTime = spellLifeTime;
-        rune.spellSpeed = spellLifeTime;
+        rune.spellSpeed = spellSpeed;
         rune.shootDelay = shootDelay;
         rune.bullet = spellBulletPrefab;
 

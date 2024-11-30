@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class IceSpell : MagicSpell
 {
+    [Header("Ледяная стрела")]
     [SerializeField]
     private GameObject iceBulletPrefab;
     [SerializeField, Min(1)]
@@ -12,13 +13,26 @@ public class IceSpell : MagicSpell
     [SerializeField]
     private float bulletLiveTime;
     [SerializeField]
-    private GameObject altSplash;
+    private Transform spawnPoint;
     [SerializeField, Range(0, 2)]
     private float spellDelay;
-    
 
+    [Space(20)]
+
+    [Header("Ледяной нож")]
     [SerializeField]
-    private Transform spawnPoint;
+    private GameObject altSplash;
+
+
+    [Space(20)]
+    [Header("Ледяной дождь")]
+    [SerializeField]
+    private GameObject SpellRune;
+    [SerializeField, Min(4)]
+    private float RuneHeight = 4;
+    [SerializeField, Min(1)]
+    private float RuneTime = 1;
+
 
 
     private bool useSpell;
@@ -58,11 +72,13 @@ public class IceSpell : MagicSpell
         hands.SetTrigger("Push");
         
         yield return new WaitForSeconds(spellDelay);
+        GrandSpellValue++;
         useSpell = false;
     }
 
     private IEnumerator UseSplashCoroutine()
     {
+        GrandSpellValue += 3;
         useSpell = true;
         altSplash.SetActive(true);
         hands.SetTrigger("Splash");
@@ -73,9 +89,28 @@ public class IceSpell : MagicSpell
 
     public override void UseGrandSpell()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
         {
-            throw new System.NotImplementedException();
+            GrandSpellValue = 0;
+            StartCoroutine(SpawnRuneCoroutine());
         }
+    }
+    private IEnumerator SpawnRuneCoroutine()
+    {
+        SpellRune rune = Instantiate(SpellRune, spellCamera.GetSpellTargetPoint() + Vector3.up * RuneHeight,
+    spawnPoint.rotation).GetComponent<SpellRune>();
+        rune.transform.forward = Vector3.down;
+
+        rune.damage = damage * 5;
+        rune.spellLifeTime = bulletLiveTime;
+        rune.spellSpeed = bulletSpeed;
+        rune.shootDelay = Time.deltaTime;
+        rune.bullet = iceBulletPrefab;
+
+        rune.Activate();
+
+        yield return new WaitForSeconds(RuneTime);
+
+        Destroy(rune.gameObject);
     }
 }
