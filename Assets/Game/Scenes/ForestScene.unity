@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveName: "\u0412\u043E\u043B\u043D\u0430 II \n\u0423\u043C\u0435\u0440\u0432\u0442\u0438\u044F
     \u0427\u0443\u0434\u0430\u043A\u0438\u043D\u0430"
-  activateOnAwake: 1
+  activateOnAwake: 0
   spawners:
   - {fileID: 137158284}
   - {fileID: 209168383}
@@ -20433,7 +20433,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.7
+  m_fontSize: 24.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -21540,6 +21540,7 @@ MonoBehaviour:
   damagePerSecond: 5
   explosionPrefab: {fileID: 358637981425055526, guid: a31c513d05a752c4d9573d9fa743db79,
     type: 3}
+  GrandSpellDelayTime: 0.4
 --- !u!1 &922950494
 GameObject:
   m_ObjectHideFlags: 0
@@ -24246,7 +24247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveName: "\u0412\u043E\u043B\u043D\u0430 III\n\u041D\u0435\u043A\u0440\u043E\u043C\u0430\u043D\u0442\u0438\u044F
     \u0417\u0430\u0439\u0446\u0435\u0432\u0430"
-  activateOnAwake: 0
+  activateOnAwake: 1
   spawners:
   - {fileID: 834276947}
   endOfWaveEvent:
@@ -56131,7 +56132,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 30.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

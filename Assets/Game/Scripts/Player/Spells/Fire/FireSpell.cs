@@ -40,6 +40,7 @@ public class FireSpell : MagicSpell
     [Space(20)]
     [Header("Вспышки для всех")]
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField, Min(0)] private float GrandSpellDelayTime;
 
     private bool useRay;
     private Vector3 currentRayPoint;
@@ -158,7 +159,7 @@ public class FireSpell : MagicSpell
         List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
 
         hands.SetTrigger("UseFireGrand");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(GrandSpellDelayTime);
 
         foreach(Enemy enemy in enemies)
         {
