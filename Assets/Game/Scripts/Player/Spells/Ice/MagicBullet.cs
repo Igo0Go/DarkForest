@@ -12,7 +12,7 @@ public class MagicBullet : MonoBehaviour
     [SerializeField]
     protected LayerMask ignoreMask;
 
-    private float bulletSpeed;
+    protected float bulletSpeed;
     private float bulletLiveTime;
     protected int damage;
 

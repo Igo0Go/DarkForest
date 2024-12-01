@@ -3507,7 +3507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveName: "\u0412\u043E\u043B\u043D\u0430 II \n\u0423\u043C\u0435\u0440\u0432\u0442\u0438\u044F
     \u0427\u0443\u0434\u0430\u043A\u0438\u043D\u0430"
-  activateOnAwake: 0
+  activateOnAwake: 1
   spawners:
   - {fileID: 852540078}
   endOfWaveEvent:
@@ -16359,18 +16359,30 @@ MonoBehaviour:
   Name: "\u0428\u043E\u043A\u043E\u0432\u0430\u044F \u043A\u0430\u0432\u0430\u043B\u0435\u0440\u0438\u044F"
   spellCamera: {fileID: 0}
   hands: {fileID: 0}
-  GrandSpellRate: 30
+  GrandSpellRate: 10
   ChangeGrandSpellValue:
+    m_PersistentCalls:
+      m_Calls: []
+  ChangeSwitchKey:
     m_PersistentCalls:
       m_Calls: []
   spawnPoint: {fileID: 1248846593}
   DPS: 7
-  sparksDistance: 7
+  sparksDistance: 15
   sparksRadius: 6
   sparksLine: {fileID: 1028974851}
   endSparksPoint: {fileID: 2105177148}
   sparksLinePrefab: {fileID: 3602013730268241421, guid: a889cd84c2943f64cac00422410f59f0,
     type: 3}
+  sparksTrapPrefab: {fileID: 8298744523324849760, guid: 4494660ff16e8644e94e5240d5047801,
+    type: 3}
+  sparksTrapTime: 10
+  sparkstrapDistance: 7
+  sparksTrapDamage: 3
+  sparksBulletPrefab: {fileID: 7243978459261578043, guid: 7c57b8b56ed42514b9c12759d88c3534,
+    type: 3}
+  bulletSpeed: 10
+  bulletDamage: 10
 --- !u!1001 &643894790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20433,7 +20445,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.65
+  m_fontSize: 24.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -21522,8 +21534,11 @@ MonoBehaviour:
   Name: "\u041E\u0433\u043D\u0435\u043D\u043D\u0430\u044F \u0430\u0440\u0442\u0438\u043B\u0435\u0440\u0438\u044F"
   spellCamera: {fileID: 0}
   hands: {fileID: 0}
-  GrandSpellRate: 20
+  GrandSpellRate: 5
   ChangeGrandSpellValue:
+    m_PersistentCalls:
+      m_Calls: []
+  ChangeSwitchKey:
     m_PersistentCalls:
       m_Calls: []
   fireBallPrefab: {fileID: 4982963387339184328, guid: d89551a244e2d29408dafd72a5ffdad4,
@@ -23339,6 +23354,9 @@ MonoBehaviour:
   ChangeGrandSpellValue:
     m_PersistentCalls:
       m_Calls: []
+  ChangeSwitchKey:
+    m_PersistentCalls:
+      m_Calls: []
   iceBulletPrefab: {fileID: 8315240016125496112, guid: e2fbc32a454571148b6f2c3c8af4afbd,
     type: 3}
   damage: 3
@@ -24251,7 +24269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveName: "\u0412\u043E\u043B\u043D\u0430 III\n\u041D\u0435\u043A\u0440\u043E\u043C\u0430\u043D\u0442\u0438\u044F
     \u0417\u0430\u0439\u0446\u0435\u0432\u0430"
-  activateOnAwake: 1
+  activateOnAwake: 0
   spawners:
   - {fileID: 834276947}
   endOfWaveEvent:
@@ -56136,7 +56154,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.95
+  m_fontSize: 30.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

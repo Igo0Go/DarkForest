@@ -15,6 +15,8 @@ public class PlayerMagic : MonoBehaviour
 
     private MagicSpell currentSpell;
 
+    private bool spellSwitchKey = true;
+
     private void Awake()
     {
         PlayerLook look = GetComponent<PlayerLook>();
@@ -24,6 +26,7 @@ public class PlayerMagic : MonoBehaviour
             spell.spellCamera = look;
             spell.hands = handsAnimator;
             spell.ChangeGrandSpellValue.AddListener(OnSpellGrandValueChanged);
+            spell.ChangeSwitchKey.AddListener(SetSpellSwitchKey);
             spell.gameObject.SetActive(false);
         }
 
@@ -35,19 +38,21 @@ public class PlayerMagic : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Alpha1))
+        if (spellSwitchKey)
         {
-            SetSpell(0);
+            if (Input.GetKeyUp(KeyCode.Alpha1))
+            {
+                SetSpell(0);
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha2))
+            {
+                SetSpell(1);
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha3))
+            {
+                SetSpell(2);
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
-            SetSpell(1);
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            SetSpell(2);
-        }
-
 
         currentSpell.UseMainSpel();
         currentSpell.UseAltSpell();
@@ -62,12 +67,19 @@ public class PlayerMagic : MonoBehaviour
         }
         currentSpell = spells[number];
         currentSpell.gameObject.SetActive(true);
+        currentSpell.SetUpSpell();
         magicSlider.maxValue = currentSpell.GrandSpellRate;
         magicSlider.value = currentSpell.GrandSpellValue;
+        handsAnimator.SetBool("UseTwo", false);
     }
 
     private void OnSpellGrandValueChanged(float value)
     {
         magicSlider.value = value;
+    }
+
+    private void SetSpellSwitchKey(bool switchKey)
+    {
+        spellSwitchKey = switchKey;
     }
 }

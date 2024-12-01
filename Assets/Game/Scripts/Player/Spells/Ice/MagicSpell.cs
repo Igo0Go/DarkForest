@@ -13,6 +13,7 @@ public abstract class MagicSpell :MonoBehaviour
     public float GrandSpellRate;
 
     public UnityEvent<float> ChangeGrandSpellValue;
+    public UnityEvent<bool> ChangeSwitchKey;
 
     private float _grandSpellValue;
 
@@ -29,6 +30,8 @@ public abstract class MagicSpell :MonoBehaviour
         }
     }
 
+
+    public abstract void SetUpSpell();
     public abstract void UseMainSpel();
     public abstract void UseAltSpell();
     public abstract void UseGrandSpell();

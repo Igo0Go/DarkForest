@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SparksSpell : MagicSpell
 {
+    [Header("Дуга")]
     [SerializeField]
     private Transform spawnPoint;
-
     [SerializeField]
     private int DPS = 1;
     [SerializeField, Min(0.1f)]
@@ -20,13 +21,53 @@ public class SparksSpell : MagicSpell
     [SerializeField]
     private GameObject sparksLinePrefab;
 
+    [Space(20)]
+    [Header("Ловушка")]
+    [SerializeField]
+    private GameObject sparksTrapPrefab;
+    [SerializeField, Min(0.01f)]
+    private float sparksTrapTime;
+    [SerializeField, Min(1)]
+    private float sparkstrapDistance;
+    [SerializeField, Min(1)]
+    private int sparksTrapDamage;
+
+    private LineTrap currentSparksTrap;
+
+
+    [Space(20)]
+    [Header("Бегунок")]
+    [SerializeField]
+    private GameObject sparksBulletPrefab;
+    [SerializeField, Min(0.01f)]
+    private float bulletSpeed;
+    [SerializeField, Min(1)]
+    private int bulletDamage;
+
     private float currenSparksDamage = 0;
     private Enemy mainEnemy;
     private List<EnemySparksLinePair> enemiesAndLasers = new List<EnemySparksLinePair>();
 
     public override void UseAltSpell()
     {
-        
+        if(Input.GetMouseButtonDown(1))
+        {
+            currentSparksTrap = Instantiate(sparksTrapPrefab, spellCamera.cam.transform.position + spellCamera.cam.transform.forward,
+                spawnPoint.rotation).GetComponent<LineTrap>();
+            currentSparksTrap.endPoint.parent = null;
+        }
+        else if(Input.GetMouseButton(1))
+        {
+            if(Vector3.Distance(currentSparksTrap.transform.position, spawnPoint.position) <= sparkstrapDistance)
+            {
+                currentSparksTrap.endPoint.position = spellCamera.cam.transform.position + spellCamera.cam.transform.forward;
+            }
+        }
+        else if(Input.GetMouseButtonUp(1))
+        {
+            currentSparksTrap.InitTrap(sparksTrapDamage, spellCamera.ignoreMask, sparksTrapTime);
+            currentSparksTrap = null;
+        }
     }
 
     public override void UseMainSpel()
@@ -49,9 +90,18 @@ public class SparksSpell : MagicSpell
 
     public override void UseGrandSpell()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
         {
-            throw new System.NotImplementedException();
+            GrandSpellValue = 0;
+
+            List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
+
+            TargetListMagicBullet currentBullet = Instantiate(sparksBulletPrefab, spawnPoint.position, spawnPoint.rotation).
+                GetComponent<TargetListMagicBullet>();
+            currentBullet.transform.parent = null;
+            currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
+            currentBullet.LaunchBullet(bulletSpeed, 0, bulletDamage, false);
+            currentBullet.enemies = enemies;
         }
     }
 
@@ -66,18 +116,8 @@ public class SparksSpell : MagicSpell
             endSparksPoint.position = hitInfo.point;
             endSparksPoint.parent = null;
         }
-
-        Ray ray = new Ray(spellCamera.cam.transform.position, spellCamera.cam.transform.forward);
-
-        if (Physics.Raycast(ray, out hitInfo, sparksDistance, ~spellCamera.ignoreMask))
-        {
-
-            endSparksPoint.position = hitInfo.point;
-            endSparksPoint.parent = null;
-        }
         else
         {
-            endSparksPoint.position = spellCamera.cam.transform.position + spellCamera.cam.transform.forward * sparksDistance;
             return;
         }
 
@@ -125,6 +165,7 @@ public class SparksSpell : MagicSpell
             {
                 if (enemiesAndLasers[i].enemy != null)
                 {
+                    GrandSpellValue++;
                     enemiesAndLasers[i].enemy.GetDamage(1);
                 }
             }
@@ -188,6 +229,17 @@ public class SparksSpell : MagicSpell
             }
         }
         return false;
+    }
+
+    public override void SetUpSpell()
+    {
+        if(currentSparksTrap != null)
+        {
+            currentSparksTrap.endPoint.parent = currentSparksTrap.transform;
+            Destroy(currentSparksTrap.gameObject);
+        }
+
+        //throw new System.NotImplementedException();
     }
 }
 

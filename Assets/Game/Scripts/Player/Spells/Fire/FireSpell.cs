@@ -48,6 +48,19 @@ public class FireSpell : MagicSpell
     private bool useFireBall = false;
     private float currentRayDamage = 0;
 
+    public override void SetUpSpell()
+    {
+        useFireBall = false;
+        if (currentFireBall != null)
+        {
+            Destroy(currentFireBall.gameObject);
+        }
+        useRay = false;
+        hands.SetBool("UseTwo", useRay);
+        laserRenderer.gameObject.SetActive(false);
+        rayDecal.gameObject.SetActive(false);
+    }
+
     public override void UseAltSpell()
     {
         if(Input.GetMouseButtonDown(1))
@@ -116,14 +129,12 @@ public class FireSpell : MagicSpell
     {
         useFireBall = true;
         float t = 0;
+
         currentFireBall = Instantiate(fireBallPrefab, startSpawnPoint.position, Quaternion.identity, startSpawnPoint).
             GetComponent<FireBall>();
 
-
-
         hands.SetTrigger("UseFireBall");
         hands.SetFloat("SpellForce", t);
-
 
         while (useFireBall)
         {
@@ -156,6 +167,9 @@ public class FireSpell : MagicSpell
 
     private IEnumerator ExplosionsForAllEnemiesCoroutine()
     {
+        ChangeSwitchKey.Invoke(false);
+
+
         List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
 
         hands.SetTrigger("UseFireGrand");
@@ -166,5 +180,6 @@ public class FireSpell : MagicSpell
             Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
             yield return null;
         }
+        ChangeSwitchKey.Invoke(true);
     }
 }

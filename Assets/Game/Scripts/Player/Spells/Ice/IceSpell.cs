@@ -39,9 +39,13 @@ public class IceSpell : MagicSpell
 
     private void Awake()
     {
+        SetUpSpell();
+    }
+
+    public override void SetUpSpell()
+    {
         useSpell = false;
         altSplash.SetActive(false);
-
     }
 
     public override void UseAltSpell()
@@ -92,25 +96,18 @@ public class IceSpell : MagicSpell
         if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
         {
             GrandSpellValue = 0;
-            StartCoroutine(SpawnRuneCoroutine());
-        }
-    }
-    private IEnumerator SpawnRuneCoroutine()
-    {
-        SpellRune rune = Instantiate(SpellRune, spellCamera.GetSpellTargetPoint() + Vector3.up * RuneHeight,
+            SpellRune rune = Instantiate(SpellRune, spellCamera.GetSpellTargetPoint() + Vector3.up * RuneHeight,
     spawnPoint.rotation).GetComponent<SpellRune>();
-        rune.transform.forward = Vector3.down;
+            rune.transform.forward = Vector3.down;
 
-        rune.damage = damage * 5;
-        rune.spellLifeTime = bulletLiveTime;
-        rune.spellSpeed = bulletSpeed;
-        rune.shootDelay = Time.deltaTime;
-        rune.bullet = iceBulletPrefab;
+            rune.damage = damage * 5;
+            rune.spellLifeTime = bulletLiveTime;
+            rune.spellSpeed = bulletSpeed;
+            rune.shootDelay = Time.deltaTime;
+            rune.bullet = iceBulletPrefab;
+            rune.GetComponent<Decal>().lifeTime = GrandSpellRate;
 
-        rune.Activate();
-
-        yield return new WaitForSeconds(RuneTime);
-
-        Destroy(rune.gameObject);
+            rune.Activate();
+        }
     }
 }
