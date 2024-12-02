@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +9,9 @@ public class MagicBullet : MonoBehaviour
 
     [SerializeField]
     protected LayerMask ignoreMask;
+
+    [HideInInspector]
+    public UnityEvent<int> DamageEvent;
 
     protected float bulletSpeed;
     private float bulletLifeTime;
@@ -81,6 +82,7 @@ public class MagicBullet : MonoBehaviour
             else if (hit.collider.TryGetComponent(out Enemy enemy))
             {
                 enemy.GetDamage(damage);
+                DamageEvent?.Invoke(1);
             }
 
             for (int i = 0; i < decals.Count; i++)

@@ -17,6 +17,8 @@ public class IceSpell : MagicSpell
     [SerializeField, Range(0, 2)]
     private float spellDelay;
 
+    private bool useSpell;
+
     [Space(20)]
 
     [Header("Ледяной нож")]
@@ -27,15 +29,13 @@ public class IceSpell : MagicSpell
     [Space(20)]
     [Header("Ледяной дождь")]
     [SerializeField]
-    private GameObject SpellRune;
+    private GameObject spellRune;
     [SerializeField, Min(4)]
-    private float RuneHeight = 4;
+    private float runeHeight = 4;
     [SerializeField, Min(1)]
-    private float RuneTime = 1;
+    private float runeTime = 1;
 
 
-
-    private bool useSpell;
 
     private void Awake()
     {
@@ -48,14 +48,6 @@ public class IceSpell : MagicSpell
         altSplash.SetActive(false);
     }
 
-    public override void UseAltSpell()
-    {
-        if(Input.GetMouseButton(1) && !useSpell)
-        {
-            StartCoroutine(UseSplashCoroutine());
-        }
-    }
-
     public override void UseMainSpel()
     {
         if (Input.GetMouseButton(0) && !useSpell)
@@ -64,40 +56,21 @@ public class IceSpell : MagicSpell
         }
     }
 
-    private IEnumerator SpawnBulletCoroutine()
+    public override void UseAltSpell()
     {
-        useSpell = true;
-        MagicBullet currentBullet = Instantiate(iceBulletPrefab, spawnPoint.position, spawnPoint.rotation).GetComponent<MagicBullet>();
-        currentBullet.transform.parent = null;
-        currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
-        currentBullet.LaunchBullet(bulletSpeed, bulletLiveTime, damage, false);
-
-        hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
-        hands.SetTrigger("Push");
-        
-        yield return new WaitForSeconds(spellDelay);
-        GrandSpellValue++;
-        useSpell = false;
-    }
-
-    private IEnumerator UseSplashCoroutine()
-    {
-        GrandSpellValue += 3;
-        useSpell = true;
-        altSplash.SetActive(true);
-        hands.SetTrigger("Splash");
-        yield return new WaitForSeconds(spellDelay);
-        altSplash.SetActive(false);
-        useSpell = false;
+        if(Input.GetMouseButton(1) && !useSpell)
+        {
+            StartCoroutine(UseSplashCoroutine());
+        }
     }
 
     public override void UseGrandSpell()
     {
-        if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
+        if (Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
         {
             hands.SetTrigger("UseGrand");
             GrandSpellValue = 0;
-            SpellRune rune = Instantiate(SpellRune, Vector3.zero + Vector3.up * RuneHeight,
+            SpellRune rune = Instantiate(spellRune, Vector3.zero + Vector3.up * runeHeight,
     spawnPoint.rotation).GetComponent<SpellRune>();
             rune.transform.forward = Vector3.down;
 
@@ -106,9 +79,44 @@ public class IceSpell : MagicSpell
             rune.spellSpeed = bulletSpeed;
             rune.shootDelay = Time.deltaTime;
             rune.bullet = iceBulletPrefab;
-            rune.GetComponent<Decal>().lifeTime = GrandSpellRate;
+            rune.GetComponent<Decal>().lifeTime = runeTime;
 
             rune.Activate();
         }
+    }
+
+
+    private IEnumerator SpawnBulletCoroutine()
+    {
+        useSpell = true;
+        MagicBullet currentBullet = Instantiate(iceBulletPrefab, spawnPoint.position, spawnPoint.rotation).
+            GetComponent<MagicBullet>();
+        currentBullet.transform.parent = null;
+        currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
+        currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
+        currentBullet.LaunchBullet(bulletSpeed, bulletLiveTime, damage, false);
+        hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
+        hands.SetTrigger("Push");
+
+        yield return new WaitForSeconds(spellDelay);
+
+        useSpell = false;
+    }
+
+    private void OnEnemyGetDamage(int damage)
+    {
+        GrandSpellValue += damage;
+    }
+
+    private IEnumerator UseSplashCoroutine()
+    {
+        useSpell = true;
+        altSplash.SetActive(true);
+        hands.SetTrigger("Splash");
+
+        yield return new WaitForSeconds(spellDelay);
+
+        altSplash.SetActive(false);
+        useSpell = false;
     }
 }
