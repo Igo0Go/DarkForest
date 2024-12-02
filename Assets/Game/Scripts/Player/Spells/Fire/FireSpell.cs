@@ -175,7 +175,10 @@ public class FireSpell : MagicSpell
 
         foreach(Enemy enemy in enemies)
         {
-            Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+            if (enemy != null)
+            {
+                Instantiate(explosionPrefab, enemy.transform.position, Quaternion.identity);
+            }
             yield return null;
         }
         ChangeSwitchKey.Invoke(true);

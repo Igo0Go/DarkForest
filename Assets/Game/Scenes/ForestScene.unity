@@ -16407,8 +16407,8 @@ MonoBehaviour:
   sparksTrapPrefab: {fileID: 8298744523324849760, guid: 4494660ff16e8644e94e5240d5047801,
     type: 3}
   sparksTrapTime: 10
-  sparkstrapDistance: 7
-  sparksTrapDamage: 3
+  sparkstrapDistance: 15
+  sparksTrapDamage: 5
   sparksBulletPrefab: {fileID: 7243978459261578043, guid: 7c57b8b56ed42514b9c12759d88c3534,
     type: 3}
   bulletSpeed: 10

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LineTrap : MonoBehaviour
@@ -8,6 +9,8 @@ public class LineTrap : MonoBehaviour
     private int damage;
     private LayerMask ignoreMask;
     private float lifetime;
+
+    private List<Enemy> enemyList = new List<Enemy>();
 
     public void InitTrap(int damage, LayerMask layerMask, float lifetime)
     {
@@ -20,29 +23,21 @@ public class LineTrap : MonoBehaviour
     IEnumerator CheckLineCoroutine()
     {
         float currentLifeTime = 0;
-        float t = 1;
         while (currentLifeTime <= lifetime)
         {
             currentLifeTime += Time.deltaTime;
             if (Physics.Linecast(transform.position, endPoint.position, out RaycastHit hit, ~ignoreMask))
             {
-                Debug.Log(hit.collider.gameObject.name);
+
+
                 if (hit.collider.TryGetComponent(out Enemy enemy))
                 {
-                    if(t == 1)
+                    if (!enemyList.Contains(enemy))
                     {
+                        enemyList.Add(enemy);
                         enemy.GetDamage(damage);
-                        t = 0;
-                    }
-                    else
-                    {
-                        t += Time.deltaTime;
                     }
                 }
-            }
-            else
-            {
-                t = 1;
             }
 
             yield return null;
