@@ -20,6 +20,11 @@ public class SparksSpell : MagicSpell
     [SerializeField]
     private GameObject sparksLinePrefab;
 
+    private float currenSparksDamage = 0;
+    private Enemy mainEnemy;
+    private List<EnemySparksLinePair> enemiesAndLasers = new List<EnemySparksLinePair>();
+
+
     [Space(20)]
     [Header("Ловушка")]
     [SerializeField]
@@ -42,12 +47,35 @@ public class SparksSpell : MagicSpell
     private float bulletSpeed;
     [SerializeField, Min(1)]
     private int bulletDamage;
-    [SerializeField, Min(0.01f)]
-    private float spellRange;
 
-    private float currenSparksDamage = 0;
-    private Enemy mainEnemy;
-    private List<EnemySparksLinePair> enemiesAndLasers = new List<EnemySparksLinePair>();
+
+
+    public override void SetUpSpell()
+    {
+        if (currentSparksTrap != null)
+        {
+            currentSparksTrap.endPoint.parent = currentSparksTrap.transform;
+            Destroy(currentSparksTrap.gameObject);
+        }
+    }
+
+    public override void UseMainSpel()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            hands.SetBool("UseTwo", true);
+            ActivateSparks();
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            DamageInSparks();
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            hands.SetBool("UseTwo", false);
+            StopSparks();
+        }
+    }
 
     public override void UseAltSpell()
     {
@@ -56,6 +84,7 @@ public class SparksSpell : MagicSpell
             currentSparksTrap = Instantiate(sparksTrapPrefab, spellCamera.cam.transform.position + spellCamera.cam.transform.forward,
                 spawnPoint.rotation).GetComponent<LineTrap>();
             currentSparksTrap.endPoint.parent = null;
+            currentSparksTrap.damageEvent.AddListener(OnEnemyGetDamage);
         }
         else if(Input.GetMouseButton(1))
         {
@@ -71,32 +100,13 @@ public class SparksSpell : MagicSpell
         }
     }
 
-    public override void UseMainSpel()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            hands.SetBool("UseTwo", true);
-            ActivateSparks();
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            DamageInSparks();
-        }
-        else if(Input.GetMouseButtonUp(0))
-        {
-            hands.SetBool("UseTwo", false);
-            StopSparks();
-        }
-    }
-
     public override void UseGrandSpell()
     {
         if (Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
         {
             GrandSpellValue = 0;
 
-            Collider[] colliders = Physics.OverlapSphere(spellCamera.GetSpellTargetPoint(), spellRange);
-
+            hands.SetTrigger("UseGrand");
 
             List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
 
@@ -116,7 +126,6 @@ public class SparksSpell : MagicSpell
         if (Physics.SphereCast(spellCamera.cam.transform.position, 1, spellCamera.cam.transform.forward,
             out RaycastHit hitInfo, sparksRadius,~spellCamera.ignoreMask))
         {
-
             endSparksPoint.position = hitInfo.point;
             endSparksPoint.parent = null;
         }
@@ -155,15 +164,17 @@ public class SparksSpell : MagicSpell
                 }
             }
         }
-        return;
     }
-
     private void DamageInSparks()
     {
         currenSparksDamage += Time.deltaTime * DPS;
-        if (currenSparksDamage > 1)
+        if (currenSparksDamage >= 1)
         {
-            mainEnemy?.GetDamage(1);
+            if(mainEnemy != null)
+            {
+                mainEnemy.GetDamage(1);
+                GrandSpellValue++;
+            }
 
             for (int i = 0; i < enemiesAndLasers.Count; i++)
             {
@@ -176,7 +187,6 @@ public class SparksSpell : MagicSpell
             currenSparksDamage -= 1;
         }
     }
-
     private void StopSparks()
     {
         endSparksPoint.parent = transform;
@@ -184,7 +194,6 @@ public class SparksSpell : MagicSpell
         sparksLine.SetActive(false);
         ClearAllEnemies();
     }
-
     private void OnMainEnemyDead(Enemy enemy)
     {
         StopSparks();
@@ -204,25 +213,6 @@ public class SparksSpell : MagicSpell
         }
         enemy.deadEvent.RemoveListener(OnEnemyDead);
     }
-
-    private void ClearAllSparksLine()
-    {
-        for (int i = 0; i < enemiesAndLasers.Count; i++)
-        {
-            EnemySparksLinePair pair = enemiesAndLasers[i];
-            pair.ClearSparksLine();
-            Destroy(pair.sparksLine.gameObject);
-            pair.enemy.deadEvent.RemoveListener(OnEnemyDead);
-        }
-    }
-
-    private void ClearAllEnemies()
-    {
-        mainEnemy = null;
-        ClearAllSparksLine();
-        enemiesAndLasers.Clear();
-    }
-
     private bool ContainsEnemy(Enemy newEnemy)
     {
         foreach (EnemySparksLinePair pair in enemiesAndLasers)
@@ -234,17 +224,27 @@ public class SparksSpell : MagicSpell
         }
         return false;
     }
-
-    public override void SetUpSpell()
+    private void ClearAllSparksLine()
     {
-        if(currentSparksTrap != null)
+        for (int i = 0; i < enemiesAndLasers.Count; i++)
         {
-            currentSparksTrap.endPoint.parent = currentSparksTrap.transform;
-            Destroy(currentSparksTrap.gameObject);
+            EnemySparksLinePair pair = enemiesAndLasers[i];
+            pair.ClearSparksLine();
+            Destroy(pair.sparksLine.gameObject);
+            pair.enemy.deadEvent.RemoveListener(OnEnemyDead);
         }
-
-        //throw new System.NotImplementedException();
     }
+    private void ClearAllEnemies()
+    {
+        mainEnemy = null;
+        ClearAllSparksLine();
+        enemiesAndLasers.Clear();
+    }
+    private void OnEnemyGetDamage(int  damage)
+    {
+        GrandSpellValue += damage;
+    }
+
 }
 
 public class EnemySparksLinePair

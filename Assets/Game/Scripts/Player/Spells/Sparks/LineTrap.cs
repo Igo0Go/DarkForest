@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LineTrap : MonoBehaviour
 {
     public Transform endPoint;
+
+    public UnityEvent<int> damageEvent;
 
     private int damage;
     private LayerMask ignoreMask;
@@ -28,14 +31,13 @@ public class LineTrap : MonoBehaviour
             currentLifeTime += Time.deltaTime;
             if (Physics.Linecast(transform.position, endPoint.position, out RaycastHit hit, ~ignoreMask))
             {
-
-
                 if (hit.collider.TryGetComponent(out Enemy enemy))
                 {
                     if (!enemyList.Contains(enemy))
                     {
                         enemyList.Add(enemy);
                         enemy.GetDamage(damage);
+                        damageEvent.Invoke(damage);
                     }
                 }
             }

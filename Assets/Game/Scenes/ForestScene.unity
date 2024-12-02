@@ -16389,7 +16389,7 @@ MonoBehaviour:
   Name: "\u0428\u043E\u043A\u043E\u0432\u0430\u044F \u043A\u0430\u0432\u0430\u043B\u0435\u0440\u0438\u044F"
   spellCamera: {fileID: 0}
   hands: {fileID: 0}
-  GrandSpellRate: 10
+  GrandSpellRate: 300
   ChangeGrandSpellValue:
     m_PersistentCalls:
       m_Calls: []
@@ -16411,9 +16411,8 @@ MonoBehaviour:
   sparksTrapDamage: 5
   sparksBulletPrefab: {fileID: 7243978459261578043, guid: 7c57b8b56ed42514b9c12759d88c3534,
     type: 3}
-  bulletSpeed: 40
-  bulletDamage: 10
-  spellRange: 5
+  bulletSpeed: 30
+  bulletDamage: 30
 --- !u!1001 &643894790
 PrefabInstance:
   m_ObjectHideFlags: 0
