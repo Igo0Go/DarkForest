@@ -95,8 +95,9 @@ public class IceSpell : MagicSpell
     {
         if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
         {
+            hands.SetTrigger("UseGrand");
             GrandSpellValue = 0;
-            SpellRune rune = Instantiate(SpellRune, spellCamera.GetSpellTargetPoint() + Vector3.up * RuneHeight,
+            SpellRune rune = Instantiate(SpellRune, Vector3.zero + Vector3.up * RuneHeight,
     spawnPoint.rotation).GetComponent<SpellRune>();
             rune.transform.forward = Vector3.down;
 

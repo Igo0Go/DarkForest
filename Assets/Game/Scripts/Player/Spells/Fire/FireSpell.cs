@@ -170,7 +170,7 @@ public class FireSpell : MagicSpell
 
         List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
 
-        hands.SetTrigger("UseFireGrand");
+        hands.SetTrigger("UseGrand");
         yield return new WaitForSeconds(GrandSpellDelayTime);
 
         foreach(Enemy enemy in enemies)

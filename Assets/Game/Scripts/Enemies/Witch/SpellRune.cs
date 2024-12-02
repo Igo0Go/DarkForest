@@ -16,6 +16,8 @@ public class SpellRune : MonoBehaviour
     public float spellLifeTime = 1;
     [HideInInspector]
     public int damage = 1;
+    [SerializeField, Min(1)]
+    private float countPerTime = 1;
 
     public void Activate()
     {
@@ -28,7 +30,10 @@ public class SpellRune : MonoBehaviour
         {
             if(bullet != null)
             {
-                LaunchSpell(GetRandomSpawnPoint(), transform.forward);
+                for (int i = 0; i < countPerTime; i++)
+                {
+                    LaunchSpell(GetRandomSpawnPoint(), transform.forward);
+                }
                 yield return new WaitForSeconds(shootDelay);
             }
             else

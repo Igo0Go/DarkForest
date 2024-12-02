@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3275924348117956072}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2936256, y: 0.2936256, z: 0.2936256}
+  m_LocalPosition: {x: 0, y: -0, z: -15.07}
+  m_LocalScale: {x: 12, y: 2, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8450813061171721214}
@@ -14623,7 +14623,7 @@ Transform:
   m_GameObject: {fileID: 6219321785146034279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6840203060960854861}
@@ -14642,12 +14642,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b2ba86ae7400c49b97733cd10e0783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 4
+  radius: 50
   bullet: {fileID: 0}
   shootDelay: 1
   spellSpeed: 1
   spellLifeTime: 1
   damage: 1
+  countPerTime: 10
 --- !u!114 &4552875124442546073
 MonoBehaviour:
   m_ObjectHideFlags: 0
