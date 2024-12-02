@@ -1,16 +1,13 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FireBall : MagicBullet
 {
-    [SerializeField, Min(0.1f)]
-    private float minScale = 1f;
-    [SerializeField, Min(0.1f)]
-    private float maxScale = 1f;
+    [SerializeField]
+    private AnimationCurve fireballForceAccumulateCurve;
 
     public void SetFireballScale(float t)
     {
-        transform.localScale = Vector3.one * Mathf.Lerp(minScale, maxScale, t);
+        transform.localScale = Vector3.one * fireballForceAccumulateCurve.Evaluate(t);
     }
 
     protected override void CheckHit()

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Burst.CompilerServices;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class FireSpell : MagicSpell
