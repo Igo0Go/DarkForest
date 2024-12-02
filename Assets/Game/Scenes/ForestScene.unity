@@ -16411,8 +16411,9 @@ MonoBehaviour:
   sparksTrapDamage: 5
   sparksBulletPrefab: {fileID: 7243978459261578043, guid: 7c57b8b56ed42514b9c12759d88c3534,
     type: 3}
-  bulletSpeed: 10
+  bulletSpeed: 40
   bulletDamage: 10
+  spellRange: 5
 --- !u!1001 &643894790
 PrefabInstance:
   m_ObjectHideFlags: 0

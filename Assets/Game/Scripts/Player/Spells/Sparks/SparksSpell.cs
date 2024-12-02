@@ -42,6 +42,8 @@ public class SparksSpell : MagicSpell
     private float bulletSpeed;
     [SerializeField, Min(1)]
     private int bulletDamage;
+    [SerializeField, Min(0.01f)]
+    private float spellRange;
 
     private float currenSparksDamage = 0;
     private Enemy mainEnemy;
@@ -93,6 +95,9 @@ public class SparksSpell : MagicSpell
         {
             GrandSpellValue = 0;
 
+            Collider[] colliders = Physics.OverlapSphere(spellCamera.GetSpellTargetPoint(), spellRange);
+
+
             List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
 
             TargetListMagicBullet currentBullet = Instantiate(sparksBulletPrefab, spawnPoint.position, spawnPoint.rotation).
@@ -100,7 +105,7 @@ public class SparksSpell : MagicSpell
             currentBullet.transform.parent = null;
             currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
             currentBullet.LaunchBullet(bulletSpeed, 0, bulletDamage, false);
-            currentBullet.enemies = enemies;
+            currentBullet.SetEnemyList(enemies);
         }
     }
 

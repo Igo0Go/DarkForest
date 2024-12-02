@@ -13,7 +13,7 @@ public class MagicBullet : MonoBehaviour
     protected LayerMask ignoreMask;
 
     protected float bulletSpeed;
-    private float bulletLiveTime;
+    private float bulletLifeTime;
     protected int damage;
 
     protected Vector3 oldPos;
@@ -34,14 +34,14 @@ public class MagicBullet : MonoBehaviour
     /// «апустить снар€д
     /// </summary>
     /// <param name="speed">—корость снар€да</param>
-    /// <param name="liveTime">врем€ жизни снар€да</param>
-    /// <param name="liveTime">урон от снар€да</param>
-    public void LaunchBullet(float speed, float liveTime, int damage, bool toPlayer)
+    /// <param name="lifeTime">врем€ жизни снар€да</param>
+    /// <param name="lifeTime">урон от снар€да</param>
+    public void LaunchBullet(float speed, float lifeTime, int damage, bool toPlayer)
     {
         bulletSpeed = speed;
         this.damage = damage;
         oldPos = transform.position;
-        bulletLiveTime = liveTime;
+        bulletLifeTime = lifeTime;
         useToPlayer = toPlayer;
     }
 
@@ -52,13 +52,13 @@ public class MagicBullet : MonoBehaviour
 
     protected virtual void MoveBullet()
     {
-        if (bulletLiveTime > 0)
+        if (bulletLifeTime > 0)
         {
             myTransform.position += myTransform.forward * bulletSpeed * Time.deltaTime;
             CheckHit();
             oldPos = myTransform.position;
             counter += Time.deltaTime;
-            if (counter >= bulletLiveTime)
+            if (counter >= bulletLifeTime)
             {
                 for (int i = 0; i < decals.Count; i++)
                 {
