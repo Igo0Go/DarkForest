@@ -21,6 +21,7 @@ public class FireBall : MagicBullet
             else if (hit.collider.TryGetComponent(out Enemy enemy))
             {
                 enemy.GetDamage(damage);
+                DamageEvent?.Invoke(damage);
             }
 
             for (int i = 0; i < decals.Count; i++)

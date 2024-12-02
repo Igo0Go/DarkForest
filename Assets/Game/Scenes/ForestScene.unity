@@ -21565,7 +21565,7 @@ MonoBehaviour:
   Name: "\u041E\u0433\u043D\u0435\u043D\u043D\u0430\u044F \u0430\u0440\u0442\u0438\u043B\u0435\u0440\u0438\u044F"
   spellCamera: {fileID: 0}
   hands: {fileID: 0}
-  GrandSpellRate: 5
+  GrandSpellRate: 100
   ChangeGrandSpellValue:
     m_PersistentCalls:
       m_Calls: []
@@ -23429,7 +23429,7 @@ MonoBehaviour:
   Name: "\u041B\u0435\u0434\u044F\u043D\u043E\u0439 \u0430\u0432\u0430\u043D\u0433\u0430\u0440\u0434"
   spellCamera: {fileID: 0}
   hands: {fileID: 0}
-  GrandSpellRate: 50
+  GrandSpellRate: 70
   ChangeGrandSpellValue:
     m_PersistentCalls:
       m_Calls: []
