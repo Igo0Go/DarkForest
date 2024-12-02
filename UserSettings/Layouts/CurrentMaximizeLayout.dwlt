@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 7261
+  controlID: 7522
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 7200
+  controlID: 7461
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 7149
+  controlID: 7438
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -228,7 +228,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d49df8ff2cfbffff42fbffff32750000167700003a7700001a7900002280000046800000508000005880000062800000668000006e800000748000007680000078800000d0800000d6800000e0800000ec800000028100000a810000168100003a810000468100005a8100006c8100008481000092810000a4810000a8810000c4810000ce810000de810000
+      m_ExpandedIDs: d49df8ff2cfbffff42fbffff32750000167700003a7700001a79000022800000468000005080000058800000668000006e800000748000007680000078800000d0800000d6800000e0800000ec800000028100000a810000168100003a810000468100005a8100006c8100008481000092810000a4810000a8810000c4810000ce810000de810000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -760,8 +760,8 @@ MonoBehaviour:
     y: 561
     width: 1466
     height: 386
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
+  m_MinSize: {x: 231, y: 271}
+  m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -810,22 +810,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Game/Prefabs/Player
+    - Assets/Game/Scripts/Player/Spells/Sparks
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Game/Prefabs/Player
+  - Assets/Game/Scripts/Player/Spells/Sparks
   m_LastFoldersGridSize: -1
   m_LastProjectPath: F:\MyProjects\UnityProjects\DarkForest
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 23}
-    m_SelectedIDs: 469a0000
-    m_LastClickedID: 39494
-    m_ExpandedIDs: 00000000f8990000fa990000fc990000fe990000009a0000029a0000049a0000069a0000089a00000a9a00000c9a0000
+    scrollPos: {x: 0, y: 103}
+    m_SelectedIDs: 6cb80000
+    m_LastClickedID: 47212
+    m_ExpandedIDs: 00000000f8990000fa990000fc990000fe990000009a0000029a0000049a0000069a0000089a00000a9a00000c9a00004a9a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -878,9 +878,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: a6970000
-    m_LastClickedInstanceID: 38822
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: c6760000
+    m_LastClickedInstanceID: 30406
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -999,7 +999,7 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 38822
+  m_LastInspectedObjectInstanceID: 30406
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -109,7 +108,7 @@ public class SparksSpell : MagicSpell
     {
         sparksLine.SetActive(true);
 
-        if (Physics.SphereCast(spellCamera.cam.transform.position, sparksRadius, spellCamera.cam.transform.forward,
+        if (Physics.SphereCast(spellCamera.cam.transform.position, 1, spellCamera.cam.transform.forward,
             out RaycastHit hitInfo, sparksRadius,~spellCamera.ignoreMask))
         {
 
