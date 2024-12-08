@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class IceSpell : MagicSpell
@@ -14,13 +13,11 @@ public class IceSpell : MagicSpell
     private float bulletLiveTime;
     [SerializeField]
     private Transform spawnPoint;
-    [SerializeField, Range(0, 2)]
-    private float spellDelay;
 
     private bool useSpell;
 
-    [Space(20)]
 
+    [Space(20)]
     [Header("Ледяной нож")]
     [SerializeField]
     private GameObject altSplash;
@@ -35,11 +32,25 @@ public class IceSpell : MagicSpell
     [SerializeField, Min(1)]
     private float runeTime = 1;
 
-
-
     private void Awake()
     {
+        AnimatorEventObserver observer = hands.gameObject.GetComponent<AnimatorEventObserver>();
+
+        observer.OneHandPushEnd += OnEndSpell;
+        observer.SplashEnd += OnEndSplash;
+
         SetUpSpell();
+    }
+
+    private void OnEndSplash()
+    {
+        OnEndSpell();
+        altSplash.SetActive(false);
+    }
+
+    private void OnEndSpell()
+    {
+        useSpell = false;
     }
 
     public override void SetUpSpell()
@@ -52,7 +63,15 @@ public class IceSpell : MagicSpell
     {
         if (Input.GetMouseButton(0) && !useSpell)
         {
-            StartCoroutine(SpawnBulletCoroutine());
+            useSpell = true;
+            MagicBullet currentBullet = Instantiate(iceBulletPrefab, spawnPoint.position, spawnPoint.rotation).
+                GetComponent<MagicBullet>();
+            currentBullet.transform.parent = null;
+            currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
+            currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
+            currentBullet.LaunchBullet(bulletSpeed, bulletLiveTime, damage, false);
+            hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
+            hands.SetTrigger("Push");
         }
     }
 
@@ -60,7 +79,9 @@ public class IceSpell : MagicSpell
     {
         if(Input.GetMouseButton(1) && !useSpell)
         {
-            StartCoroutine(UseSplashCoroutine());
+            useSpell = true;
+            altSplash.SetActive(true);
+            hands.SetTrigger("Splash");
         }
     }
 
@@ -85,38 +106,8 @@ public class IceSpell : MagicSpell
         }
     }
 
-
-    private IEnumerator SpawnBulletCoroutine()
-    {
-        useSpell = true;
-        MagicBullet currentBullet = Instantiate(iceBulletPrefab, spawnPoint.position, spawnPoint.rotation).
-            GetComponent<MagicBullet>();
-        currentBullet.transform.parent = null;
-        currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
-        currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
-        currentBullet.LaunchBullet(bulletSpeed, bulletLiveTime, damage, false);
-        hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
-        hands.SetTrigger("Push");
-
-        yield return new WaitForSeconds(spellDelay);
-
-        useSpell = false;
-    }
-
     private void OnEnemyGetDamage(int damage)
     {
         GrandSpellValue += damage;
-    }
-
-    private IEnumerator UseSplashCoroutine()
-    {
-        useSpell = true;
-        altSplash.SetActive(true);
-        hands.SetTrigger("Splash");
-
-        yield return new WaitForSeconds(spellDelay);
-
-        altSplash.SetActive(false);
-        useSpell = false;
     }
 }

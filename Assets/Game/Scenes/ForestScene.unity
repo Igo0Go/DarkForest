@@ -8671,7 +8671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &488521698
 Transform:
   m_ObjectHideFlags: 0
@@ -23439,6 +23439,7 @@ MonoBehaviour:
   bulletLiveTime: 20
   spawnPoint: {fileID: 1363390888}
   spellDelay: 0.5
+  useSpell: 0
   altSplash: {fileID: 759668762}
   spellRune: {fileID: 6219321785146034279, guid: bfb1a981ffa6bb24e921424fe9605fa3,
     type: 3}
@@ -64422,6 +64423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1498929821898899430}
   - component: {fileID: 1498929821898899450}
+  - component: {fileID: 1498929821898899451}
   m_Layer: 6
   m_Name: Torso
   m_TagString: Untagged
@@ -64449,6 +64451,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1498929821898899451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498929821898899449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d7d18934a753345949c9e61f585b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iceSpell: {fileID: 1024398334}
 --- !u!1 &1498929821916123630
 GameObject:
   m_ObjectHideFlags: 0
