@@ -23,8 +23,11 @@ public class FireSpell : MagicSpell
     [SerializeField, Range(0.01f, 2)]
     private float fireballForceAccumulateSpeed = 1;
 
+    private bool useFireBall = false;
     private FireBall currentFireBall;
     private int currentDamage = 0;
+
+
 
     [Space(20)]
     [Header("Огненный луч")]
@@ -35,16 +38,21 @@ public class FireSpell : MagicSpell
     [SerializeField, Range(0.1f, 10f)]
     private float damagePerSecond = 1;
 
+    private bool useRay;
+    private float currentRayDamage = 0;
+    private Vector3 currentRayPoint;
+
     [Space(20)]
     [Header("Вспышки для всех")]
     [SerializeField] private GameObject explosionPrefab;
-    [SerializeField, Min(0)] private float GrandSpellDelayTime;
 
-    private bool useRay;
-    private Vector3 currentRayPoint;
+    private void Start()
+    {
+        AnimatorEventObserver observer = hands.gameObject.GetComponent<AnimatorEventObserver>();
 
-    private bool useFireBall = false;
-    private float currentRayDamage = 0;
+        observer.GrandSpellActivated += OnGrandSpellActivated;
+        SetUpSpell();
+    }
 
     private void LateUpdate()
     {
@@ -75,6 +83,37 @@ public class FireSpell : MagicSpell
         {
             useFireBall = false;
         }
+    }
+
+    private IEnumerator GrowFireBall()
+    {
+        useFireBall = true;
+        float t = 0;
+
+        currentFireBall = Instantiate(fireBallPrefab, startSpawnPoint.position, Quaternion.identity, startSpawnPoint).
+            GetComponent<FireBall>();
+        currentFireBall.DamageEvent.AddListener(OnEnemyGetDamage);
+
+        hands.SetTrigger("UseFireBall");
+        hands.SetFloat("SpellForce", t);
+
+        while (useFireBall)
+        {
+            t += Time.deltaTime * fireballForceAccumulateSpeed;
+            hands.SetFloat("SpellForce", t);
+            currentFireBall.transform.position = Vector3.Lerp(startSpawnPoint.position, endSpawnPoint.position, t);
+            currentDamage = (int)Mathf.Round(Mathf.Lerp(minDamage, maxDamage, t));
+            currentFireBall.SetFireballScale(t);
+            yield return null;
+        }
+        hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
+        hands.SetTrigger("Push");
+
+        currentFireBall.transform.parent = null;
+        currentFireBall.transform.forward = spellCamera.GetSpellTargetPoint() - currentFireBall.transform.position;
+        currentFireBall.LaunchBullet(fireballSpeed, fireballLifeTime, currentDamage, false);
+
+        useFireBall = false;
     }
 
     public override void UseAltSpell()
@@ -128,21 +167,16 @@ public class FireSpell : MagicSpell
         if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue == GrandSpellRate)
         {
             GrandSpellValue = 0;
-            StartCoroutine(ExplosionsForAllEnemiesCoroutine());
+            ChangeSwitchKey.Invoke(false);
+            hands.SetTrigger("UseGrand");
         }
     }
 
-    private IEnumerator ExplosionsForAllEnemiesCoroutine()
+    private IEnumerator GrandSpellDamageForAllEnemies()
     {
-        ChangeSwitchKey.Invoke(false);
-
-
         List<Enemy> enemies = FindObjectsOfType<Enemy>().ToList();
 
-        hands.SetTrigger("UseGrand");
-        yield return new WaitForSeconds(GrandSpellDelayTime);
-
-        foreach(Enemy enemy in enemies)
+        foreach (Enemy enemy in enemies)
         {
             if (enemy != null)
             {
@@ -153,39 +187,16 @@ public class FireSpell : MagicSpell
         ChangeSwitchKey.Invoke(true);
     }
 
+    private void OnGrandSpellActivated()
+    {
+        if(gameObject.activeSelf)
+        {
+            StartCoroutine(GrandSpellDamageForAllEnemies());
+        }
+    }
+
     private void OnEnemyGetDamage(int damage)
     {
         GrandSpellValue += damage;
-    }
-
-    private IEnumerator GrowFireBall()
-    {
-        useFireBall = true;
-        float t = 0;
-
-        currentFireBall = Instantiate(fireBallPrefab, startSpawnPoint.position, Quaternion.identity, startSpawnPoint).
-            GetComponent<FireBall>();
-        currentFireBall.DamageEvent.AddListener(OnEnemyGetDamage);
-
-        hands.SetTrigger("UseFireBall");
-        hands.SetFloat("SpellForce", t);
-
-        while (useFireBall)
-        {
-            t += Time.deltaTime * fireballForceAccumulateSpeed;
-            hands.SetFloat("SpellForce", t);
-            currentFireBall.transform.position = Vector3.Lerp(startSpawnPoint.position, endSpawnPoint.position, t);
-            currentDamage = (int)Mathf.Round(Mathf.Lerp(minDamage, maxDamage, t));
-            currentFireBall.SetFireballScale(t);
-            yield return null;
-        }
-        hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
-        hands.SetTrigger("Push");
-
-        currentFireBall.transform.parent = null;
-        currentFireBall.transform.forward = spellCamera.GetSpellTargetPoint() - currentFireBall.transform.position;
-        currentFireBall.LaunchBullet(fireballSpeed, fireballLifeTime, currentDamage, false);
-
-        useFireBall = false;
     }
 }

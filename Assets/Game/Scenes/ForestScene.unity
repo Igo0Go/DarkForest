@@ -8671,7 +8671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &488521698
 Transform:
   m_ObjectHideFlags: 0
@@ -21582,7 +21582,6 @@ MonoBehaviour:
   damagePerSecond: 5
   explosionPrefab: {fileID: 358637981425055526, guid: a31c513d05a752c4d9573d9fa743db79,
     type: 3}
-  GrandSpellDelayTime: 0.4
 --- !u!1 &922950494
 GameObject:
   m_ObjectHideFlags: 0
@@ -23438,8 +23437,6 @@ MonoBehaviour:
   bulletSpeed: 25
   bulletLiveTime: 20
   spawnPoint: {fileID: 1363390888}
-  spellDelay: 0.5
-  useSpell: 0
   altSplash: {fileID: 759668762}
   spellRune: {fileID: 6219321785146034279, guid: bfb1a981ffa6bb24e921424fe9605fa3,
     type: 3}
@@ -64463,7 +64460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d7d18934a753345949c9e61f585b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iceSpell: {fileID: 1024398334}
 --- !u!1 &1498929821916123630
 GameObject:
   m_ObjectHideFlags: 0

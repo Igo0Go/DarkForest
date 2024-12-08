@@ -32,7 +32,7 @@ public class IceSpell : MagicSpell
     [SerializeField, Min(1)]
     private float runeTime = 1;
 
-    private void Awake()
+    private void Start()
     {
         AnimatorEventObserver observer = hands.gameObject.GetComponent<AnimatorEventObserver>();
 
