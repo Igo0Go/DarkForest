@@ -77,7 +77,7 @@ public class DarkMagican : Enemy
 
     private List<Enemy> enemiesForHeal = new List<Enemy>();
 
-    protected override IEnumerator MainCoroutine()
+    protected IEnumerator MainCoroutine()
     {
         shield.SetActive(false);
         agent = GetComponent<NavMeshAgent>();

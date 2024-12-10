@@ -20,7 +20,7 @@ public class Zombie : Enemy
     private bool isStunned = false;
     private NavMeshAgent m_Agent;
 
-    protected override IEnumerator MainCoroutine()
+    protected IEnumerator MainCoroutine()
     {
         m_Agent = GetComponent<NavMeshAgent>();
 

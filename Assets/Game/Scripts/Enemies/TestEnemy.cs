@@ -2,7 +2,7 @@ using System.Collections;
 
 public class TestEnemy : Enemy
 {
-    protected override IEnumerator MainCoroutine()
+    protected IEnumerator MainCoroutine()
     {
         yield return null;
     }

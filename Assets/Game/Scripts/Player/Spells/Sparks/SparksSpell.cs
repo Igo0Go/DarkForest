@@ -48,8 +48,6 @@ public class SparksSpell : MagicSpell
     [SerializeField, Min(1)]
     private int bulletDamage;
 
-
-
     public override void SetUpSpell()
     {
         if (currentSparksTrap != null)

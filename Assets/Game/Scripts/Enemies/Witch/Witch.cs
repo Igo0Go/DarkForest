@@ -39,7 +39,7 @@ public class Witch : Enemy
     private Vector3 PlayerTarget => player.transform.position + Vector3.up * 0.5f;
     private Transform arenaCenter;
 
-    protected override IEnumerator MainCoroutine()
+    protected IEnumerator MainCoroutine()
     {
         SpellRune rune = spellRunePrefab.GetComponent<SpellRune>();
         rune.damage = damage;
