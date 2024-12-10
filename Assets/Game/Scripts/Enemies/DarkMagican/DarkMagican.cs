@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -25,8 +26,6 @@ public class DarkMagican : Enemy
     [SerializeField]
     private GameObject bullet;
     [SerializeField, Min(1)]
-    private float spellCountInAttack = 1;
-    [SerializeField, Min(1)]
     private int spellDamage = 1;
     [SerializeField, Range(0.01f, 1)]
     private float targetTrackingForce = 0.5f;
@@ -36,8 +35,6 @@ public class DarkMagican : Enemy
     private float spellSpeed = 1;
     [SerializeField, Min(0.1f)]
     private float spellLifeTime = 1;
-    [SerializeField, Min(0.01f)]
-    private float spellCastTime = 0.1f;
     [SerializeField, Min(0.1f)]
     private float spellReloadTime = 5;
 
@@ -45,8 +42,6 @@ public class DarkMagican : Enemy
     [Header("Атака посохом")]
     [SerializeField, Min(1)]
     private float nearAttackDistance = 1.5f;
-    [SerializeField, Min(0.01f)]
-    private float nearAttackReloadTime = 0.3f;
     [SerializeField]
     private GameObject slashEffect;
 
@@ -55,7 +50,7 @@ public class DarkMagican : Enemy
     [SerializeField, Min(1)]
     private int enemiesForHealCount = 3;
     [SerializeField, Min(0.01f)]
-    private float healDelayTime = 0.3f;
+    private float healDelayTime = 0.2f;
     [SerializeField, Min(0.01f)]
     private float healReloadTime = 50f;
     [SerializeField]
@@ -71,187 +66,164 @@ public class DarkMagican : Enemy
     private NavMeshAgent agent;
     private Transform target;
     private float shieldTime;
-
+    private float currentSpellAttackReloadTime = 0;
+    private float currentHealReloadTime = 0;
     private List<MagicBullet> targetTrackerBullets = new List<MagicBullet>();
-    ActionType actionType = ActionType.Move;
-
     private List<Enemy> enemiesForHeal = new List<Enemy>();
+    private AudioSource source;
+    private Vector3 directionToPlayer;
 
-    protected IEnumerator MainCoroutine()
+    protected override void SetDefaultState()
     {
         shield.SetActive(false);
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
         target = player.transform;
-
-        AudioSource source = GetComponent<AudioSource>();
-
-        float currentSpellAttackReloadTime = 0;
-        float currentNearAttackReloadTime = 0;
-        float currentHealReloadTime = 0;
-
+        source = GetComponent<AudioSource>();
         slashEffect.SetActive(false);
 
-        Vector3 directionToPlayer;
+        NecromancerAnimatorEventObserver observer = animator.GetComponent<NecromancerAnimatorEventObserver>();
+        observer.NearAttackActivePhase += OnNearAttackActivePhase;
+        observer.NearAttackEnd += OnStopNearAttack;
+        observer.UseSpellAnimation += OnCastSpell;
+        observer.HealAnimationEnd += StartMoveToPlayer;
+        observer.HitAnimationEnd += StartMoveToPlayer;
 
-        animator.SetBool("Walk", false);
+        StartMoveToPlayer();
+    }
 
+    private void State_MoveToPlayer()
+    {
+        ReturnShield();
+        ReloadForces();
 
-        bool navigateSpells = false;
+        agent.destination = target.position;
+        directionToPlayer = target.position - transform.position;
+        float distance = directionToPlayer.magnitude;
 
-        while(HP > 0)
+        if (enemiesForHeal.Count >= enemiesForHealCount && currentHealReloadTime == 0)
         {
-
-            if (actionType == ActionType.Hit)
+            StartHeal();
+        }
+        else if (distance <= nearAttackDistance)
+        {
+            StartNearAttack();
+        }
+        else if (distance > nearAttackDistance && distance <= farAttackDistance)
+        {
+            if (currentSpellAttackReloadTime == 0)
             {
-                yield return null;
-                continue;
+                StartSpellAttack();
             }
-
-            agent.destination = target.position;
-
-            ReturnShield();
-
-            actionType = ActionType.Move;
-
-            currentSpellAttackReloadTime -= Time.deltaTime;
-            currentSpellAttackReloadTime = Mathf.Clamp(currentSpellAttackReloadTime, 0, spellReloadTime);
-
-            currentNearAttackReloadTime -= Time.deltaTime;
-            currentNearAttackReloadTime = Mathf.Clamp(currentNearAttackReloadTime, 0, nearAttackReloadTime);
-
-            currentHealReloadTime -= Time.deltaTime;
-            currentHealReloadTime = Mathf.Clamp(currentHealReloadTime, 0, healReloadTime);
-
+        }
+    }
+    private void State_LookToPlayer()
+    {
+        directionToPlayer = target.position - transform.position;
+        transform.forward = directionToPlayer;
+    }
+    private void State_NavigateSpell()
+    {
+        if (targetTrackerBullets.Count > 0)
+        {
             directionToPlayer = target.position - transform.position;
-            float distance = directionToPlayer.magnitude;
+            transform.forward = directionToPlayer;
+        }
+        else
+        {
+            StopCastSpells();
+        }
+    }
 
-            if (actionType == ActionType.UseHeal || 
-                (enemiesForHeal.Count >= enemiesForHealCount && currentHealReloadTime == 0))
+    private void StartMoveToPlayer()
+    {
+        animator.SetBool("Walk", true);
+        agent.isStopped = false;
+        currentAction = State_MoveToPlayer;
+    }
+
+    private void StartHeal()
+    {
+        currentAction = emptyAction;
+        currentHealReloadTime = healReloadTime;
+        agent.isStopped = true;
+        animator.SetTrigger("Heal");
+        source.PlayOneShot(healSound);
+        StartCoroutine(HealAllEnemies());
+    }
+    private IEnumerator HealAllEnemies()
+    {
+        for (int i = 0; i < enemiesForHealCount; i++)
+        {
+            Enemy enemy = enemiesForHeal[i];
+
+            Instantiate(healAura, enemiesForHeal[i].transform.position,
+                Quaternion.identity, enemy.transform);
+
+            yield return new WaitForSeconds(healDelayTime);
+
+            if (enemy != null)
             {
-                agent.isStopped = true;
-                actionType = ActionType.UseHeal;
-                animator.SetTrigger("Heal");
-                source.PlayOneShot(healSound);
-
-                for (int i = 0; i < enemiesForHealCount; i++)
-                {
-                    Enemy enemy = enemiesForHeal[i];
-
-                    Instantiate(healAura, enemiesForHeal[i].transform.position,
-                        Quaternion.identity, enemy.transform);
-                    yield return new WaitForSeconds(healDelayTime);
-
-                    if(enemy != null)
-                    {
-                        enemy.Heal(healForce);
-                    }
-                }
-
-                for (int i = 0; i < enemiesForHealCount; i++)
-                {
-                    enemiesForHeal.RemoveAt(0);
-                }
-
-                enemiesForHealCount++;
-                healForce += 3;
-
-                currentHealReloadTime = healReloadTime;
+                enemy.Heal(healForce);
             }
-            else if (distance <= nearAttackDistance)
-            {
-                if (currentNearAttackReloadTime == 0)
-                {
-                    actionType = ActionType.NearAttack;
-                }
-                else
-                {
-                    actionType = ActionType.Move;
-                }
-            }
-            else if (distance > nearAttackDistance && distance <= farAttackDistance)
-            {
-                if(currentSpellAttackReloadTime == 0)
-                {
-                    actionType = ActionType.AttackSpell;
-                }
-                else
-                {
-                    actionType = ActionType.Move;
-                }
-            }
-            else if(distance > farAttackDistance)
-            {
-                actionType=ActionType.Move;
-            }
+        }
 
-            switch (actionType)
-            {
-                case ActionType.NearAttack:
-                    {
-                        directionToPlayer = target.position - transform.position;
-                        transform.forward = directionToPlayer;
-                        agent.isStopped = true;
-                        animator.SetBool("Walk", false);
-                        animator.SetTrigger("UseNearAttack");
-                        yield return new WaitForSeconds(nearAttackReloadTime);
-                        slashEffect.SetActive(true);
-                        directionToPlayer = target.position - transform.position;
-                        transform.forward = directionToPlayer;
-                        distance = directionToPlayer.magnitude;
-                        if (distance <= nearAttackDistance)
-                        {
-                            player.GetDamage(damage);
-                        }
-                        yield return new WaitForSeconds(nearAttackReloadTime * 2);
-                        currentNearAttackReloadTime = nearAttackReloadTime;
-                        slashEffect.SetActive(false);
-                    }
-                    break;
+        enemiesForHeal.Clear();
 
-                case ActionType.AttackSpell:
-                    {
-                        if(!navigateSpells)
-                        {
-                            agent.isStopped = true;
-                            animator.SetBool("Walk", false);
-                            animator.SetBool("UseFarAttack", true);
-                            yield return new WaitForSeconds(spellCastTime);
-                            directionToPlayer = target.position - transform.position;
-                            transform.forward = directionToPlayer;
-                            for (int i = 0; i < spellCountInAttack; i++)
-                            {
-                                LaunchSpell(target);
-                                yield return new WaitForSeconds(spellCastTime);
-                            }
+        enemiesForHealCount++;
+        healForce += 3;
 
-                            navigateSpells = true;
-                        }
-                        else
-                        {
-                            while (targetTrackerBullets.Count > 0)
-                            {
-                                directionToPlayer = target.position - transform.position;
-                                transform.forward = directionToPlayer;
-                                yield return null;
-                            }
+        currentHealReloadTime = healReloadTime;
+    }
 
-                            currentSpellAttackReloadTime = spellReloadTime;
-                            navigateSpells = false;
-                            animator.SetBool("UseFarAttack", false);
-                        }
-                    }
-                    break;
-                case ActionType.Move:
-                    MoveAction();
-                    break;
+    private void StartSpellAttack()
+    {
+        agent.isStopped = true;
+        animator.SetBool("Walk", false);
+        animator.SetBool("UseFarAttack", true);
+        currentAction = State_LookToPlayer;
+    }
+    private void OnCastSpell()
+    {
+        LaunchSpell(target);
+        currentAction = State_NavigateSpell;
+    }
+    private void StopCastSpells()
+    {
+        currentSpellAttackReloadTime = spellReloadTime;
+        animator.SetBool("UseFarAttack", false);
+        StartMoveToPlayer();
+    }
 
-                default:
-                    MoveAction();
-                    break;
-            }
-
-            yield return null;
+    private void StartNearAttack()
+    {
+        agent.isStopped = true;
+        animator.SetBool("Walk", false);
+        animator.SetTrigger("UseNearAttack");
+        currentAction = State_LookToPlayer;
+    }
+    private void OnNearAttackActivePhase()
+    {
+        slashEffect.SetActive(true);
+        directionToPlayer = target.position - transform.position;
+        float distance = directionToPlayer.magnitude;
+        if (distance <= nearAttackDistance)
+        {
+            player.GetDamage(damage);
+        }
+    }
+    private void OnStopNearAttack()
+    {
+        slashEffect.SetActive(false);
+        directionToPlayer = target.position - transform.position;
+        float distance = directionToPlayer.magnitude;
+        if (distance <= nearAttackDistance)
+        {
+            StartNearAttack();
+        }
+        else
+        {
+            StartMoveToPlayer();
         }
     }
 
@@ -259,6 +231,17 @@ public class DarkMagican : Enemy
     {
         shield.SetActive(true);
         shieldTime = 1;
+    }
+
+    protected override void Dead()
+    {
+        currentAction = emptyAction;
+        GetComponent<Collider>().enabled = false;
+        viewZone.SetActive(false);
+        agent.isStopped = true;
+        deadEvent.Invoke(this);
+        animator.SetTrigger("Dead");
+        Destroy(gameObject, deadDelay);
     }
 
     private void LaunchSpell(Transform target)
@@ -270,7 +253,7 @@ public class DarkMagican : Enemy
         currentBullet.target = target;
         currentBullet.targetTrackingForce = targetTrackingForce;
         currentBullet.transform.parent = null;
-        Vector3 direction = (player.transform.position + Vector3.up*0.5f) - spellSpawnPoint.position;
+        Vector3 direction = player.transform.position + Vector3.up*0.5f - spellSpawnPoint.position;
         currentBullet.transform.forward = direction;
 
         currentBullet.LaunchBullet(spellSpeed, spellLifeTime, spellDamage, true);
@@ -283,7 +266,6 @@ public class DarkMagican : Enemy
             return;
         }
 
-
         if(shieldTime > 0)
         {
             shieldTime -= Time.deltaTime;
@@ -295,11 +277,13 @@ public class DarkMagican : Enemy
         }
     }
 
-    private void MoveAction()
+    private void ReloadForces()
     {
-        agent.isStopped = false;
-        agent.destination = target.position;
-        animator.SetBool("Walk", true);
+        currentSpellAttackReloadTime -= Time.deltaTime;
+        currentSpellAttackReloadTime = Mathf.Clamp(currentSpellAttackReloadTime, 0, spellReloadTime);
+
+        currentHealReloadTime -= Time.deltaTime;
+        currentHealReloadTime = Mathf.Clamp(currentHealReloadTime, 0, healReloadTime);
     }
 
     private void OnBulletDestroyed(MagicBullet magicBullet)
@@ -316,11 +300,9 @@ public class DarkMagican : Enemy
                 return;
             }
 
-            agent.isStopped = true;
-            actionType = ActionType.Hit;
 
+            agent.isStopped = true;
             HP -= damage;
-            //Debug.Log(gameObject.name + ": " + HP);
 
             if (HP <= 0)
             {
@@ -329,27 +311,8 @@ public class DarkMagican : Enemy
             else
             {
                 animator.SetTrigger("Hit");
-                StopCoroutine(ReturnActive());
-                StartCoroutine(ReturnActive());
             }
         }
-    }
-
-    private IEnumerator ReturnActive()
-    {
-        yield return new WaitForSeconds(hitDelay);
-        actionType = ActionType.Move;
-    }
-
-    protected override void Dead()
-    {
-        GetComponent<Collider>().enabled = false;
-        viewZone.SetActive(false);
-        agent.isStopped = true;
-        deadEvent.Invoke(this);
-        animator.SetTrigger("Dead");
-        StopAllCoroutines();
-        Destroy(gameObject, deadDelay);
     }
 
     public void AddEnemyToHeal(Enemy enemy)
@@ -362,13 +325,4 @@ public class DarkMagican : Enemy
     {
         enemiesForHeal.Remove(enemy);
     }
-}
-
-public enum ActionType
-{
-    Move,
-    UseHeal,
-    AttackSpell,
-    NearAttack,
-    Hit
 }
