@@ -18,7 +18,9 @@ public abstract class Enemy : MonoBehaviour
 
     protected PlayerInteraction player;
 
-    protected EnemyState currentAction;
+    protected Action currentAction;
+
+    protected Action emptyAction = () => { };
 
     private void Start()
     {
@@ -28,12 +30,12 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void SetDefaultState()
     {
-        currentAction = new EmptyState(this);
+        currentAction = emptyAction;
     }
 
     private void Update()
     {
-        currentAction.UseState();
+        currentAction();
     }
 
     public virtual void GetDamage(int damage)
@@ -62,10 +64,5 @@ public abstract class Enemy : MonoBehaviour
     {
         deadEvent.Invoke(this);
         Destroy(gameObject);
-    }
-
-    public void SetState(EnemyState state)
-    {
-        currentAction = state;
     }
 }
