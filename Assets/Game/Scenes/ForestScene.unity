@@ -24341,7 +24341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaveName: "\u0412\u043E\u043B\u043D\u0430 III\n\u041D\u0435\u043A\u0440\u043E\u043C\u0430\u043D\u0442\u0438\u044F"
-  activateOnAwake: 1
+  activateOnAwake: 0
   spawners:
   - {fileID: 834276947}
   endOfWaveEvent:
@@ -30648,7 +30648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveName: "\u0412\u043E\u043B\u043D\u0430 IV\n\u0412\u0435\u0434\u044C\u043C\u0438\u043D
     \u043A\u0440\u0443\u0433"
-  activateOnAwake: 0
+  activateOnAwake: 1
   spawners:
   - {fileID: 846441049}
   endOfWaveEvent:

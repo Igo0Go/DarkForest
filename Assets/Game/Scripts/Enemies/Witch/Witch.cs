@@ -34,14 +34,14 @@ public class Witch : Enemy
     [SerializeField]
     private GameObject spellBulletPrefab;
 
-    private WitchActionType actionType;
-
     private Vector3 PlayerTarget => player.transform.position + Vector3.up * 0.5f;
     private Transform arenaCenter;
+    private SpellRune rune;
+    private float currentSpellTime = 0;
 
-    protected IEnumerator MainCoroutine()
+    protected override void SetDefaultState()
     {
-        SpellRune rune = spellRunePrefab.GetComponent<SpellRune>();
+        rune = spellRunePrefab.GetComponent<SpellRune>();
         rune.damage = damage;
         rune.spellLifeTime = spellLifeTime;
         rune.spellSpeed = spellSpeed;
@@ -52,70 +52,77 @@ public class Witch : Enemy
 
         arenaCenter = GameCenter.arenaCenter;
 
-        while(transform.position.y < flyingHeight)
+        WitchAnimatorEventObserver observer = animator.GetComponent<WitchAnimatorEventObserver>();
+        observer.RuneActivated += ActivateRune;
+        observer.HitEnd += StartTeleport;
+
+
+        currentAction = State_MoveUp;
+    }
+
+    private void State_MoveUp()
+    {
+        if (transform.position.y < flyingHeight)
         {
-            transform.forward = GetLoocAtPlayerVector();
+            State_LookAtPlayer();
             transform.position += Vector3.up * speed * Time.deltaTime;
-            yield return null;
         }
-        actionType = WitchActionType.Attack;
-
-
-        while (HP > 0)
+        else
         {
-            switch (actionType)
-            {
-                case WitchActionType.Attack:
-                    {
-
-                        animator.SetTrigger("Attack");
-                        yield return new WaitForSeconds(1);
-                        spellRunePrefab.gameObject.SetActive(true);
-
-                        spellRunePrefab.GetComponent<SpellRune>().Activate();
-
-
-                        float currentSpellTime = 0;
-                        while(currentSpellTime < spellLifeTime)
-                        {
-                            currentSpellTime += Time.deltaTime;
-                            transform.forward = GetLoocAtPlayerVector();
-
-                            Vector3 dir = PlayerTarget - spellRunePrefab.position;
-                            spellRunePrefab.forward = dir;
-
-                            if(actionType == WitchActionType.TP)
-                            {
-                                break;
-                            }
-
-                            yield return null;
-                        }
-
-                        spellRunePrefab.gameObject.SetActive(false);
-
-                        actionType = WitchActionType.TP;
-                    }
-                    break;
-                case WitchActionType.TP:
-                    {
-                        Vector3 target = GetRandomPointInArena();
-                        animator.SetTrigger("TP");
-                        GameObject tp1 = Instantiate(TPDecal, transform.position, Quaternion.identity);
-                        yield return new WaitForSeconds(tpDelay);
-                        GameObject tp2 = Instantiate(TPDecal, target, Quaternion.identity);
-                        yield return new WaitForSeconds(tpDelay);
-                        transform.position = target;
-                        Destroy(tp1, tpDelay);
-                        Destroy(tp2, tpDelay * 2);
-                        yield return new WaitForSeconds(2);
-                        actionType = WitchActionType.Attack;
-                    }
-                    break;
-            }
-
-            yield return null;
+            StartUseRune();
         }
+    }
+    private void State_LookAtPlayer()
+    {
+        transform.forward = GetLoocAtPlayerVector();
+    }
+    private void State_UseRune()
+    {
+        if (currentSpellTime < spellLifeTime)
+        {
+            currentSpellTime += Time.deltaTime;
+            transform.forward = GetLoocAtPlayerVector();
+
+            Vector3 dir = PlayerTarget - spellRunePrefab.position;
+            spellRunePrefab.forward = dir;
+        }
+        else
+        {
+            StartTeleport();
+        }
+    }
+
+    private void StartTeleport()
+    {
+        currentAction = emptyAction;
+        StartCoroutine(TPCoroutine());
+    }
+    private IEnumerator TPCoroutine()
+    {
+        spellRunePrefab.gameObject.SetActive(false);
+        Vector3 target = GetRandomPointInArena();
+        animator.SetTrigger("TP");
+        GameObject tp1 = Instantiate(TPDecal, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(tpDelay);
+        GameObject tp2 = Instantiate(TPDecal, target, Quaternion.identity);
+        yield return new WaitForSeconds(tpDelay);
+        transform.position = target;
+        Destroy(tp1, tpDelay);
+        Destroy(tp2, tpDelay * 2);
+        currentAction = StartUseRune;
+    }
+
+    private void StartUseRune()
+    {
+        currentAction = State_LookAtPlayer;
+        animator.SetTrigger("Attack");
+    }
+    private void ActivateRune()
+    {
+        spellRunePrefab.gameObject.SetActive(true);
+        spellRunePrefab.GetComponent<SpellRune>().Activate();
+        currentSpellTime = 0;
+        currentAction = State_UseRune;
     }
 
     private Vector3 GetRandomPointInArena()
@@ -125,7 +132,6 @@ public class Witch : Enemy
 
         return arenaCenter.position + new Vector3(x, flyingHeight, z);
     }
-
     private Vector3 GetLoocAtPlayerVector()
     {
         return player.transform.position - new Vector3(transform.position.x, arenaCenter.position.y, transform.position.z);
@@ -145,11 +151,8 @@ public class Witch : Enemy
         else
         {
             animator.SetTrigger("Hit");
-            StopCoroutine(ReturnActive());
-            StartCoroutine(ReturnActive());
         }
     }
-
     protected override void Dead()
     {
 
@@ -159,13 +162,6 @@ public class Witch : Enemy
         StopAllCoroutines();
         StartCoroutine(FallCoroutine());
     }
-
-    private IEnumerator ReturnActive()
-    {
-        yield return new WaitForSeconds(hitDelay);
-        actionType = WitchActionType.TP;
-    }
-
     private IEnumerator FallCoroutine()
     {
         float speed = 0;
@@ -181,11 +177,4 @@ public class Witch : Enemy
         animator.SetTrigger("Dead");
         Destroy(gameObject, deadDelay);
     }
-}
-
-public enum WitchActionType
-{
-    Attack,
-    TP,
-    Dead,
 }
