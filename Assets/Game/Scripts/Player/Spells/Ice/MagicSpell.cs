@@ -30,9 +30,38 @@ public abstract class MagicSpell :MonoBehaviour
         }
     }
 
-
     public abstract void SetUpSpell();
     public abstract void UseMainSpel();
     public abstract void UseAltSpell();
     public abstract void UseGrandSpell();
+}
+
+public static class MagicStats
+{
+    public static bool opportunityToIceUpgrade => _iceMainSpeedMultiplicator < 3;
+    public static float IceMainSpeedMultiplicator => _iceMainSpeedMultiplicator;
+    private static float _iceMainSpeedMultiplicator = 1;
+
+    public static void UpgradeIceSpeed()
+    {
+        _iceMainSpeedMultiplicator += 0.5f;
+    }
+
+    public static bool opportunityToFireUpgrade => _fireMainSpeedMultiplicator < 4;
+    public static float FireMainSpeedMultiplicator => _fireMainSpeedMultiplicator;
+    private static float _fireMainSpeedMultiplicator = 1;
+
+    public static void UpgradeFireSpeed()
+    {
+        _fireMainSpeedMultiplicator += 0.5f;
+    }
+
+    public static bool opportunityToSparksUpgrade => _sparksMaxTargetsCount < 27;
+    public static int SparksMaxTargetsCount => _sparksMaxTargetsCount;
+    private static int _sparksMaxTargetsCount = 3;
+
+    public static void UpgradeSparksSpeed()
+    {
+        _sparksMaxTargetsCount *= 3;
+    }
 }

@@ -24,7 +24,6 @@ public class SparksSpell : MagicSpell
     private Enemy mainEnemy;
     private List<EnemySparksLinePair> enemiesAndLasers = new List<EnemySparksLinePair>();
 
-
     [Space(20)]
     [Header("Ловушка")]
     [SerializeField]
@@ -37,7 +36,6 @@ public class SparksSpell : MagicSpell
     private int sparksTrapDamage;
 
     private LineTrap currentSparksTrap;
-
 
     [Space(20)]
     [Header("Бегунок")]
@@ -142,6 +140,7 @@ public class SparksSpell : MagicSpell
 
             if (colliders.Length > 0)
             {
+                int currentSelectedEnemyCount = 0;
                 for (int i = 0; i < colliders.Length; i++)
                 {
                     Collider collider = colliders[i];
@@ -157,6 +156,13 @@ public class SparksSpell : MagicSpell
                             line.controlPoints[1].transform.position = newEnemy.transform.position + Vector3.up * 0.5f;
                             enemiesAndLasers.Add(new EnemySparksLinePair() { enemy = newEnemy, sparksLine = line });
                             newEnemy.deadEvent.AddListener(OnEnemyDead);
+
+                            currentSelectedEnemyCount++;
+
+                            if(currentSelectedEnemyCount >= MagicStats.SparksMaxTargetsCount)
+                            {
+                                return;
+                            }
                         }
                     }
                 }

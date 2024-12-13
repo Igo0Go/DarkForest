@@ -56,6 +56,7 @@ public class IceSpell : MagicSpell
     public override void SetUpSpell()
     {
         useSpell = false;
+
         altSplash.SetActive(false);
     }
 
@@ -63,13 +64,14 @@ public class IceSpell : MagicSpell
     {
         if (Input.GetMouseButton(0) && !useSpell)
         {
+            hands.SetFloat("AnimationSpeed", MagicStats.IceMainSpeedMultiplicator);
             useSpell = true;
             MagicBullet currentBullet = Instantiate(iceBulletPrefab, spawnPoint.position, spawnPoint.rotation).
                 GetComponent<MagicBullet>();
             currentBullet.transform.parent = null;
             currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
             currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
-            currentBullet.LaunchBullet(bulletSpeed, bulletLiveTime, damage, false);
+            currentBullet.LaunchBullet(bulletSpeed * MagicStats.IceMainSpeedMultiplicator, bulletLiveTime, damage, false);
             hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
             hands.SetTrigger("Push");
         }

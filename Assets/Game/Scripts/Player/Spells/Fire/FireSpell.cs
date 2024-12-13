@@ -99,7 +99,7 @@ public class FireSpell : MagicSpell
 
         while (useFireBall)
         {
-            t += Time.deltaTime * fireballForceAccumulateSpeed;
+            t += Time.deltaTime * fireballForceAccumulateSpeed * MagicStats.FireMainSpeedMultiplicator;
             hands.SetFloat("SpellForce", t);
             currentFireBall.transform.position = Vector3.Lerp(startSpawnPoint.position, endSpawnPoint.position, t);
             currentDamage = (int)Mathf.Round(Mathf.Lerp(minDamage, maxDamage, t));
