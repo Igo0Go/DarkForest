@@ -53,6 +53,7 @@ public class SparksSpell : MagicSpell
             currentSparksTrap.endPoint.parent = currentSparksTrap.transform;
             Destroy(currentSparksTrap.gameObject);
         }
+        GrandSpellValue = GrandSpellValue;
     }
 
     public override void UseMainSpel()

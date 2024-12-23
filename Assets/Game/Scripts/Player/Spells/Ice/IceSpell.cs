@@ -56,7 +56,7 @@ public class IceSpell : MagicSpell
     public override void SetUpSpell()
     {
         useSpell = false;
-
+        GrandSpellValue = GrandSpellValue;
         altSplash.SetActive(false);
     }
 

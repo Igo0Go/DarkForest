@@ -27,8 +27,6 @@ public class FireSpell : MagicSpell
     private FireBall currentFireBall;
     private int currentDamage = 0;
 
-
-
     [Space(20)]
     [Header("Огненный луч")]
     [SerializeField]
@@ -71,6 +69,7 @@ public class FireSpell : MagicSpell
         hands.SetBool("UseTwo", useRay);
         laserRenderer.gameObject.SetActive(false);
         rayDecal.gameObject.SetActive(false);
+        GrandSpellValue = GrandSpellValue;
     }
 
     public override void UseMainSpel()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public abstract class MagicSpell :MonoBehaviour
 {
@@ -11,6 +12,10 @@ public abstract class MagicSpell :MonoBehaviour
     public Animator hands;
     [Min(1)]
     public float GrandSpellRate;
+    [SerializeField]
+    protected Image grandSpellImage;
+    [SerializeField]
+    protected Sprite grandSpellSprite;
 
     public UnityEvent<float> ChangeGrandSpellValue;
     public UnityEvent<bool> ChangeSwitchKey;
@@ -27,6 +32,7 @@ public abstract class MagicSpell :MonoBehaviour
         {
             _grandSpellValue = Mathf.Clamp(value, 0, GrandSpellRate);
             ChangeGrandSpellValue.Invoke(_grandSpellValue);
+            CheckGrandSpell();
         }
     }
 
@@ -34,6 +40,18 @@ public abstract class MagicSpell :MonoBehaviour
     public abstract void UseMainSpel();
     public abstract void UseAltSpell();
     public abstract void UseGrandSpell();
+    protected void CheckGrandSpell()
+    {
+        if (_grandSpellValue >= GrandSpellRate)
+        {
+            grandSpellImage.gameObject.SetActive(true);
+            grandSpellImage.sprite = grandSpellSprite;
+        }
+        else
+        {
+            grandSpellImage.gameObject.SetActive(false);
+        }
+    }
 }
 
 public static class MagicStats
@@ -64,4 +82,5 @@ public static class MagicStats
     {
         _sparksMaxTargetsCount *= 3;
     }
+
 }
