@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(1, 50), Tooltip("Сила прыжка")] private float jumpForce = 15.0f;
     [SerializeField, Range(0, 2), Tooltip("Время перезарядки рывка")] private float sprintReloadTime = 0.3f;
     [SerializeField, Range(0, 2), Tooltip("Время рывка")] private float sprintTime = 0.3f;
+    [SerializeField, Range(1, 3), Tooltip("Сила рывка")] private float sprintValue = 0.3f;
 
 
     [SerializeField, Range(-40, -1)]
@@ -123,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if(horDirection.sqrMagnitude != 0 && !useDash)
             {
-                sprintMultiplicator = 3;
+                sprintMultiplicator = sprintValue;
                 currentSprintReloadTime = 0;
                 fall = false;
                 useDash = true;

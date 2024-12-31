@@ -9,6 +9,8 @@ public class PlayerInteraction : MonoBehaviour
     private Slider hpSlider;
     [SerializeField]
     private Image damagePanel;
+    [SerializeField]
+    private GameObject deadPanel;
 
     [SerializeField, Min(1)]
     private float hp;
@@ -27,12 +29,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         hpSlider.maxValue = hp;
         hpSlider.value = hp;
+        deadPanel.SetActive(false);
 
         SetAlphaForDamagePanel(0);
 
         StartCoroutine(RegenCoroutine());
     }
-
 
     private IEnumerator RegenCoroutine()
     {
@@ -52,8 +54,6 @@ public class PlayerInteraction : MonoBehaviour
 
                 float T = Mathf.Lerp(0, regenReloadDeleyTime, regenReloadTime/regenReloadDeleyTime);
 
-                Debug.Log(T);
-
                 SetAlphaForDamagePanel(T);
 
                 if (regenReloadTime < 0)
@@ -68,9 +68,11 @@ public class PlayerInteraction : MonoBehaviour
     public void GetDamage(int  damage)
     {
         hp -= damage;
+        GameCenter.CurrentRageValue -= 10;
         if (hp < 0)
         {
             hp = 0;
+            deadPanel.SetActive(true);
             deadEvent.Invoke();
             Time.timeScale = 0;
         }
@@ -83,5 +85,13 @@ public class PlayerInteraction : MonoBehaviour
     private void SetAlphaForDamagePanel(float alpha)
     {
         damagePanel.color = new Color(damagePanel.color.r, damagePanel.color.g, damagePanel.color.b, alpha);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("InteractiveTrigger"))
+        {
+            other.GetComponent<InteractiveTrigger>().Activate();
+        }
     }
 }

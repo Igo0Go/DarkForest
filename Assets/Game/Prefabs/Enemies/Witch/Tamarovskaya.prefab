@@ -1188,7 +1188,7 @@ MonoBehaviour:
   hitDelay: 1
   deadDelay: 5
   TPDecal: {fileID: 7265471044108489726, guid: e8b35384ba49fde47a3c6c504388d758, type: 3}
-  arenaRadius: 30
+  arenaRadius: 7
   tpDelay: 0.2
   spellLifeTime: 15
   spellSpeed: 15

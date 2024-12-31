@@ -12,6 +12,11 @@ public class Spawner : MonoBehaviour
 
     public UnityEvent<Spawner> spawnerDestroyed;
 
+    [HideInInspector]
+    public Transform arenaCenter;
+    [HideInInspector]
+    public float arenaRadius;
+
     public void Start()
     {
         StartCoroutine(SpawnCoroutine());
@@ -29,6 +34,13 @@ public class Spawner : MonoBehaviour
                 {
                     EnemyWaveItem item = currentWave.enemies[i];
                     Enemy enemy = Instantiate(item.enemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
+
+                    if(enemy is INeedArenaInfo need)
+                    {
+                        need.ArenaCenter = arenaCenter;
+                        need.ArenaRadius = arenaRadius;
+                    }
+
                     enemy.transform.parent = transform.parent;
                     enemy.deadEvent.AddListener(OnEnemyDead);
                     currentEnemies.Add(enemy);

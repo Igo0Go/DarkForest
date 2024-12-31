@@ -76,6 +76,7 @@ public class PlayerMagic : MonoBehaviour
     private void OnSpellGrandValueChanged(float value)
     {
         magicSlider.value = value;
+        GameCenter.CurrentRageValue++;
     }
 
     private void SetSpellSwitchKey(bool switchKey)

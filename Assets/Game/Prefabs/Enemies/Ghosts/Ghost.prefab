@@ -587,7 +587,7 @@ MonoBehaviour:
   deadEvent:
     m_PersistentCalls:
       m_Calls: []
-  startHeight: 15
+  startHeight: 5
   targetTrackingForce: 0.6
   attackDistance: 1
   shotClip: {fileID: 8300000, guid: f0ffd6790bcb64b41afa0559ea17733d, type: 3}

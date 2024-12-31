@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Witch : Enemy
+public class Witch : Enemy, INeedArenaInfo
 {
     [SerializeField]
     private Animator animator;
@@ -16,8 +16,6 @@ public class Witch : Enemy
     [Space(20)]
     [SerializeField]
     private GameObject TPDecal;
-    [SerializeField, Min(1)]
-    private float arenaRadius;
     [SerializeField, Min(0.1f)]
     private float tpDelay;
 
@@ -35,7 +33,10 @@ public class Witch : Enemy
     private GameObject spellBulletPrefab;
 
     private Vector3 PlayerTarget => player.transform.position + Vector3.up * 0.5f;
-    private Transform arenaCenter;
+
+    public Transform ArenaCenter { get; set; }
+    public float ArenaRadius { get; set; }
+
     private SpellRune rune;
     private float currentSpellTime = 0;
 
@@ -49,8 +50,6 @@ public class Witch : Enemy
         rune.bullet = spellBulletPrefab;
 
         spellRunePrefab.gameObject.SetActive(false);
-
-        arenaCenter = GameCenter.arenaCenter;
 
         WitchAnimatorEventObserver observer = animator.GetComponent<WitchAnimatorEventObserver>();
         observer.RuneActivated += ActivateRune;
@@ -127,14 +126,14 @@ public class Witch : Enemy
 
     private Vector3 GetRandomPointInArena()
     {
-        float x = Random.Range(-arenaRadius, arenaRadius);
-        float z = Random.Range(-arenaRadius, arenaRadius);
+        float x = Random.Range(-ArenaRadius, ArenaRadius);
+        float z = Random.Range(-ArenaRadius, ArenaRadius);
 
-        return arenaCenter.position + new Vector3(x, flyingHeight, z);
+        return ArenaCenter.position + new Vector3(x, flyingHeight, z);
     }
     private Vector3 GetLoocAtPlayerVector()
     {
-        return player.transform.position - new Vector3(transform.position.x, arenaCenter.position.y, transform.position.z);
+        return player.transform.position - new Vector3(transform.position.x, ArenaCenter.position.y, transform.position.z);
     }
 
     public override void GetDamage(int damage)
@@ -166,15 +165,21 @@ public class Witch : Enemy
     {
         float speed = 0;
 
-        while(transform.position.y > arenaCenter.position.y)
+        while(transform.position.y > ArenaCenter.position.y)
         {
             speed += Time.deltaTime;
             transform.position += Vector3.down * speed;
             yield return null;
         }
 
-        transform.position = new Vector3(transform.position.x, arenaCenter.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, ArenaCenter.position.y, transform.position.z);
         animator.SetTrigger("Dead");
         Destroy(gameObject, deadDelay);
     }
+}
+
+public interface INeedArenaInfo
+{
+    Transform ArenaCenter { get; set; }
+    float ArenaRadius { get; set; }
 }

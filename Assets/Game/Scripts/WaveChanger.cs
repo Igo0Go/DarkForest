@@ -8,27 +8,21 @@ public class WaveChanger : MonoBehaviour
     [SerializeField, TextArea]
     private string WaveName;
     [SerializeField]
-    private bool activateOnAwake;
-    [SerializeField]
     private List<Spawner> spawners;
     [SerializeField]
     private UnityEvent endOfWaveEvent;
     [SerializeField]
-    private bool useMusicClip;
-    [SerializeField]
-    private AudioClip musicClip;
-    [SerializeField]
     private bool showEndWavePanel = false;
     [SerializeField]
     private GameObject endWavePanel;
+    [SerializeField]
+    private Transform arenaCenter;
+    [SerializeField]
+    private float ArenaRadius;
 
     private void Start()
     {
         endWavePanel.SetActive(false);
-        if (activateOnAwake)
-        {
-            Activate();
-        }
     }
 
     public void Activate()
@@ -37,16 +31,10 @@ public class WaveChanger : MonoBehaviour
 
         foreach (Spawner spawner in spawners)
         {
+            spawner.arenaCenter = arenaCenter;
+            spawner.arenaRadius = ArenaRadius;
             spawner.spawnerDestroyed.AddListener(OnSpawnerDestroyed);
             spawner.gameObject.SetActive(true);
-        }
-
-        if(useMusicClip)
-        {
-            GameCenter.musicSource.Stop();
-            GameCenter.musicSource.clip = musicClip;
-            GameCenter.musicSource.loop = true;
-            GameCenter.musicSource.Play();
         }
     }
 
@@ -72,5 +60,11 @@ public class WaveChanger : MonoBehaviour
         endWavePanel.SetActive(false);
         endOfWaveEvent.Invoke();
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, ArenaRadius);
     }
 }
