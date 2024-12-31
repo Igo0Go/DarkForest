@@ -42,8 +42,6 @@ public class WaveChanger : MonoBehaviour
     {
         spawners.Remove(spawner);
 
-        Debug.Log("Спавнеров осталось: " + spawners.Count);
-
         if(spawners.Count <= 0 )
         {
             StartCoroutine(EndOfWaveCoroutine());

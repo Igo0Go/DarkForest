@@ -1,68 +1,48 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField]
-    private Slider hpSlider;
-    [SerializeField]
-    private Image damagePanel;
-    [SerializeField]
-    private GameObject deadPanel;
-
     [SerializeField, Min(1)]
-    private float hp;
+    private float maxHp = 100;
     [SerializeField, Min(0)]
     private float regenReloadDeleyTime;
     [SerializeField, Min(1)]
     private float regenSpeed = 3;
 
-    [SerializeField]
-    private UnityEvent deadEvent;
-
-    private float regenReloadTime = 0;
-    
-
-    private void Awake()
+    public float HP
     {
-        hpSlider.maxValue = hp;
-        hpSlider.value = hp;
-        deadPanel.SetActive(false);
-
-        SetAlphaForDamagePanel(0);
-
-        StartCoroutine(RegenCoroutine());
-    }
-
-    private IEnumerator RegenCoroutine()
-    {
-        while(hp > 0)
-        {
-            if (regenReloadTime == 0)
+        get 
+        { 
+            return hp;
+        }
+        set 
+        {  
+            hp = Mathf.Clamp(value, 0, maxHp);
+            HPValueChanget.Invoke(hp);
+            if (hp <= 0)
             {
-                SetAlphaForDamagePanel(0);
-                hp += Time.deltaTime * regenSpeed;
-                hp = Mathf.Clamp(hp, 0, (int)hpSlider.maxValue);
-                hpSlider.value = hp;
-                yield return null;
-            }
-            else
-            {
-                regenReloadTime -= Time.deltaTime;
-
-                float T = Mathf.Lerp(0, regenReloadDeleyTime, regenReloadTime/regenReloadDeleyTime);
-
-                SetAlphaForDamagePanel(T);
-
-                if (regenReloadTime < 0)
-                {
-                    regenReloadTime = 0;
-                }
-                yield return null;
+                DeadEvent.Invoke();
             }
         }
+    }
+    private float hp;
+
+    public Action DeadEvent;
+    public Action<float> HPValueChanget;
+    public Action<float> HPMaxValueChanget;
+    public Action<float> DamageValueChanged;
+
+    private float regenReloadTime = 0;
+
+    public void Start()
+    {
+        hp = maxHp;
+        HPMaxValueChanget.Invoke(maxHp);
+        HPValueChanget.Invoke(hp);
+        DamageValueChanged.Invoke(0);
+        StartCoroutine(RegenCoroutine());
     }
 
     public void GetDamage(int  damage)
@@ -71,20 +51,39 @@ public class PlayerInteraction : MonoBehaviour
         GameCenter.CurrentRageValue -= 10;
         if (hp < 0)
         {
-            hp = 0;
-            deadPanel.SetActive(true);
-            deadEvent.Invoke();
-            Time.timeScale = 0;
+
         }
         regenReloadTime = regenReloadDeleyTime;
-        SetAlphaForDamagePanel(1);
+        DamageValueChanged.Invoke(1);
 
-        hpSlider.value = hp;
+        HPValueChanget.Invoke(hp);
     }
 
-    private void SetAlphaForDamagePanel(float alpha)
+    private IEnumerator RegenCoroutine()
     {
-        damagePanel.color = new Color(damagePanel.color.r, damagePanel.color.g, damagePanel.color.b, alpha);
+        while (hp > 0)
+        {
+            if (regenReloadTime == 0)
+            {
+                DamageValueChanged.Invoke(0);
+                HP += Time.deltaTime * regenSpeed;
+                yield return null;
+            }
+            else
+            {
+                regenReloadTime -= Time.deltaTime;
+
+                float T = Mathf.Lerp(0, regenReloadDeleyTime, regenReloadTime / regenReloadDeleyTime);
+
+                DamageValueChanged.Invoke(T);
+
+                if (regenReloadTime < 0)
+                {
+                    regenReloadTime = 0;
+                }
+                yield return null;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IceSpell : MagicSpell
+public class KineticSpell : MagicSpell
 {
     [Header("Ледяная стрела")]
     [SerializeField]

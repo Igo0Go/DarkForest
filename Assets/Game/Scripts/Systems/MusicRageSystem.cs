@@ -46,8 +46,6 @@ public class MusicRageSystem : MonoBehaviour
     private void OnRageValueChanged(float value)
     {
 
-        Debug.Log(value);
-
         if (!arenaMusicSource.isPlaying)
         {
             return;

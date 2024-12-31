@@ -1,8 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Purchasing;
-using UnityEngine.UI;
 
 public class PlayerMagic : MonoBehaviour
 {
@@ -10,8 +8,11 @@ public class PlayerMagic : MonoBehaviour
     private List<MagicSpell> spells;
     [SerializeField]
     public Animator handsAnimator;
-    [SerializeField]
-    private Slider magicSlider;
+
+    [HideInInspector]
+    public Action<float> MagicValueChanget;
+    [HideInInspector]
+    public Action<float> MagicMaxValueChanget;
 
     private MagicSpell currentSpell;
 
@@ -32,8 +33,8 @@ public class PlayerMagic : MonoBehaviour
 
         currentSpell = spells[0];
         currentSpell.gameObject.SetActive(true);
-        magicSlider.maxValue = currentSpell.GrandSpellRate;
-        magicSlider.value = 0;
+        MagicMaxValueChanget.Invoke(currentSpell.GrandSpellRate);
+        MagicValueChanget.Invoke(0);
     }
 
     private void Update()
@@ -68,14 +69,14 @@ public class PlayerMagic : MonoBehaviour
         currentSpell = spells[number];
         currentSpell.gameObject.SetActive(true);
         currentSpell.SetUpSpell();
-        magicSlider.maxValue = currentSpell.GrandSpellRate;
-        magicSlider.value = currentSpell.GrandSpellValue;
+        MagicMaxValueChanget.Invoke(currentSpell.GrandSpellRate);
+        MagicValueChanget.Invoke(currentSpell.GrandSpellValue);
         handsAnimator.SetBool("UseTwo", false);
     }
 
     private void OnSpellGrandValueChanged(float value)
     {
-        magicSlider.value = value;
+        MagicValueChanget.Invoke(currentSpell.GrandSpellValue);
         GameCenter.CurrentRageValue++;
     }
 

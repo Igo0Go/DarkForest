@@ -51539,11 +51539,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 724675162}
     m_Modifications:
-    - target: {fileID: 2521607093542774320, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: sprintValue
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2521607093542774321, guid: 15b618e4bdd5e0945a7563b74d17862a,
         type: 3}
       propertyPath: magicSlider
@@ -51564,36 +51559,6 @@ PrefabInstance:
       propertyPath: damagePanel
       value: 
       objectReference: {fileID: 1996283798}
-    - target: {fileID: 2521607093542774322, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: deadEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2094855361}
-    - target: {fileID: 2521607093542774322, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: deadEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521607093542774323, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: m_Mass
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521607093542774323, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521607093542774323, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2521607093542774323, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2521607093542774324, guid: 15b618e4bdd5e0945a7563b74d17862a,
         type: 3}
       propertyPath: m_RootOrder
@@ -51653,6 +51618,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2521607094237606251, guid: 15b618e4bdd5e0945a7563b74d17862a,
+        type: 3}
+      propertyPath: bulletSpeed
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2521607094237606251, guid: 15b618e4bdd5e0945a7563b74d17862a,
         type: 3}
@@ -85388,6 +85358,7 @@ GameObject:
   - component: {fileID: 2094855363}
   - component: {fileID: 2094855362}
   - component: {fileID: 2094855366}
+  - component: {fileID: 2094855367}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -85496,6 +85467,22 @@ MonoBehaviour:
   iceUpgradeButton: {fileID: 1750644801}
   fireUpgradeButton: {fileID: 972078530}
   sparksUpgradeButton: {fileID: 433798392}
+--- !u!114 &2094855367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094855361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8aee2aae7413548be470a40d67d199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicSlider: {fileID: 102545703}
+  hpSlider: {fileID: 663768060}
+  deadPanel: {fileID: 860110655}
+  damagePanel: {fileID: 1996283798}
 --- !u!1 &2095089084
 GameObject:
   m_ObjectHideFlags: 0

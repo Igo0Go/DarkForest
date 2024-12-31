@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public abstract class MagicSpell :MonoBehaviour
 {
-    public string Name;
-
     [HideInInspector]
     public PlayerLook spellCamera;
     [HideInInspector]

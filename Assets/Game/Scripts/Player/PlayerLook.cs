@@ -7,8 +7,10 @@ using UnityEngine;
 [HelpURL("https://docs.google.com/document/d/1llgWK3zJK7km7DMyi_GHh63LZUJngJppIuZIfccWwtc/edit?usp=sharing")]
 public class PlayerLook : MonoBehaviour
 {
-    [Tooltip("Объект - камера")] public Transform cam;
-    [SerializeField, Tooltip("Объект - пустышка, в которой находится камера")] private Transform camBufer;
+    [Tooltip("Объект - камера")]
+    public Transform cam;
+    [SerializeField, Tooltip("Объект - пустышка, в которой находится камера")] 
+    private Transform camBufer;
     [SerializeField, Range(0, 2), Tooltip("Чувствительность камеры по горизонтали")]
     private float sensitivityHor = 0.5f;
     [SerializeField, Range(0, 2), Tooltip("Чувствительность камеры по вертикали")]
