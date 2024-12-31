@@ -8,15 +8,12 @@ public class GameSettingsCenter : MonoBehaviour
     private int FPS = 60;
     [SerializeField]
     private AudioSource mainSource;
-    [SerializeField]
-    private TMP_Text waveNameText;
 
     void Awake()
     {
         Application.targetFrameRate = FPS;
         GameCenter.mainSource = mainSource;
         GameCenter.settings = this;
-        GameCenter.waveNameText = waveNameText;
     }
 }
 
@@ -26,8 +23,6 @@ public static class GameCenter
 
     public static GameSettingsCenter settings;
     public static AudioSource mainSource;
-    public static TMP_Text waveNameText;
-
     public static float CurrentRageValue
     {
         get
@@ -41,6 +36,7 @@ public static class GameCenter
         }
     }
     private static float _currnetRageValue;
+    public static Transform CurrentArenaCenter;
 
     public static event Action<float> CurrentRageChanged;
 }
