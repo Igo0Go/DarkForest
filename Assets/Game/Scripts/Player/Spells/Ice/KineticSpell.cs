@@ -32,7 +32,7 @@ public class KineticSpell : MagicSpell
     [SerializeField, Min(1)]
     private float runeTime = 1;
 
-    private void Start()
+    public override void InitSpell()
     {
         AnimatorEventObserver observer = hands.gameObject.GetComponent<AnimatorEventObserver>();
 
@@ -71,7 +71,8 @@ public class KineticSpell : MagicSpell
             currentBullet.transform.parent = null;
             currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
             currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
-            currentBullet.LaunchBullet(bulletSpeed * MagicStats.IceMainSpeedMultiplicator, bulletLiveTime, damage, false);
+            currentBullet.LaunchBullet(bulletSpeed * MagicStats.IceMainSpeedMultiplicator, bulletLiveTime,
+                damage * GameCenter.CurrentRageMultiplicator, false);
             hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
             hands.SetTrigger("Push");
         }
@@ -97,7 +98,7 @@ public class KineticSpell : MagicSpell
     spawnPoint.rotation).GetComponent<SpellRune>();
             rune.transform.forward = Vector3.down;
 
-            rune.damage = damage * 5;
+            rune.damage = damage * 5 * GameCenter.CurrentRageMultiplicator;
             rune.spellLifeTime = bulletLiveTime;
             rune.spellSpeed = bulletSpeed;
             rune.shootDelay = Time.deltaTime;

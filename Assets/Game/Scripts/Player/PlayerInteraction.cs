@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerInteraction : MonoBehaviour
+public class PlayerInteraction : PlayerPart
 {
     [SerializeField, Min(1)]
     private float maxHp = 100;
@@ -36,7 +36,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private float regenReloadTime = 0;
 
-    public void Start()
+    public override void Activate()
     {
         hp = maxHp;
         HPMaxValueChanget.Invoke(maxHp);

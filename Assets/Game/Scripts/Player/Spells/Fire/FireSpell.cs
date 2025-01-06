@@ -44,7 +44,7 @@ public class FireSpell : MagicSpell
     [Header("Вспышки для всех")]
     [SerializeField] private GameObject explosionPrefab;
 
-    private void Start()
+    public override void InitSpell()
     {
         AnimatorEventObserver observer = hands.gameObject.GetComponent<AnimatorEventObserver>();
 

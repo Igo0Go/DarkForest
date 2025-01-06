@@ -36,7 +36,23 @@ public static class GameCenter
         }
     }
     private static float _currnetRageValue;
+
+    public static int CurrentRageMultiplicator
+    {
+        get
+        {
+            return _currentRageMultiplicator;
+        }
+        set
+        {
+            _currentRageMultiplicator = value;
+            CurrentRageMultiplicatorChanged?.Invoke(_currentRageMultiplicator);
+        }
+    }
+    private static int _currentRageMultiplicator;
+
     public static Transform CurrentArenaCenter;
 
     public static event Action<float> CurrentRageChanged;
+    public static event Action<int> CurrentRageMultiplicatorChanged;
 }

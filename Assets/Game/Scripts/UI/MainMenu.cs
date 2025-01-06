@@ -31,6 +31,8 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         currentScene = 0;
         mainPanel.SetActive(true);
         sceneSelector.SetActive(false);

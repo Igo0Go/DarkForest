@@ -33,6 +33,7 @@ public class WaveChanger : MonoBehaviour
         if(spawners.Count <= 0 )
         {
             endOfWaveEvent.Invoke();
+            GameCenter.CurrentRageValue = 0;
             Destroy(gameObject);
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// Скрипт обзора камерой
 /// </summary>
 [HelpURL("https://docs.google.com/document/d/1llgWK3zJK7km7DMyi_GHh63LZUJngJppIuZIfccWwtc/edit?usp=sharing")]
-public class PlayerLook : MonoBehaviour
+public class PlayerLook : PlayerPart
 {
     [Tooltip("Объект - камера")]
     public Transform cam;
@@ -23,7 +23,7 @@ public class PlayerLook : MonoBehaviour
     private const float multiplicator = 100;
     private float delta;
 
-    private void Start()
+    public override void Activate()
     {
         SetCursorVisible(false);
     }

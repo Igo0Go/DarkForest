@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMagic : MonoBehaviour
+public class PlayerMagic : PlayerPart
 {
     [SerializeField]
     private List<MagicSpell> spells;
@@ -18,14 +18,16 @@ public class PlayerMagic : MonoBehaviour
 
     private bool spellSwitchKey = true;
 
-    private void Awake()
+    public override void Activate()
     {
         PlayerLook look = GetComponent<PlayerLook>();
 
         foreach (MagicSpell spell in spells)
         {
+
             spell.spellCamera = look;
             spell.hands = handsAnimator;
+            spell.InitSpell();
             spell.ChangeGrandSpellValue.AddListener(OnSpellGrandValueChanged);
             spell.ChangeSwitchKey.AddListener(SetSpellSwitchKey);
             spell.gameObject.SetActive(false);

@@ -249,7 +249,6 @@ public class SparksSpell : MagicSpell
     {
         GrandSpellValue += damage;
     }
-
 }
 
 public class EnemySparksLinePair

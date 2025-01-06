@@ -1,6 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -13,17 +12,20 @@ public class MusicRageSystem : MonoBehaviour
     [SerializeField]
     private MusicRagePack pack;
 
+    public Action<float> MaxRageChanged;
+    public Action<float> MinRageChanged;
+
     [SerializeField, Min(1)]
     private float rage2Threshold = 25;
         [SerializeField, Min(1)]
     private float rage3Threshold = 75;
 
-    private RageStage stage;
 
-    private void Awake()
+    private void Start()
     {
-        stage = RageStage.x1;
         GameCenter.CurrentRageChanged += OnRageValueChanged;
+        GameCenter.CurrentRageMultiplicator = 1;
+        GameCenter.CurrentRageValue = 0;
     }
 
     public void ChangeMusicToArena()
@@ -45,26 +47,31 @@ public class MusicRageSystem : MonoBehaviour
 
     private void OnRageValueChanged(float value)
     {
-
         if (!arenaMusicSource.isPlaying)
         {
             return;
         }
 
-        if (stage != RageStage.x1 && value < rage2Threshold)
+        if (GameCenter.CurrentRageMultiplicator != 1 && value < rage2Threshold)
         {
             ChangeMusic(pack.rage1Clip);
-            stage = RageStage.x1;
+            GameCenter.CurrentRageMultiplicator = 1;
+            MaxRageChanged.Invoke(rage2Threshold);
+            MinRageChanged.Invoke(0);
         }
-        else if (stage != RageStage.x2 && value >= rage2Threshold && value < rage3Threshold)
+        else if (GameCenter.CurrentRageMultiplicator != 2 && value >= rage2Threshold && value < rage3Threshold)
         {
             ChangeMusic(pack.rage2Clip);
-            stage = RageStage.x2;
+            GameCenter.CurrentRageMultiplicator = 2;
+            MaxRageChanged.Invoke(rage3Threshold);
+            MinRageChanged.Invoke(rage2Threshold);
         }
-        else if (stage != RageStage.x3 && value >= rage3Threshold)
+        else if (GameCenter.CurrentRageMultiplicator != 3 && value >= rage3Threshold)
         {
             ChangeMusic(pack.rage3Clip);
-            stage = RageStage.x3;
+            GameCenter.CurrentRageMultiplicator = 3;
+            MaxRageChanged.Invoke(rage3Threshold);
+            MinRageChanged.Invoke(rage3Threshold);
         }
     }
     private void ChangeMusic(AudioClip clip)

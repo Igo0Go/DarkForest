@@ -79,15 +79,15 @@ public class MagicBullet : MonoBehaviour
             {
                 player.GetDamage(damage);
             }
-            else if (hit.collider.TryGetComponent(out Enemy enemy))
+            else if (hit.collider.TryGetComponent(out ICanGetDamage target))
             {
-                enemy.GetDamage(damage);
+                target.GetDamage(damage);
                 DamageEvent?.Invoke(damage);
             }
 
             for (int i = 0; i < decals.Count; i++)
             {
-                Instantiate(decals[i], hit.point + hit.normal * 0.1f, Quaternion.identity, hit.transform).
+                Instantiate(decals[i], hit.point + hit.normal * 0.1f, Quaternion.identity).
                     transform.forward = hit.normal;
             }
             bulletDestroyedEvent.Invoke(this);

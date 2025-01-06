@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : PlayerPart
 {
     [SerializeField, Range(1, 10), Tooltip("Скорость перемещения")] private float speed = 5f;
     [SerializeField, Range(1, 50), Tooltip("Сила прыжка")] private float jumpForce = 15.0f;
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private bool useDash = false;
     private Rigidbody rb;
 
-    private void Start()
+    public override void Activate()
     {
         myTransform = transform;
         vertSpeed = minFall;

@@ -34,6 +34,10 @@ public abstract class MagicSpell :MonoBehaviour
         }
     }
 
+    public virtual void InitSpell()
+    {
+
+    }
     public abstract void SetUpSpell();
     public abstract void UseMainSpel();
     public abstract void UseAltSpell();

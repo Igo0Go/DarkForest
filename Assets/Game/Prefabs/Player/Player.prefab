@@ -5965,8 +5965,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2521607093542774324}
   - component: {fileID: 2521607093542774334}
-  - component: {fileID: 2521607093542774335}
+  - component: {fileID: 2125486531811538258}
   - component: {fileID: 2521607093542774320}
+  - component: {fileID: 2521607093542774335}
   - component: {fileID: 2521607093542774321}
   - component: {fileID: 2521607093542774322}
   - component: {fileID: 2521607093542774323}
@@ -6008,7 +6009,7 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &2521607093542774335
+--- !u!114 &2125486531811538258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6017,18 +6018,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2521607093542774325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdb4f16e40432c54fbf9be0bd84f246e, type: 3}
+  m_Script: {fileID: 11500000, guid: cb67942284fc7ee459bd8704145417c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 2521607094482853070}
-  camBufer: {fileID: 2521607094436371589}
-  sensitivityHor: 1.282
-  sensitivityVert: 1.297
-  minimumVert: -90
-  maximumVert: 90
-  ignoreMask:
-    serializedVersion: 2
-    m_Bits: 332
+  partList:
+  - {fileID: 2521607093542774320}
+  - {fileID: 2521607093542774335}
+  - {fileID: 2521607093542774321}
+  - {fileID: 2521607093542774322}
 --- !u!114 &2521607093542774320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6052,6 +6049,27 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 364
+--- !u!114 &2521607093542774335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521607093542774325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb4f16e40432c54fbf9be0bd84f246e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 2521607094482853070}
+  camBufer: {fileID: 2521607094436371589}
+  sensitivityHor: 1.282
+  sensitivityVert: 1.297
+  minimumVert: -90
+  maximumVert: 90
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 332
 --- !u!114 &2521607093542774321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6069,7 +6087,6 @@ MonoBehaviour:
   - {fileID: 2521607094981216979}
   - {fileID: 2521607094683746332}
   handsAnimator: {fileID: 2521607094828794649}
-  magicSlider: {fileID: 0}
 --- !u!114 &2521607093542774322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6082,15 +6099,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b557e7d8c413454f863718fbda4f6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpSlider: {fileID: 0}
-  damagePanel: {fileID: 0}
-  deadPanel: {fileID: 0}
-  hp: 100
+  maxHp: 100
   regenReloadDeleyTime: 3
   regenSpeed: 10
-  deadEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!54 &2521607093542774323
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6106,7 +6117,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &2521607093567698018
 GameObject:
   m_ObjectHideFlags: 0
@@ -7835,7 +7846,7 @@ MonoBehaviour:
   iceBulletPrefab: {fileID: 8315240016125496112, guid: 48978c0e63a4b664980f487071afafe6,
     type: 3}
   damage: 3
-  bulletSpeed: 40
+  bulletSpeed: 30
   bulletLiveTime: 20
   spawnPoint: {fileID: 2521607093972173762}
   altSplash: {fileID: 4496639175823901035}
