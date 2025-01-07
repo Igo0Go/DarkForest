@@ -24,6 +24,11 @@ public class SpellRune : MonoBehaviour
         StartCoroutine(ShootCoroutine());
     }
 
+    public void Stop()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator ShootCoroutine()
     {
         while (true)

@@ -9769,7 +9769,7 @@ GameObject:
   - component: {fileID: 8315240016125496113}
   - component: {fileID: 4857082338434001994}
   m_Layer: 0
-  m_Name: KineticBulletBullet
+  m_Name: KineticBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

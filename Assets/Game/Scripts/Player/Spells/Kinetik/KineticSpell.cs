@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class KineticSpell : MagicSpell
 {
-    [Header("Ледяная стрела")]
+    [Header("Кинетический разряд")]
     [SerializeField]
-    private GameObject iceBulletPrefab;
+    private GameObject bulletPrefab;
     [SerializeField, Min(1)]
     private int damage;
     [SerializeField, Min(1)]
@@ -18,19 +19,21 @@ public class KineticSpell : MagicSpell
 
 
     [Space(20)]
-    [Header("Ледяной нож")]
+    [Header("Разрез")]
     [SerializeField]
     private GameObject altSplash;
 
 
     [Space(20)]
-    [Header("Ледяной дождь")]
+    [Header("Кинетический поток")]
     [SerializeField]
-    private GameObject spellRune;
-    [SerializeField, Min(4)]
-    private float runeHeight = 4;
-    [SerializeField, Min(1)]
-    private float runeTime = 1;
+    private SpellRune rune;
+    [SerializeField, Range(1, 20)]
+    private float grandSpellValueLostSpeed = 5;
+    [SerializeField, Range(0.01f, 2)]
+    private float grandSpellShootDelay = 5;
+    private bool useGrand;
+
 
     public override void InitSpell()
     {
@@ -55,18 +58,25 @@ public class KineticSpell : MagicSpell
 
     public override void SetUpSpell()
     {
+        useGrand = false;
         useSpell = false;
-        GrandSpellValue = GrandSpellValue;
+        GrandSpellValue = GrandSpellValue;//эвент в интерфейс
         altSplash.SetActive(false);
+        StopAllCoroutines();
+        rune.Stop();
     }
 
     public override void UseMainSpel()
     {
+        if (useGrand)
+            return;
+
+
         if (Input.GetMouseButton(0) && !useSpell)
         {
             hands.SetFloat("AnimationSpeed", MagicStats.IceMainSpeedMultiplicator);
             useSpell = true;
-            MagicBullet currentBullet = Instantiate(iceBulletPrefab, spawnPoint.position, spawnPoint.rotation).
+            MagicBullet currentBullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation).
                 GetComponent<MagicBullet>();
             currentBullet.transform.parent = null;
             currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
@@ -80,7 +90,10 @@ public class KineticSpell : MagicSpell
 
     public override void UseAltSpell()
     {
-        if(Input.GetMouseButton(1) && !useSpell)
+        if (useGrand)
+            return;
+
+        if (Input.GetMouseButton(1) && !useSpell)
         {
             useSpell = true;
             altSplash.SetActive(true);
@@ -90,23 +103,37 @@ public class KineticSpell : MagicSpell
 
     public override void UseGrandSpell()
     {
+        if (useGrand)
+            return;
+
         if (Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
         {
-            hands.SetTrigger("UseGrand");
-            GrandSpellValue = 0;
-            SpellRune rune = Instantiate(spellRune, Vector3.zero + Vector3.up * runeHeight,
-    spawnPoint.rotation).GetComponent<SpellRune>();
-            rune.transform.forward = Vector3.down;
+            useGrand = true;
+            hands.SetBool("UseTwo", true);
 
             rune.damage = damage * 5 * GameCenter.CurrentRageMultiplicator;
             rune.spellLifeTime = bulletLiveTime;
             rune.spellSpeed = bulletSpeed;
-            rune.shootDelay = Time.deltaTime;
-            rune.bullet = iceBulletPrefab;
-            rune.GetComponent<Decal>().lifeTime = runeTime;
+            rune.shootDelay = grandSpellShootDelay;
+            rune.bullet = bulletPrefab;
 
             rune.Activate();
+            StartCoroutine(GrandSpellCoroutine());
         }
+    }
+
+    private IEnumerator GrandSpellCoroutine()
+    {
+        while(GrandSpellValue > 0)
+        {
+            GrandSpellValue -= Time.deltaTime * grandSpellValueLostSpeed;
+            yield return null;
+        }
+
+        GrandSpellValue = 0;
+        rune.Stop();
+        hands.SetBool("UseTwo", false);
+        useGrand = false;
     }
 
     private void OnEnemyGetDamage(int damage)

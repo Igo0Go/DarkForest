@@ -7816,7 +7816,7 @@ Transform:
   m_Children:
   - {fileID: 4556301943493710046}
   - {fileID: 2521607093972173762}
-  - {fileID: 2521607094684873021}
+  - {fileID: 6436485105060271651}
   m_Father: {fileID: 2521607094482853070}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7843,17 +7843,16 @@ MonoBehaviour:
   ChangeSwitchKey:
     m_PersistentCalls:
       m_Calls: []
-  iceBulletPrefab: {fileID: 8315240016125496112, guid: 48978c0e63a4b664980f487071afafe6,
+  bulletPrefab: {fileID: 8315240016125496112, guid: 48978c0e63a4b664980f487071afafe6,
     type: 3}
   damage: 3
   bulletSpeed: 30
   bulletLiveTime: 20
   spawnPoint: {fileID: 2521607093972173762}
   altSplash: {fileID: 4496639175823901035}
-  spellRune: {fileID: 6219321785146034279, guid: bfb1a981ffa6bb24e921424fe9605fa3,
-    type: 3}
-  runeHeight: 4
-  runeTime: 10
+  rune: {fileID: 4299921806470449129}
+  grandSpellValueLostSpeed: 20
+  grandSpellShootDelay: 0.1
 --- !u!1 &2521607094298733123
 GameObject:
   m_ObjectHideFlags: 0
@@ -18590,7 +18589,7 @@ GameObject:
   - component: {fileID: 2521607094684873019}
   - component: {fileID: 2521607094684873020}
   m_Layer: 6
-  m_Name: Freeze circle
+  m_Name: Kinetik circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18604,12 +18603,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2521607094684873022}
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.057, z: 0.412}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.014579761, y: 0.014579761, z: 0.014579761}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2521607094237606252}
-  m_RootOrder: 2
+  m_Father: {fileID: 6436485105060271651}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!198 &2521607094684873019
 ParticleSystem:
@@ -29645,6 +29644,58 @@ MonoBehaviour:
   textureOffsetSpeed: 1
   centerRenderer: {fileID: 2521607093999618129}
   outlineRenderer: {fileID: 2521607094550212134}
+--- !u!1 &4551048271417106848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6436485105060271651}
+  - component: {fileID: 4299921806470449129}
+  m_Layer: 6
+  m_Name: KinetikRune
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6436485105060271651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551048271417106848}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.05700004, z: 0.41199976}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2521607094684873021}
+  m_Father: {fileID: 2521607094237606252}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4299921806470449129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551048271417106848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b2ba86ae7400c49b97733cd10e0783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.3
+  bullet: {fileID: 0}
+  shootDelay: 1
+  spellSpeed: 1
+  spellLifeTime: 1
+  damage: 1
+  countPerTime: 1
 --- !u!1001 &2521607093071700285
 PrefabInstance:
   m_ObjectHideFlags: 0
