@@ -35,8 +35,8 @@ public class PlayerMagic : PlayerPart
 
         currentSpell = spells[0];
         currentSpell.gameObject.SetActive(true);
-        MagicMaxValueChanget.Invoke(currentSpell.GrandSpellRate);
-        MagicValueChanget.Invoke(0);
+        MagicMaxValueChanget?.Invoke(currentSpell.GrandSpellRate);
+        MagicValueChanget?.Invoke(0);
     }
 
     private void Update()
@@ -54,6 +54,10 @@ public class PlayerMagic : PlayerPart
             else if (Input.GetKeyUp(KeyCode.Alpha3))
             {
                 SetSpell(2);
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha4))
+            {
+                SetSpell(3);
             }
         }
 

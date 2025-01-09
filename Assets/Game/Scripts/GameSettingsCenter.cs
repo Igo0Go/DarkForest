@@ -55,4 +55,10 @@ public static class GameCenter
 
     public static event Action<float> CurrentRageChanged;
     public static event Action<int> CurrentRageMultiplicatorChanged;
+
+    public static void ClearEvents()
+    {
+        CurrentRageChanged = null;
+        CurrentRageMultiplicatorChanged = null;
+    }
 }

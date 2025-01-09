@@ -285,8 +285,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 8
+      scalar: 0.2
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5164,8 +5164,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2
+      scalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9808,4 +9808,10 @@ MonoBehaviour:
   - {fileID: 4924508274929071776, guid: 0edef91621bb6b34384ccc9dbb98729c, type: 3}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 108
+    m_Bits: 364
+  DamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  bulletDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []

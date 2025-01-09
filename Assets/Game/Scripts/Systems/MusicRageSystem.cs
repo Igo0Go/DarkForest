@@ -23,6 +23,7 @@ public class MusicRageSystem : MonoBehaviour
 
     private void Start()
     {
+        GameCenter.ClearEvents();
         GameCenter.CurrentRageChanged += OnRageValueChanged;
         GameCenter.CurrentRageMultiplicator = 1;
         GameCenter.CurrentRageValue = 0;

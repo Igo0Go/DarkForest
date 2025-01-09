@@ -6,7 +6,7 @@ public class AnimatorEventObserver : MonoBehaviour
     public Action OneHandPushEnd;
     public Action SplashEnd;
     public Action GrandSpellActivated;
-
+    public Action RingSpellActivated;
 
     public void OnEndPush()
     {
@@ -21,5 +21,10 @@ public class AnimatorEventObserver : MonoBehaviour
     public void OnGrandSpell()
     {
         GrandSpellActivated?.Invoke();
+    }
+
+    public void OnRingSpell()
+    {
+        RingSpellActivated?.Invoke();
     }
 }

@@ -6716,7 +6716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 795659652}
   endOfWaveEvent:
@@ -6746,8 +6745,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1 &63126686
@@ -16470,7 +16467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u041D\u041E\u0427\u042C \u041C\u0401\u0420\u0422\u0412\u042B\u0425"
   spawners:
   - {fileID: 268965297}
   - {fileID: 1724205981}
@@ -16605,8 +16601,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 1
-  endWavePanel: {fileID: 612812149}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1001 &422123239
@@ -17919,7 +17913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 1575779110}
   endOfWaveEvent:
@@ -17937,8 +17930,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 914781731}
   ArenaRadius: 29.8
 --- !u!1 &476340531
@@ -19559,7 +19550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 1286449051}
   endOfWaveEvent:
@@ -19589,8 +19579,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1001 &516161482
@@ -20145,7 +20133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 755567202}
   endOfWaveEvent:
@@ -20175,8 +20162,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1 &528205801
@@ -20271,8 +20256,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1753478120}
   - {fileID: 715292722}
+  - {fileID: 1753478120}
   - {fileID: 1333775860}
   - {fileID: 745595568}
   - {fileID: 150724087}
@@ -20585,7 +20570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 189569557}
   endOfWaveEvent:
@@ -20615,8 +20599,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1 &536991677
@@ -21509,7 +21491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 1052907518}
   endOfWaveEvent:
@@ -21551,8 +21532,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1001 &562242822
@@ -22965,7 +22944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 III\n\u041D\u0435\u043A\u0440\u043E\u043C\u0430\u043D\u0442\u0438\u044F"
   spawners:
   - {fileID: 1041018806}
   - {fileID: 700609093}
@@ -23008,8 +22986,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 1
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1 &619199873
@@ -23136,7 +23112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 II \n\u0423\u043C\u0435\u0440\u0442\u0432\u0438\u044F"
   spawners:
   - {fileID: 968759747}
   - {fileID: 714595417}
@@ -23245,8 +23220,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 1
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1 &619619922
@@ -29719,7 +29692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 276549398}
   endOfWaveEvent:
@@ -29749,8 +29721,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1 &661556004
@@ -31211,7 +31181,7 @@ RectTransform:
   - {fileID: 808769113}
   - {fileID: 1082551374}
   m_Father: {fileID: 529566151}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -31857,7 +31827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 1340173526}
   - {fileID: 1587299729}
@@ -31893,8 +31862,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 1985078937}
   ArenaRadius: 29.8
 --- !u!1 &734430738
@@ -39117,7 +39084,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 175681236}
   endOfWaveEvent:
@@ -39147,8 +39113,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1 &815486589
@@ -44153,7 +44117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 V\n\u041E\u0440\u0434\u044B \u0442\u044C\u043C\u044B"
   spawners:
   - {fileID: 1567284783}
   - {fileID: 924155786}
@@ -44207,8 +44170,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 1
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1 &997181310
@@ -44754,14 +44715,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 63126688}
   endOfWaveEvent:
     m_PersistentCalls:
       m_Calls: []
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1001 &1007368866
@@ -47460,7 +47418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 1370166949}
   endOfWaveEvent:
@@ -47490,8 +47447,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1001 &1089748361
@@ -50703,8 +50658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 IV\n\u0412\u0435\u0434\u044C\u043C\u0438\u043D
-    \u043A\u0440\u0443\u0433"
   spawners:
   - {fileID: 555609634}
   endOfWaveEvent:
@@ -50722,8 +50675,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1 &1174944520
@@ -60277,7 +60228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 194116091}
   endOfWaveEvent:
@@ -60295,8 +60245,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 1985078937}
   ArenaRadius: 29.8
 --- !u!1 &1333775859
@@ -60442,7 +60390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FPS: 60
   mainSource: {fileID: 1333775861}
-  waveNameText: {fileID: 1507998245}
 --- !u!1001 &1334858009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71025,7 +70972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 1957055435}
   - {fileID: 1199381667}
@@ -71061,8 +71007,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 914781731}
   ArenaRadius: 29.8
 --- !u!1 &1552656449
@@ -71401,7 +71345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 III\n\u041D\u0435\u043A\u0440\u043E\u043C\u0430\u043D\u0442\u0438\u044F"
   spawners:
   - {fileID: 1731435275}
   endOfWaveEvent:
@@ -71419,8 +71362,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1 &1566764482
@@ -71591,7 +71532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 295983054}
   endOfWaveEvent:
@@ -71621,8 +71561,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1 &1569371443
@@ -75218,7 +75156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 II \n\u0423\u043C\u0435\u0440\u0442\u0432\u0438\u044F"
   spawners:
   - {fileID: 1371858575}
   endOfWaveEvent:
@@ -75236,8 +75173,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!4 &1725844484
@@ -76217,30 +76152,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 529566151}
     m_Modifications:
-    - target: {fileID: 2521607093542774321, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: magicSlider
-      value: 
-      objectReference: {fileID: 1536297976}
-    - target: {fileID: 2521607093542774322, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: hpSlider
-      value: 
-      objectReference: {fileID: 283556388}
-    - target: {fileID: 2521607093542774322, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: deadPanel
-      value: 
-      objectReference: {fileID: 619619922}
-    - target: {fileID: 2521607093542774322, guid: 15b618e4bdd5e0945a7563b74d17862a,
-        type: 3}
-      propertyPath: damagePanel
-      value: 
-      objectReference: {fileID: 365950826}
     - target: {fileID: 2521607093542774324, guid: 15b618e4bdd5e0945a7563b74d17862a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2521607093542774324, guid: 15b618e4bdd5e0945a7563b74d17862a,
         type: 3}
@@ -76308,6 +76223,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 253778052}
     - target: {fileID: 2521607094981216979, guid: 15b618e4bdd5e0945a7563b74d17862a,
+        type: 3}
+      propertyPath: grandSpellImage
+      value: 
+      objectReference: {fileID: 253778052}
+    - target: {fileID: 6034553502820016606, guid: 15b618e4bdd5e0945a7563b74d17862a,
         type: 3}
       propertyPath: grandSpellImage
       value: 
@@ -76752,7 +76672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 1410906406}
   endOfWaveEvent:
@@ -76782,8 +76701,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 0
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 0}
   ArenaRadius: 0
 --- !u!1 &1769845957
@@ -80680,8 +80597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 IV\n\u0412\u0435\u0434\u044C\u043C\u0438\u043D
-    \u043A\u0440\u0443\u0433"
   spawners:
   - {fileID: 1656535354}
   - {fileID: 784942429}
@@ -80720,8 +80635,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 1
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1001 &1899177899
@@ -82781,7 +82694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1b9691696add4c81bbe7e3b17e70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveName: "\u0412\u043E\u043B\u043D\u0430 I \n\u041F\u0440\u0438\u0437\u0440\u0430\u043A\u0438"
   spawners:
   - {fileID: 528205803}
   - {fileID: 1769845959}
@@ -82814,8 +82726,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  showEndWavePanel: 1
-  endWavePanel: {fileID: 769731031}
   arenaCenter: {fileID: 516309532}
   ArenaRadius: 50
 --- !u!1 &1970161625
