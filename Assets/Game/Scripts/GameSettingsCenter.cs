@@ -6,15 +6,19 @@ public class GameSettingsCenter : MonoBehaviour
 {
     [SerializeField, Range(30, 120)]
     private int FPS = 60;
-    [SerializeField]
-    private AudioSource mainSource;
+
 
     void Awake()
     {
         Application.targetFrameRate = FPS;
-        GameCenter.mainSource = mainSource;
         GameCenter.settings = this;
     }
+}
+
+public static class GameSettings
+{
+    public static float musicVolume = 1f;
+    public static float soundVolume = 1f;
 }
 
 public static class GameCenter

@@ -98,13 +98,13 @@ public class MusicRageSystem : MonoBehaviour
         arenaMusicSource.volume = 0;
         arenaMusicSource.Play();
 
-        while (arenaMusicSource.volume < 1)
+        while (arenaMusicSource.volume < GameSettings.musicVolume)
         {
             arenaMusicSource.volume += Time.deltaTime;
             yield return null;
         }
 
-        arenaMusicSource.volume = 1;
+        arenaMusicSource.volume = GameSettings.musicVolume;
         currentCoroutine = null;
     }
     private IEnumerator ChangeMusicToDefaultCoroutine()
@@ -119,13 +119,13 @@ public class MusicRageSystem : MonoBehaviour
         defaultMusicSource.volume = 0;
         defaultMusicSource.Play();
 
-        while (defaultMusicSource.volume < 1)
+        while (defaultMusicSource.volume < GameSettings.musicVolume)
         {
             defaultMusicSource.volume += Time.deltaTime;
             yield return null;
         }
 
-        defaultMusicSource.volume = 1;
+        defaultMusicSource.volume = GameSettings.musicVolume;
         currentCoroutine = null;
     }
 }
