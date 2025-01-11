@@ -16,6 +16,10 @@ public class GameplayUICenter : MonoBehaviour
     private Slider rageSlider;
     [SerializeField]
     private TMP_Text rageMultiplicatorText;
+    [SerializeField]
+    private GameObject pausePanel;
+
+    private bool pause;
 
     private void Awake()
     {
@@ -38,6 +42,38 @@ public class GameplayUICenter : MonoBehaviour
 
         deadPanel.SetActive(false);
         rageSlider.value = 0;
+
+        FindObjectOfType<SettingsPanel>().Init();
+
+        pausePanel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            pause = !pause;
+            SetPause(pause);
+        }
+    }
+
+    public void SetPause(bool value)
+    {
+        pause = value;
+        if (value)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+            pausePanel.SetActive(true);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
+            pausePanel.SetActive(false);
+        }
     }
 
     private void SetMaxValueForMagicSlider(float value)

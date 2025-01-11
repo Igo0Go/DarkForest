@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneSelector : MonoBehaviour
@@ -26,13 +27,13 @@ public class SceneSelector : MonoBehaviour
 
     private int currentScene;
 
-    private void Start()
+    public void Init()
     {
         currentScene = 0;
         sceneSelectorPanel.SetActive(false);
     }
 
-    public void StartGame()
+    public void ShowSelector()
     {
         sceneSelectorPanel.SetActive(true);
         CheckLevelSelectorButtons();
@@ -50,6 +51,11 @@ public class SceneSelector : MonoBehaviour
         currentScene--;
         CheckLevelSelectorButtons();
         SetLevelInfo();
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(levelInfoItems[currentScene].sceneIndex);
     }
 
     [ContextMenu("Открыть второй уровень")]
@@ -113,4 +119,15 @@ public class SceneSelector : MonoBehaviour
 
         source.volume = 1;
     }
+}
+
+[System.Serializable]
+public class LevelInfoItem
+{
+    public string levelName;
+    public Sprite levelIcon;
+    [TextArea(5, 10)]
+    public string levelDescription;
+    public AudioClip levelMusic;
+    public int sceneIndex;
 }

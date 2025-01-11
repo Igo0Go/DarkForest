@@ -14,16 +14,12 @@ public class SettingsPanel : MonoBehaviour
 
     private AudioVolumeSystem volumeSystem;
 
-    private void Awake()
+    public void Init()
     {
         volumeSystem = FindObjectOfType<AudioVolumeSystem>();
         musicVolumeSlider.onValueChanged.AddListener(MusicVolumeChanged);
         soundsVolumeSlider.onValueChanged.AddListener(SoundVolumeChanged);
         sensivitySlider.onValueChanged.AddListener(SensivityChanged);
-    }
-
-    private void Start()
-    {
         CheckSliders();
         panelObject.SetActive(false);
     }
@@ -34,7 +30,7 @@ public class SettingsPanel : MonoBehaviour
         CheckSliders();
     }
 
-    private void CheckSliders()
+    public void CheckSliders()
     {
         musicVolumeSlider.value = volumeSystem.MusicVolume;
         soundsVolumeSlider.value = volumeSystem.SoundVolume;
