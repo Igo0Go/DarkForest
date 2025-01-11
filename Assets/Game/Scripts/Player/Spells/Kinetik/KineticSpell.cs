@@ -134,6 +134,7 @@ public class KineticSpell : MagicSpell
         rune.Stop();
         hands.SetBool("UseTwo", false);
         useGrand = false;
+        useSpell = false;
     }
 
     private void OnEnemyGetDamage(int damage)

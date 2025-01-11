@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class GameSettingsCenter : MonoBehaviour
@@ -15,11 +14,7 @@ public class GameSettingsCenter : MonoBehaviour
     }
 }
 
-public static class GameSettings
-{
-    public static float musicVolume = 1f;
-    public static float soundVolume = 1f;
-}
+
 
 public static class GameCenter
 {

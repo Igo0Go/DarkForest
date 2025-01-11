@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Story/01 Prologue/01 Story.unity
     guid: 82a9d32a56c31864c85041a6ac566a19
   - enabled: 1
-    path: Assets/Game/Scenes/Story/02 Castle/02 Story.unity
-    guid: 9b566c11ce1484a4f8eddb6f0b473095
-  - enabled: 1
     path: Assets/Game/Scenes/Gameplay/01 ForestScene/ForestScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Game/Scenes/Story/02 Castle/02 Story.unity
+    guid: 9b566c11ce1484a4f8eddb6f0b473095
   - enabled: 1
     path: Assets/Game/Scenes/Gameplay/02 Castle/02 Castle.unity
     guid: aecc131140f1c8e418f5aca62c1b68bc
