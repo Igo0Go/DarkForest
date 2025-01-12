@@ -139,6 +139,6 @@ public class KineticSpell : MagicSpell
 
     private void OnEnemyGetDamage(int damage)
     {
-        GrandSpellValue += damage;
+        GrandSpellValue += damage * GameCenter.CurrentRageMultiplicator;
     }
 }

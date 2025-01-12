@@ -21,7 +21,7 @@ public class GameplayUICenter : MonoBehaviour
 
     private bool pause;
 
-    private void Awake()
+    public void Init()
     {
         PlayerMagic playerMagic = FindObjectOfType<PlayerMagic>();
         playerMagic.MagicMaxValueChanget += SetMaxValueForMagicSlider;
@@ -33,12 +33,9 @@ public class GameplayUICenter : MonoBehaviour
         playerInteraction.DeadEvent += OnDead;
         playerInteraction.DamageValueChanged += SetAlphaForDamagePanel;
 
-        GameCenter.CurrentRageMultiplicatorChanged += OnRageMultiplicatorChanged;
-        GameCenter.CurrentRageChanged += OnRageValueChanged;
-
         MusicRageSystem musicRageSystem = FindObjectOfType<MusicRageSystem>();
-        musicRageSystem.MaxRageChanged += OnRageMaxChanged;
-        musicRageSystem.MinRageChanged += OnRageMinChanged;
+        musicRageSystem.RageInfoChanged += OnRageInfoChanged;
+        musicRageSystem.Init();
 
         deadPanel.SetActive(false);
         rageSlider.value = 0;
@@ -105,21 +102,12 @@ public class GameplayUICenter : MonoBehaviour
         damagePanel.color = new Color(damagePanel.color.r, damagePanel.color.g, damagePanel.color.b, alpha);
     }
 
-    private void OnRageMultiplicatorChanged(int multiplicator)
+
+    private void OnRageInfoChanged(float value, float min, float max, int multiplicator)
     {
         rageMultiplicatorText.text = "X" + multiplicator.ToString();
-    }
-    private void OnRageValueChanged(float value)
-    {
+        rageSlider.maxValue = max;
+        rageSlider.minValue = min;
         rageSlider.value = value;
-    }
-
-    private void OnRageMaxChanged(float value)
-    {
-        rageSlider.maxValue = value;
-    }
-    private void OnRageMinChanged(float value)
-    {
-        rageSlider.minValue = value;
     }
 }

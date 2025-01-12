@@ -12,25 +12,33 @@ public class MusicRageSystem : MonoBehaviour
     [SerializeField]
     private MusicRagePack pack;
 
-    public Action<float> MaxRageChanged;
-    public Action<float> MinRageChanged;
+    public Action<float, float, float, int> RageInfoChanged;
 
     [SerializeField, Min(1)]
     private float rage2Threshold = 25;
         [SerializeField, Min(1)]
     private float rage3Threshold = 75;
 
+    private bool inFight = false;
+    private float currentMin;
+    private float currentMax;
 
-    private void Start()
+    public void Init()
     {
-        GameCenter.ClearEvents();
         GameCenter.CurrentRageChanged += OnRageValueChanged;
         GameCenter.CurrentRageMultiplicator = 1;
         GameCenter.CurrentRageValue = 0;
+
+        currentMin = 0;
+        currentMax = rage2Threshold;
+
+        RageInfoChanged.Invoke(GameCenter.CurrentRageValue, currentMin, currentMax, 
+            GameCenter.CurrentRageMultiplicator);
     }
 
     public void ChangeMusicToArena()
     {
+        inFight = true;
         if(currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
@@ -39,6 +47,8 @@ public class MusicRageSystem : MonoBehaviour
     }
     public void ChangeMusicToDefault()
     {
+        GameCenter.CurrentRageValue = 0;
+        inFight = false;
         if (currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
@@ -48,7 +58,7 @@ public class MusicRageSystem : MonoBehaviour
 
     private void OnRageValueChanged(float value)
     {
-        if (!arenaMusicSource.isPlaying)
+        if (!inFight)
         {
             return;
         }
@@ -57,23 +67,27 @@ public class MusicRageSystem : MonoBehaviour
         {
             ChangeMusic(pack.rage1Clip);
             GameCenter.CurrentRageMultiplicator = 1;
-            MaxRageChanged.Invoke(rage2Threshold);
-            MinRageChanged.Invoke(0);
+            currentMin = 0;
+            currentMax = rage2Threshold;
+
         }
         else if (GameCenter.CurrentRageMultiplicator != 2 && value >= rage2Threshold && value < rage3Threshold)
         {
             ChangeMusic(pack.rage2Clip);
             GameCenter.CurrentRageMultiplicator = 2;
-            MaxRageChanged.Invoke(rage3Threshold);
-            MinRageChanged.Invoke(rage2Threshold);
+            currentMin = rage2Threshold;
+            currentMax = rage3Threshold;
+
         }
         else if (GameCenter.CurrentRageMultiplicator != 3 && value >= rage3Threshold)
         {
             ChangeMusic(pack.rage3Clip);
             GameCenter.CurrentRageMultiplicator = 3;
-            MaxRageChanged.Invoke(rage3Threshold);
-            MinRageChanged.Invoke(rage3Threshold);
+            currentMin = currentMax = rage3Threshold;
         }
+
+        RageInfoChanged.Invoke(GameCenter.CurrentRageValue, currentMin, currentMax,
+    GameCenter.CurrentRageMultiplicator);
     }
     private void ChangeMusic(AudioClip clip)
     {

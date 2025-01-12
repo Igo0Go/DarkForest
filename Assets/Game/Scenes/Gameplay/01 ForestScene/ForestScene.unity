@@ -20124,7 +20124,7 @@ GameObject:
   - component: {fileID: 1168536508}
   - component: {fileID: 1168536509}
   m_Layer: 0
-  m_Name: GameSettings
+  m_Name: GameCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48453,22 +48453,22 @@ PrefabInstance:
     - target: {fileID: 1198603491287603116, guid: 476e777f8d5476442ac2256889d2b9fc,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.468
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198603491287603116, guid: 476e777f8d5476442ac2256889d2b9fc,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198603491287603116, guid: 476e777f8d5476442ac2256889d2b9fc,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.468
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198603491287603116, guid: 476e777f8d5476442ac2256889d2b9fc,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 20.081568
       objectReference: {fileID: 0}
     - target: {fileID: 2952100644544168538, guid: 476e777f8d5476442ac2256889d2b9fc,
         type: 3}

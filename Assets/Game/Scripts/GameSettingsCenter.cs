@@ -6,11 +6,12 @@ public class GameSettingsCenter : MonoBehaviour
     [SerializeField, Range(30, 120)]
     private int FPS = 60;
 
-
     void Awake()
     {
         Application.targetFrameRate = FPS;
         GameCenter.settings = this;
+        GameCenter.ClearEvents();
+        FindObjectOfType<GameplayUICenter>().Init();
     }
 }
 

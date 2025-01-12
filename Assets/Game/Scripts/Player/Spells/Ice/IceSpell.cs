@@ -34,6 +34,8 @@ public class IceSpell : MagicSpell
     private int runeDamage = 5;
     [SerializeField, Min(1)]
     private int runeScale = 1;
+    [SerializeField]
+    private int requredConcentrationCount = 5;
 
     [Header("Морозный круг")]
     [SerializeField, Range(6, 36)]
@@ -95,7 +97,7 @@ public class IceSpell : MagicSpell
     }
     private void OnEnemyGetDamage(int damage)
     {
-        GrandSpellValue += damage;
+        GrandSpellValue += damage * GameCenter.CurrentRageMultiplicator;
     }
     private Quaternion GetRandomDirection()
     {
@@ -109,9 +111,10 @@ public class IceSpell : MagicSpell
 
     public override void UseAltSpell()
     {
-        if(Input.GetMouseButtonDown(1) && !useSpell)
+        if(Input.GetMouseButtonDown(1) && !useSpell && GrandSpellValue >= requredConcentrationCount)
         {
             useSpell=true;
+            GrandSpellValue -= requredConcentrationCount;
             hands.SetTrigger("UseRing");
         }
     }
@@ -142,7 +145,7 @@ public class IceSpell : MagicSpell
         foreach (MagicBullet bullet in bulletList)
         {
             bullet.transform.parent = null;
-            bullet.LaunchBullet(bulletSpeed, bulletLifetime, damage, false);
+            bullet.LaunchBullet(bulletSpeed, bulletLifetime, damage * GameCenter.CurrentRageMultiplicator, false);
         }
         bulletList.Clear();
     }
