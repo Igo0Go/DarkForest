@@ -9,6 +9,8 @@ public class DestructibleObject : MonoBehaviour, ICanGetDamage
     private GameObject afterDamageObject;
     [SerializeField]
     private UnityEvent afterDamage;
+    [SerializeField]
+    private bool splashOnly = false;
 
     private void Awake()
     {
@@ -18,9 +20,26 @@ public class DestructibleObject : MonoBehaviour, ICanGetDamage
 
     public void GetDamage(int damage)
     {
+        if(!splashOnly)
+        {
+            Destruct();
+        }
+    }
+
+    private void Destruct()
+    {
         defaultObject.SetActive(false);
         afterDamageObject.SetActive(true);
+        afterDamageObject.transform.parent = null;
         afterDamage.Invoke();
-        Destroy(this);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Splash"))
+        {
+            Destruct();
+        }
     }
 }

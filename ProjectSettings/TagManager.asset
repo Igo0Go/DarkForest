@@ -8,6 +8,7 @@ TagManager:
   - HealView
   - InteractiveTrigger
   - Enemy
+  - DeadZone
   layers:
   - Default
   - TransparentFX

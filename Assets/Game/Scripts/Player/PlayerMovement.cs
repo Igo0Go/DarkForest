@@ -34,6 +34,8 @@ public class PlayerMovement : PlayerPart
     private float currentSprintReloadTime;
     private bool useDash = false;
     private Rigidbody rb;
+    private Vector3 lastPosition;
+    private Quaternion lastRotation;
 
     public override void Activate()
     {
@@ -43,6 +45,7 @@ public class PlayerMovement : PlayerPart
         sprintMultiplicator = 1;
         currentSprintReloadTime = 0;
         rb = GetComponent<Rigidbody>();
+        FindObjectOfType<PlayerInteraction>().FallEvent += TeleportToLast;
     }
 
     private void Update()
@@ -55,6 +58,8 @@ public class PlayerMovement : PlayerPart
     {
         if (IsGrounded())
         {
+            lastPosition = transform.position;
+            lastRotation = transform.rotation;
             fallTimer = 0;
             fall = true;
             if (Input.GetButtonDown("Jump"))
@@ -146,5 +151,12 @@ public class PlayerMovement : PlayerPart
                 currentSprintReloadTime = 0;
             }
         }
+    }
+
+    private void TeleportToLast()
+    {
+        rb.velocity = Vector3.zero;
+        transform.position = lastPosition;
+        transform.rotation = lastRotation;
     }
 }

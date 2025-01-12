@@ -84,6 +84,10 @@ public class MagicBullet : MonoBehaviour
                 target.GetDamage(damage);
                 DamageEvent?.Invoke(damage);
             }
+            else if (hit.collider.TryGetComponent(out Rigidbody targetRb))
+            {
+                targetRb.AddForce(transform.forward * damage * 10, ForceMode.Impulse);
+            }
 
             for (int i = 0; i < decals.Count; i++)
             {

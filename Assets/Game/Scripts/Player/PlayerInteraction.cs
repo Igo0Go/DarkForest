@@ -29,12 +29,14 @@ public class PlayerInteraction : PlayerPart
     }
     private float hp;
 
-    public Action DeadEvent;
-    public Action<float> HPValueChanget;
-    public Action<float> HPMaxValueChanget;
-    public Action<float> DamageValueChanged;
+    public event Action DeadEvent;
+    public event Action<float> HPValueChanget;
+    public event Action<float> HPMaxValueChanget;
+    public event Action<float> DamageValueChanged;
+    public event Action FallEvent;
 
     private float regenReloadTime = 0;
+
 
     public override void Activate()
     {
@@ -91,6 +93,10 @@ public class PlayerInteraction : PlayerPart
         if(other.CompareTag("InteractiveTrigger"))
         {
             other.GetComponent<InteractiveTrigger>().Activate();
+        }
+        else if(other.CompareTag("DeadZone"))
+        {
+            FallEvent?.Invoke();
         }
     }
 }

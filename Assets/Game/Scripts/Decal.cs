@@ -2,7 +2,7 @@
 
 public class Decal : MonoBehaviour
 {
-    [Range(0,10)]
+    [Range(0,60)]
     [Tooltip("0 - не будет удаляться")]
     public float lifeTime = 1;
 
