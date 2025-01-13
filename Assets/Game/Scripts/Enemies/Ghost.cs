@@ -73,7 +73,4 @@ public class Ghost : Enemy
         Instantiate(deadDecal, transform.position, Quaternion.identity);
         base.Dead();
     }
-
-
-
 }

@@ -9,7 +9,7 @@ public class IceSpell : MagicSpell
     private GameObject bullet;
     [SerializeField]
     private Transform spawnPoint;
-    [SerializeField, Min(1)]
+    [SerializeField, Min(3)]
     private int bulletCount;
     [SerializeField, Min(1)]
     private int damage;
@@ -21,6 +21,8 @@ public class IceSpell : MagicSpell
     private float bulletSpeed;
     [SerializeField, Min(0.01f)]
     private float bulletLifetime;
+    [SerializeField, Min(3)]
+    private int bulletsPierceCount = 3;
 
     private List<MagicBullet> bulletList = new List<MagicBullet>();
     private Coroutine spawnCoroutine;
@@ -36,6 +38,8 @@ public class IceSpell : MagicSpell
     private int runeScale = 1;
     [SerializeField]
     private int requredConcentrationCount = 5;
+    [SerializeField, Min(1)]
+    private int grandDamage;
 
     [Header("Морозный круг")]
     [SerializeField, Range(6, 36)]
@@ -61,7 +65,7 @@ public class IceSpell : MagicSpell
     public override void SetUpSpell()
     {
         useSpell = false;
-        LaunchBullets();
+        LaunchBullets(damage);
     }
 
     public override void UseMainSpel()
@@ -79,11 +83,22 @@ public class IceSpell : MagicSpell
             hands.SetTrigger("Push");
             if(spawnCoroutine != null)
                 StopCoroutine(spawnCoroutine);
-            LaunchBullets();
+            LaunchBullets(damage);
         }
     }
     private IEnumerator PrepareMainSpellCoroutine()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            PiercingBullet currentBullet = Instantiate(bullet, spawnPoint.position,
+    spawnPoint.rotation * GetRandomDirection(), spawnPoint).GetComponent<PiercingBullet>();
+
+            currentBullet.pierceCount = bulletsPierceCount;
+            bulletList.Add(currentBullet);
+
+            currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
+        }
+
         while (bulletList.Count < bulletCount)
         {
             MagicBullet currentBullet = Instantiate(bullet, spawnPoint.position,
@@ -98,6 +113,7 @@ public class IceSpell : MagicSpell
     private void OnEnemyGetDamage(int damage)
     {
         GrandSpellValue += damage * GameCenter.CurrentRageMultiplicator;
+        GameCenter.CurrentRageValue++;
     }
     private Quaternion GetRandomDirection()
     {
@@ -113,7 +129,7 @@ public class IceSpell : MagicSpell
     {
         if(Input.GetMouseButtonDown(1) && !useSpell && GrandSpellValue >= requredConcentrationCount)
         {
-            useSpell=true;
+            useSpell = true;
             GrandSpellValue -= requredConcentrationCount;
             hands.SetTrigger("UseRing");
         }
@@ -140,11 +156,12 @@ public class IceSpell : MagicSpell
         }
     }
 
-    private void LaunchBullets()
+    private void LaunchBullets(int damage)
     {
         foreach (MagicBullet bullet in bulletList)
         {
             bullet.transform.parent = null;
+
             bullet.LaunchBullet(bulletSpeed, bulletLifetime, damage * GameCenter.CurrentRageMultiplicator, false);
         }
         bulletList.Clear();
@@ -167,6 +184,6 @@ public class IceSpell : MagicSpell
 
         yield return new WaitForSeconds(grandSpellDelay);
 
-        LaunchBullets();
+        LaunchBullets(grandDamage);
     }
 }

@@ -55,6 +55,7 @@ public static class GameCenter
 
     public static event Action<float> CurrentRageChanged;
     public static event Action<int> CurrentRageMultiplicatorChanged;
+    public static int lostRageForDamgeValue;
 
     public static void ClearEvents()
     {

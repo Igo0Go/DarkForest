@@ -111,7 +111,7 @@ public class KineticSpell : MagicSpell
             useGrand = true;
             hands.SetBool("UseTwo", true);
 
-            rune.damage = damage * 5 * GameCenter.CurrentRageMultiplicator;
+            rune.damage = damage * GameCenter.CurrentRageMultiplicator;
             rune.spellLifeTime = bulletLiveTime;
             rune.spellSpeed = bulletSpeed;
             rune.shootDelay = grandSpellShootDelay;
@@ -140,5 +140,6 @@ public class KineticSpell : MagicSpell
     private void OnEnemyGetDamage(int damage)
     {
         GrandSpellValue += damage * GameCenter.CurrentRageMultiplicator;
+        GameCenter.CurrentRageValue++;
     }
 }

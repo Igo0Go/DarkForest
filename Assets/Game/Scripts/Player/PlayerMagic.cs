@@ -83,7 +83,6 @@ public class PlayerMagic : PlayerPart
     private void OnSpellGrandValueChanged(float value)
     {
         MagicValueChanget.Invoke(currentSpell.GrandSpellValue);
-        GameCenter.CurrentRageValue++;
     }
 
     private void SetSpellSwitchKey(bool switchKey)

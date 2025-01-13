@@ -11,6 +11,8 @@ public class MusicRageSystem : MonoBehaviour
     private AudioSource arenaMusicSource;
     [SerializeField]
     private MusicRagePack pack;
+    [SerializeField, Min(1)]
+    private int lostRageForDamgeValue = 10;
 
     public Action<float, float, float, int> RageInfoChanged;
 
@@ -28,6 +30,7 @@ public class MusicRageSystem : MonoBehaviour
         GameCenter.CurrentRageChanged += OnRageValueChanged;
         GameCenter.CurrentRageMultiplicator = 1;
         GameCenter.CurrentRageValue = 0;
+        GameCenter.lostRageForDamgeValue = lostRageForDamgeValue;
 
         currentMin = 0;
         currentMax = rage2Threshold;

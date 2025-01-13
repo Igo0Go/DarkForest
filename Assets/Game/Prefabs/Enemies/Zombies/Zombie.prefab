@@ -3747,7 +3747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d5edf74ab62934cb8cb718a386f46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 10
+  HP: 25
   damage: 15
   speed: 1
   deadEvent:

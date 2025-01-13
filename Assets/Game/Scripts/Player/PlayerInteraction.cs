@@ -11,6 +11,7 @@ public class PlayerInteraction : PlayerPart
     [SerializeField, Min(1)]
     private float regenSpeed = 3;
 
+
     public float HP
     {
         get 
@@ -49,16 +50,10 @@ public class PlayerInteraction : PlayerPart
 
     public void GetDamage(int  damage)
     {
-        hp -= damage;
-        GameCenter.CurrentRageValue -= 10;
-        if (hp < 0)
-        {
-
-        }
+        HP -= damage;
+        GameCenter.CurrentRageValue -= GameCenter.lostRageForDamgeValue;
         regenReloadTime = regenReloadDeleyTime;
         DamageValueChanged.Invoke(1);
-
-        HPValueChanget.Invoke(hp);
     }
 
     private IEnumerator RegenCoroutine()

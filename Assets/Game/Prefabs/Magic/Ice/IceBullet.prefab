@@ -9767,7 +9767,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8315240016125496113}
-  - component: {fileID: 4857082338434001994}
+  - component: {fileID: 6891691133885868359}
   m_Layer: 0
   m_Name: IceBullet
   m_TagString: Untagged
@@ -9792,7 +9792,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4857082338434001994
+--- !u!114 &6891691133885868359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9801,17 +9801,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8315240016125496112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30e62ae2b66cc3b43b3f0b516b403458, type: 3}
+  m_Script: {fileID: 11500000, guid: e84d0ab000ccff5498ae7734d195581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   decals:
   - {fileID: 4924508274929071776, guid: 0edef91621bb6b34384ccc9dbb98729c, type: 3}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 364
+    m_Bits: 380
   DamageEvent:
     m_PersistentCalls:
       m_Calls: []
   bulletDestroyedEvent:
     m_PersistentCalls:
       m_Calls: []
+  pierceCount: 3

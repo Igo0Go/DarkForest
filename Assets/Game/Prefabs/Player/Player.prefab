@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6416474287186807976}
   - component: {fileID: 2176743484026691419}
   m_Layer: 6
-  m_Name: Kinetik circle
+  m_Name: Ice circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 4001753429772371341}
   - component: {fileID: 5374718163629124295}
   m_Layer: 6
-  m_Name: KinetikRune
+  m_Name: IceRune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16110,7 +16110,7 @@ Transform:
   - {fileID: 2521607094122448483}
   m_Father: {fileID: 2521607093045172677}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 88.048294, y: -126.08434, z: -80.15842}
 --- !u!1 &2521607093679351013
 GameObject:
   m_ObjectHideFlags: 0
@@ -17640,7 +17640,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8315240016125496112, guid: 48978c0e63a4b664980f487071afafe6,
     type: 3}
   damage: 3
-  bulletSpeed: 30
+  bulletSpeed: 50
   bulletLiveTime: 20
   spawnPoint: {fileID: 2521607093972173762}
   altSplash: {fileID: 4496639175823901035}
@@ -18095,7 +18095,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.09327163, g: 0.11569954, b: 0.1509434, a: 0}
+  m_BackGroundColor: {r: 0.56559277, g: 0.7193986, b: 0.7735849, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -18109,14 +18109,14 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 1000
+  far clip plane: 300
   field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 211
+    m_Bits: 215
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -39546,7 +39546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7623160819514258622}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05699992, z: 0}
+  m_LocalPosition: {x: 0, y: -0.097, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39614,13 +39614,19 @@ MonoBehaviour:
   bullet: {fileID: 8315240016125496112, guid: e2fbc32a454571148b6f2c3c8af4afbd, type: 3}
   spawnPoint: {fileID: 3333549353370152138}
   bulletCount: 10
-  damage: 2
+  damage: 7
   angle: 5
   spawnDelay: 0.2
   bulletSpeed: 15
   bulletLifetime: 0.5
-  freezeBullet: {fileID: 8315240016125496112, guid: a917a9cdc2742854fa86b9064b72474f,
+  bulletsPierceCount: 3
+  freezeRune: {fileID: 6219321785146034279, guid: bfb1a981ffa6bb24e921424fe9605fa3,
     type: 3}
+  runeLifeTime: 10
+  runeDamage: 5
+  runeScale: 5
+  requredConcentrationCount: 5
+  grandDamage: 25
   grandSpellBulletsCount: 36
   grandSpellDelay: 2
   helper: {fileID: 7623160819514258623}
