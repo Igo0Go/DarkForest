@@ -47,6 +47,10 @@ public class IceSpell : MagicSpell
     private float grandSpellDelay;
     [SerializeField]
     private Transform helper;
+    [SerializeField]
+    private LayerMask ignoreMask;
+
+    private List<MagicBullet> grandBulletsList = new List<MagicBullet>();
 
 
     private bool useSpell;
@@ -63,8 +67,10 @@ public class IceSpell : MagicSpell
 
     public override void SetUpSpell()
     {
+        base.SetUpSpell();
         useSpell = false;
-        LaunchBullets(damage);
+        LaunchBullets(grandDamage, grandBulletsList);
+        LaunchBullets(damage, bulletList);
     }
 
     public override void UseMainSpel()
@@ -82,7 +88,7 @@ public class IceSpell : MagicSpell
             hands.SetTrigger("Push");
             if(spawnCoroutine != null)
                 StopCoroutine(spawnCoroutine);
-            LaunchBullets(damage);
+            LaunchBullets(damage, bulletList);
         }
     }
     private IEnumerator PrepareMainSpellCoroutine()
@@ -136,7 +142,7 @@ public class IceSpell : MagicSpell
     private void OnEndRing()
     {
         Vector3 normal = Vector3.up;
-        Vector3 pos = spellCamera.GetSpellTargetPoint(out normal);
+        Vector3 pos = spellCamera.GetSpellTargetPoint(out normal, ignoreMask);
         GameObject rune = Instantiate(freezeRune, pos, Quaternion.identity);
         rune.transform.forward = normal;
         rune.transform.localScale = Vector3.one * runeScale;
@@ -154,22 +160,9 @@ public class IceSpell : MagicSpell
             StartCoroutine(LaucnGrandSpell());
         }
     }
-
-    private void LaunchBullets(int damage)
-    {
-        foreach (MagicBullet bullet in bulletList)
-        {
-            bullet.transform.parent = null;
-
-            bullet.LaunchBullet(bulletSpeed, bulletLifetime, damage * GameCenter.CurrentRageMultiplicator, false);
-        }
-        bulletList.Clear();
-    }
     private IEnumerator LaucnGrandSpell()
     {
         float GrandAngle = 360 / grandSpellBulletsCount;
-
-        bulletList.Clear();
 
         for (int i = 0; i < grandSpellBulletsCount; i++)
         {
@@ -177,12 +170,25 @@ public class IceSpell : MagicSpell
             current_bullet.transform.forward = helper.forward;
             current_bullet.transform.Rotate(Vector3.up, GrandAngle * i);
             current_bullet.transform.position = helper.position + current_bullet.transform.forward * 0.5f;
-            bulletList.Add(current_bullet);
+            grandBulletsList.Add(current_bullet);
             yield return null;
         }
 
         yield return new WaitForSeconds(grandSpellDelay);
 
-        LaunchBullets(grandDamage);
+        LaunchBullets(grandDamage, grandBulletsList);
     }
+
+
+    private void LaunchBullets(int damage, List<MagicBullet> bullets)
+    {
+        foreach (MagicBullet bullet in bullets)
+        {
+            bullet.transform.parent = null;
+
+            bullet.LaunchBullet(bulletSpeed, bulletLifetime, damage * GameCenter.CurrentRageMultiplicator, false);
+        }
+        bullets.Clear();
+    }
+
 }

@@ -39613,7 +39613,6 @@ MonoBehaviour:
       m_Calls: []
   bullet: {fileID: 8315240016125496112, guid: e2fbc32a454571148b6f2c3c8af4afbd, type: 3}
   spawnPoint: {fileID: 3333549353370152138}
-  bulletCount: 10
   damage: 7
   angle: 5
   spawnDelay: 0.2
@@ -39630,6 +39629,9 @@ MonoBehaviour:
   grandSpellBulletsCount: 36
   grandSpellDelay: 2
   helper: {fileID: 7623160819514258623}
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 510
 --- !u!1001 &2521607093071700285
 PrefabInstance:
   m_ObjectHideFlags: 0

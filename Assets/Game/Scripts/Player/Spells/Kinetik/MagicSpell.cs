@@ -39,7 +39,10 @@ public abstract class MagicSpell :MonoBehaviour
     {
 
     }
-    public abstract void SetUpSpell();
+    public virtual void SetUpSpell()
+    {
+        CheckGrandSpell();
+    }
     public abstract void UseMainSpel();
     public abstract void UseAltSpell();
     public abstract void UseGrandSpell();

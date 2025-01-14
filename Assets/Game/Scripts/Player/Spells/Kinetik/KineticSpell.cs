@@ -58,6 +58,7 @@ public class KineticSpell : MagicSpell
 
     public override void SetUpSpell()
     {
+        base.SetUpSpell();
         useGrand = false;
         useSpell = false;
         GrandSpellValue = GrandSpellValue;//эвент в интерфейс

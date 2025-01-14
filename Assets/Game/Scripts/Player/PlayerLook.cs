@@ -90,4 +90,18 @@ public class PlayerLook : PlayerPart
 
         return cam.position + cam.forward * 100;
     }
+
+    public Vector3 GetSpellTargetPoint(out Vector3 normal, LayerMask ignoreMask)
+    {
+        Vector3 dir = Vector3.zero;
+        normal = Vector3.up;
+
+        if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, 300, ~ignoreMask))
+        {
+            normal = hitInfo.normal;
+            return hitInfo.point;
+        }
+
+        return cam.position + cam.forward * 100;
+    }
 }
