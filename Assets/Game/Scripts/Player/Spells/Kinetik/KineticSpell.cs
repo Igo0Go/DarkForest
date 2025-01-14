@@ -74,14 +74,14 @@ public class KineticSpell : MagicSpell
 
         if (Input.GetMouseButton(0) && !useSpell)
         {
-            hands.SetFloat("AnimationSpeed", MagicStats.IceMainSpeedMultiplicator);
+            hands.SetFloat("AnimationSpeed", MagicStats.KineticMainSpeedMultiplicator);
             useSpell = true;
             MagicBullet currentBullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation).
                 GetComponent<MagicBullet>();
             currentBullet.transform.parent = null;
             currentBullet.transform.forward = spellCamera.GetSpellTargetPoint() - transform.position;
             currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
-            currentBullet.LaunchBullet(bulletSpeed * MagicStats.IceMainSpeedMultiplicator, bulletLiveTime,
+            currentBullet.LaunchBullet(bulletSpeed * MagicStats.KineticMainSpeedMultiplicator, bulletLiveTime,
                 damage * GameCenter.CurrentRageMultiplicator, false);
             hands.SetBool("UseLeft", !hands.GetBool("UseLeft"));
             hands.SetTrigger("Push");

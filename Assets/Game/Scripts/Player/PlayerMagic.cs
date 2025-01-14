@@ -49,14 +49,27 @@ public class PlayerMagic : PlayerPart
             }
             else if (Input.GetKeyUp(KeyCode.Alpha2))
             {
+                if(!MagicStats.availableSpells.Contains(MagicSpellType.Ice))
+                {
+                    return;
+                }
+
                 SetSpell(1);
             }
             else if (Input.GetKeyUp(KeyCode.Alpha3))
             {
+                if (!MagicStats.availableSpells.Contains(MagicSpellType.Fire))
+                {
+                    return;
+                }
                 SetSpell(2);
             }
             else if (Input.GetKeyUp(KeyCode.Alpha4))
             {
+                if (!MagicStats.availableSpells.Contains(MagicSpellType.Sparks))
+                {
+                    return;
+                }
                 SetSpell(3);
             }
         }

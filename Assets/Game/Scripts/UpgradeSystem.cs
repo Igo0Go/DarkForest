@@ -1,17 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradeSystem : MonoBehaviour
 {
     [SerializeField]
+    private List<UpgradeItem> upgradeItems;
+
+    [SerializeField]
     private GameObject upgradePanel;
-    [SerializeField]
-    private GameObject iceUpgradeButton;
-    [SerializeField]
-    private GameObject fireUpgradeButton;
-    [SerializeField]
-    private GameObject sparksUpgradeButton;
 
     private void Awake()
     {
@@ -22,48 +18,47 @@ public class UpgradeSystem : MonoBehaviour
     {
         SetActiveForCursor(false);
         Time.timeScale = 1.0f;
-
-        sparksUpgradeButton.SetActive(false);
-        fireUpgradeButton.SetActive(false);
-        iceUpgradeButton.SetActive(false);
-
         upgradePanel.SetActive(false);
     }
 
     public void ActivatePanel()
     {
-        if(!MagicStats.opportunityToFireUpgrade && 
-            !MagicStats.opportunityToIceUpgrade && 
-            !MagicStats.opportunityToSparksUpgrade)
-        {
-            return;
-        }
-
-
         SetActiveForCursor(true);
         Time.timeScale = 0.0f;
 
         upgradePanel.SetActive(true);
 
-        if (MagicStats.opportunityToIceUpgrade)
+        foreach (var upgradeItem in upgradeItems)
         {
-            iceUpgradeButton.SetActive(true);
+            upgradeItem.UpgradePanel.SetActive(false);
+            if (MagicStats.availableSpells.Contains(upgradeItem.SpellType) && 
+                MagicStats.GetOpportunityToUpgrade(upgradeItem.SpellType))
+            {
+                upgradeItem.UpgradePanel.SetActive(true);
+            }
         }
+    }
 
-        if (MagicStats.opportunityToFireUpgrade)
-        {
-            fireUpgradeButton.SetActive(true);
-        }
+    public void UpgradeKinetick()
+    {
+        MagicStats.UpgradeKineticSpeed();
+        ReturnAll();
+    }
 
-        if (MagicStats.opportunityToSparksUpgrade)
+    public void UnlockSpell(int index)
+    {
+        MagicSpellType type = (MagicSpellType)index;
+
+
+        if(!MagicStats.availableSpells.Contains(type))
         {
-            sparksUpgradeButton.SetActive(true);
+            MagicStats.availableSpells.Add(type);
         }
     }
 
     public void UpgradeIce()
     {
-        MagicStats.UpgradeIceSpeed();
+        MagicStats.UpgradeIceCount();
         ReturnAll();
     }
 
@@ -84,4 +79,11 @@ public class UpgradeSystem : MonoBehaviour
         Cursor.visible = value;
         Cursor.lockState = value? CursorLockMode.None : CursorLockMode.Locked;
     }
+}
+
+[System.Serializable]
+public class UpgradeItem
+{
+    public MagicSpellType SpellType;
+    public GameObject UpgradePanel;
 }

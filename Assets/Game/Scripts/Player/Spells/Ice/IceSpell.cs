@@ -9,8 +9,6 @@ public class IceSpell : MagicSpell
     private GameObject bullet;
     [SerializeField]
     private Transform spawnPoint;
-    [SerializeField, Min(3)]
-    private int bulletCount;
     [SerializeField, Min(1)]
     private int damage;
     [SerializeField, Range(1,45)]
@@ -26,6 +24,7 @@ public class IceSpell : MagicSpell
 
     private List<MagicBullet> bulletList = new List<MagicBullet>();
     private Coroutine spawnCoroutine;
+    private const int minimalBulletsCount = 3;
 
     [Header("Морозная руна")]
     [SerializeField]
@@ -88,7 +87,7 @@ public class IceSpell : MagicSpell
     }
     private IEnumerator PrepareMainSpellCoroutine()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < minimalBulletsCount; i++)
         {
             PiercingBullet currentBullet = Instantiate(bullet, spawnPoint.position,
     spawnPoint.rotation * GetRandomDirection(), spawnPoint).GetComponent<PiercingBullet>();
@@ -99,7 +98,7 @@ public class IceSpell : MagicSpell
             currentBullet.DamageEvent.AddListener(OnEnemyGetDamage);
         }
 
-        while (bulletList.Count < bulletCount)
+        while (bulletList.Count < MagicStats.IceMaxBulletsCount)
         {
             MagicBullet currentBullet = Instantiate(bullet, spawnPoint.position,
                 spawnPoint.rotation * GetRandomDirection(), spawnPoint).GetComponent<MagicBullet>();
