@@ -30,8 +30,8 @@ public class PlayerLook : PlayerPart
 
     private void Update()
     {
-        _rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert * Time.deltaTime * multiplicator;
-        delta = Input.GetAxis("Mouse X") * sensitivityHor * Time.deltaTime * multiplicator;
+        _rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert * Time.deltaTime * multiplicator * GameSettings.sensivity;
+        delta = Input.GetAxis("Mouse X") * sensitivityHor * Time.deltaTime * multiplicator * GameSettings.sensivity;
     }
 
     void LateUpdate()

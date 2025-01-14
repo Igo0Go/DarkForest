@@ -46,7 +46,7 @@ public class SettingsPanel : MonoBehaviour
     }
     private void SensivityChanged(float value)
     {
-        GameSettings.musicVolume = value;
+        GameSettings.sensivity = value;
     }
 }
 
