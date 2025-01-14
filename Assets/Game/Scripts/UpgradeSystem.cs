@@ -1,31 +1,32 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradeSystem : MonoBehaviour
 {
+    public Action<bool> changeUpgradePauseState;
+
+
     [SerializeField]
     private List<UpgradeItem> upgradeItems;
 
     [SerializeField]
     private GameObject upgradePanel;
 
-    private void Awake()
+    public void Init()
     {
         ReturnAll();
     }
 
     public void ReturnAll()
     {
-        SetActiveForCursor(false);
-        Time.timeScale = 1.0f;
+        changeUpgradePauseState?.Invoke(false);
         upgradePanel.SetActive(false);
     }
 
     public void ActivatePanel()
     {
-        SetActiveForCursor(true);
-        Time.timeScale = 0.0f;
-
+        changeUpgradePauseState?.Invoke(true);
         upgradePanel.SetActive(true);
 
         foreach (var upgradeItem in upgradeItems)

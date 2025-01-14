@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TipPanel : MonoBehaviour
 {
+    public Action<bool> changeUpgradePauseState;
+
     [SerializeField]
     private GameObject panel;
     [SerializeField]
@@ -15,11 +16,14 @@ public class TipPanel : MonoBehaviour
     [SerializeField]
     private Image tipImage;
 
+    public void Init()
+    {
+        CloseTip();
+    }
+
     public void ShowTip(TipItem item)
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Time.timeScale = 0;
+        changeUpgradePauseState?.Invoke(true);
         panel.SetActive(true);
         headerText.text = item.title;
         descriptionText.text = item.description;
@@ -37,9 +41,7 @@ public class TipPanel : MonoBehaviour
 
     public void CloseTip()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        Time.timeScale = 1;
+        changeUpgradePauseState?.Invoke(false);
         panel.SetActive(false);
     }
 }

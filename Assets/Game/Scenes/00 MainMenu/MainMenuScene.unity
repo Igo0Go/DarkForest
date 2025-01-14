@@ -5092,7 +5092,7 @@ MonoBehaviour:
       \u043A\u0442\u043E \u0437\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u043D \u043D\u0430
       \u044D\u0442\u043E\u043C \u043A\u043B\u0430\u0434\u0431\u0438\u0449\u0435."
     levelMusic: {fileID: 8300000, guid: a5a56d96da6596848809fb0c97a6b377, type: 3}
-    sceneIndex: 2
+    sceneIndex: 1
   - levelName: "\u0425\u0440\u0430\u043C"
     levelIcon: {fileID: 21300000, guid: c9f8e623c1929264aa88596de012d2ba, type: 3}
     levelDescription: "\u041A\u043E\u0433\u0434\u0430-\u0442\u043E \u0432 \u044D\u0442\u043E\u043C
@@ -5104,7 +5104,7 @@ MonoBehaviour:
       \u0436\u0435\u0440\u0442\u0432\u043E\u0439 \u043F\u0440\u043E\u043A\u043B\u044F\u0442\u043E\u0433\u043E
       \u043A\u0443\u043B\u044C\u0442\u0430."
     levelMusic: {fileID: 8300000, guid: d213bcf89fe7cce4881972a4caa6212e, type: 3}
-    sceneIndex: 4
+    sceneIndex: 3
 --- !u!1 &1987343258
 GameObject:
   m_ObjectHideFlags: 0
