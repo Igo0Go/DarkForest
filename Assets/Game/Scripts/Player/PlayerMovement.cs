@@ -54,6 +54,11 @@ public class PlayerMovement : PlayerPart
         PlayerMove();
     }
 
+    private void FixedUpdate()
+    {
+        rb.MovePosition(myTransform.position + moveVector * sprintMultiplicator);
+    }
+
     private void Jump()
     {
         if (IsGrounded())
@@ -106,11 +111,7 @@ public class PlayerMovement : PlayerPart
         {
             moveVector.y = vertSpeed;
         }
-        moveVector *= Time.deltaTime;
-
-        rb.MovePosition(myTransform.position + moveVector * sprintMultiplicator);
-
-        //myTransform.position += moveVector * sprintMultiplicator;
+        moveVector *= Time.fixedDeltaTime;
     }
 
     private bool IsGrounded()
