@@ -1,5 +1,4 @@
 using TMPro;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

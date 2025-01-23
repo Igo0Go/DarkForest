@@ -1,10 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : PlayerPart
 {
     [SerializeField, Range(1, 10), Tooltip("Скорость перемещения")] private float speed = 5f;
-    [SerializeField, Range(1, 50), Tooltip("Сила прыжка")] private float jumpForce = 15.0f;
+    [SerializeField, Range(1, 10), Tooltip("Скорость перемещения")] private float jumpHeight = 4;
     [SerializeField, Range(0, 2), Tooltip("Время перезарядки рывка")] private float sprintReloadTime = 0.3f;
     [SerializeField, Range(0, 2), Tooltip("Время рывка")] private float sprintTime = 0.3f;
     [SerializeField, Range(1, 3), Tooltip("Сила рывка")] private float sprintValue = 0.3f;
@@ -14,90 +15,58 @@ public class PlayerMovement : PlayerPart
     [Tooltip("Ограничение скорости падения. Это требуется, чтобы персонаж," +
         "падающий с большой высоты не проникал сквозь текстуры.")]
     private float terminalVelocity = -10.0f;
-    [SerializeField, Range(0.1f, 5), Tooltip("Сила притяжения. g=1 - земная гравитация")] private float gravity = 1f;
-    [SerializeField] private Transform jumpCheck;
-    [SerializeField] private LayerMask ignoreMask;
+    [SerializeField, Range(0.1f, 5), Tooltip("Сила притяжения. g=1 - земная гравитация")] private float gravityMultiplier = 1f;
 
+
+    private float jumpForce = 15.0f;
     private Vector3 moveVector;
     private float vertSpeed;
-    private bool fall;
-    private float fallTimer;
     private readonly float minFall = -1.5f;
 
-    /// <summary>
-    /// Этот коэффициент используется, чтобы добиться ощущения "правильной" гравитации при gravity = 1.
-    /// </summary>
-    private const float gravMultiplayer = 9.8f * 5f;
+    private const float grav = 50;
 
     private Transform myTransform;
-    private float sprintMultiplicator;
+    private float sprintMultiplier;
     private float currentSprintReloadTime;
     private bool useDash = false;
-    private Rigidbody rb;
+    private CharacterController characterController;
     private Vector3 lastPosition;
     private Quaternion lastRotation;
 
     public override void Activate()
     {
+        jumpForce = Mathf.Sqrt(jumpHeight * 2 * grav * gravityMultiplier);
         myTransform = transform;
         vertSpeed = minFall;
-        fall = true;
-        sprintMultiplicator = 1;
+        sprintMultiplier = 1;
         currentSprintReloadTime = 0;
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
         FindObjectOfType<PlayerInteraction>().FallEvent += TeleportToLast;
     }
 
     private void Update()
     {
+        vertSpeed -= gravityMultiplier * grav * Time.deltaTime;
+
+        if(vertSpeed < terminalVelocity)
+        {
+            vertSpeed = terminalVelocity;
+        }
+
         Jump();
         PlayerMove();
     }
 
-    private void FixedUpdate()
-    {
-        rb.MovePosition(myTransform.position + moveVector * sprintMultiplicator);
-    }
-
     private void Jump()
     {
-        if (IsGrounded())
+        if (Input.GetButtonDown("Jump") && characterController.isGrounded)
         {
             lastPosition = transform.position;
             lastRotation = transform.rotation;
-            fallTimer = 0;
-            fall = true;
-            if (Input.GetButtonDown("Jump"))
-            {
-                vertSpeed = jumpForce;
-            }
-            else
-            {
-                vertSpeed = 0;
-            }
-        }
-        else
-        {
-            if (fall)
-            {
-                vertSpeed -= gravity * gravMultiplayer * Time.deltaTime;
-                if (vertSpeed < terminalVelocity)
-                {
-                    vertSpeed = terminalVelocity;
-                }
-            }
-            else
-            {
-                fallTimer -= Time.deltaTime;
-                if (fallTimer <= 0)
-                {
-                    fallTimer = 0;
-                    fall = true;
-                }
-                vertSpeed = 0;
-            }
+            vertSpeed = jumpForce;
         }
     }
+
     private void PlayerMove()
     {
         float deltaX = Input.GetAxisRaw("Horizontal");
@@ -105,23 +74,15 @@ public class PlayerMovement : PlayerPart
 
         moveVector = myTransform.forward * deltaZ + myTransform.right * deltaX;
         moveVector.y = 0;
-        moveVector = moveVector.normalized * speed;
+        moveVector = moveVector.normalized * speed * Time.deltaTime * sprintMultiplier;
         PlayerSprint(moveVector);
-        if (sprintMultiplicator == 1)
+        if (sprintMultiplier == 1)
         {
-            moveVector.y = vertSpeed;
+            moveVector.y = vertSpeed * Time.deltaTime;
         }
-        moveVector *= Time.fixedDeltaTime;
-    }
+        characterController.Move(moveVector);
 
-    private bool IsGrounded()
-    {
-        Collider[] bufer = Physics.OverlapBox(jumpCheck.position, jumpCheck.localScale, Quaternion.identity, ~ignoreMask);
-
-        if (bufer != null && bufer.Length > 0)
-            return true;
-        else
-            return false;
+        //rb.velocity = moveVector;
     }
 
     private void PlayerSprint(Vector3 horDirection)
@@ -130,9 +91,8 @@ public class PlayerMovement : PlayerPart
         {
             if(horDirection.sqrMagnitude != 0 && !useDash)
             {
-                sprintMultiplicator = sprintValue;
+                sprintMultiplier = sprintValue;
                 currentSprintReloadTime = 0;
-                fall = false;
                 useDash = true;
             }
         }
@@ -143,7 +103,7 @@ public class PlayerMovement : PlayerPart
 
             if(currentSprintReloadTime > sprintTime)
             {
-                sprintMultiplicator = 1;
+                sprintMultiplier = 1;
             }
 
             if(currentSprintReloadTime > sprintReloadTime)
@@ -156,8 +116,9 @@ public class PlayerMovement : PlayerPart
 
     private void TeleportToLast()
     {
-        rb.velocity = Vector3.zero;
+        characterController.enabled = false;
         transform.position = lastPosition;
         transform.rotation = lastRotation;
+        characterController.enabled = true;
     }
 }
