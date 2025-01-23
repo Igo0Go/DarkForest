@@ -62,6 +62,8 @@ public abstract class MagicSpell :MonoBehaviour
 
 public static class MagicStats
 {
+    public static int currentLevel = 0;
+
     public static List<MagicSpellType> availableSpells = new List<MagicSpellType>() { MagicSpellType.Kinetik};
     public static bool GetOpportunityToUpgrade(MagicSpellType type)
     {

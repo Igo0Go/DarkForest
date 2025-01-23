@@ -24,7 +24,16 @@ public class UpgradeSystem : MonoBehaviour
         upgradePanel.SetActive(false);
     }
 
-    public void ActivatePanel()
+    public void NewLevel(int level)
+    {
+        if(level > MagicStats.currentLevel)
+        {
+            MagicStats.currentLevel = level;
+            ActivatePanel();
+        }
+    }
+
+    private void ActivatePanel()
     {
         changeUpgradePauseState?.Invoke(true);
         upgradePanel.SetActive(true);
@@ -73,12 +82,6 @@ public class UpgradeSystem : MonoBehaviour
     {
         MagicStats.UpgradeSparksSpeed();
         ReturnAll();
-    }
-
-    private void SetActiveForCursor(bool value)
-    {
-        Cursor.visible = value;
-        Cursor.lockState = value? CursorLockMode.None : CursorLockMode.Locked;
     }
 }
 
