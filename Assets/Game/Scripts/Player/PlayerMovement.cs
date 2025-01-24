@@ -23,7 +23,7 @@ public class PlayerMovement : PlayerPart
     private float vertSpeed;
     private readonly float minFall = -1.5f;
 
-    private const float grav = 50;
+    private const float grav = 40;
 
     private Transform myTransform;
     private float sprintMultiplier;
@@ -102,13 +102,18 @@ public class PlayerMovement : PlayerPart
 
             if(currentSprintReloadTime > sprintTime)
             {
-                sprintMultiplier = 1;
+                sprintMultiplier -= Time.deltaTime;
+                if (sprintMultiplier < 1)
+                {
+                    sprintMultiplier = 1;
+                }
             }
 
-            if(currentSprintReloadTime > sprintReloadTime)
+            if (currentSprintReloadTime > sprintReloadTime)
             {
-                useDash = false;
                 currentSprintReloadTime = 0;
+                useDash = false;
+                sprintMultiplier = 1;
             }
         }
     }
