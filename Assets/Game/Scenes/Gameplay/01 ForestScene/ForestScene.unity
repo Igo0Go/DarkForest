@@ -34913,16 +34913,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 933518233}
     m_Modifications:
-    - target: {fileID: 4194836391122492515, guid: d82720cbd38db864c86a7fa312c47f42,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8007451428582730861, guid: d82720cbd38db864c86a7fa312c47f42,
-        type: 3}
-      propertyPath: lifeTime
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 8381969722501430396, guid: d82720cbd38db864c86a7fa312c47f42,
         type: 3}
       propertyPath: m_Name
