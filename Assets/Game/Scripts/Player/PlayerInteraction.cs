@@ -11,6 +11,9 @@ public class PlayerInteraction : PlayerPart
     [SerializeField, Min(1)]
     private float regenSpeed = 3;
 
+    private const string triggerTag = "InteractiveTrigger";
+    private const string deadTag = "DeadZone";
+    private const string savePointTag = "SavePoint";
 
     public float HP
     {
@@ -35,6 +38,7 @@ public class PlayerInteraction : PlayerPart
     public event Action<float> HPMaxValueChanget;
     public event Action<float> DamageValueChanged;
     public event Action FallEvent;
+    public event Action<Transform> SavePointEvent;
 
     private float regenReloadTime = 0;
 
@@ -85,13 +89,17 @@ public class PlayerInteraction : PlayerPart
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("InteractiveTrigger"))
+        if(other.CompareTag(triggerTag))
         {
             other.GetComponent<InteractiveTrigger>().Activate();
         }
-        else if(other.CompareTag("DeadZone"))
+        else if(other.CompareTag(deadTag))
         {
             FallEvent?.Invoke();
+        }
+        else if(other.CompareTag(savePointTag))
+        {
+            SavePointEvent?.Invoke(other.transform);
         }
     }
 }

@@ -30,8 +30,7 @@ public class PlayerMovement : PlayerPart
     private float currentSprintReloadTime;
     private bool useDash = false;
     private CharacterController characterController;
-    private Vector3 lastPosition;
-    private Quaternion lastRotation;
+    private Transform lastPoint;
 
     public override void Activate()
     {
@@ -41,7 +40,9 @@ public class PlayerMovement : PlayerPart
         sprintMultiplier = 1;
         currentSprintReloadTime = 0;
         characterController = GetComponent<CharacterController>();
-        FindObjectOfType<PlayerInteraction>().FallEvent += TeleportToLast;
+        PlayerInteraction playerInteraction = GetComponent<PlayerInteraction>();
+        playerInteraction.FallEvent += TeleportToLast;
+        playerInteraction.SavePointEvent += SaveLastPoint;
     }
 
     private void Update()
@@ -61,8 +62,6 @@ public class PlayerMovement : PlayerPart
     {
         if (Input.GetButtonDown("Jump") && characterController.isGrounded)
         {
-            lastPosition = transform.position;
-            lastRotation = transform.rotation;
             vertSpeed = jumpForce;
         }
     }
@@ -114,11 +113,16 @@ public class PlayerMovement : PlayerPart
         }
     }
 
+    private void SaveLastPoint(Transform point)
+    {
+        lastPoint = point;
+    }
+
     private void TeleportToLast()
     {
         characterController.enabled = false;
-        transform.position = lastPosition;
-        transform.rotation = lastRotation;
+        transform.position = lastPoint.position;
+        transform.rotation = lastPoint.rotation;
         characterController.enabled = true;
     }
 }
