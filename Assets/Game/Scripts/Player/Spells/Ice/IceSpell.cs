@@ -166,8 +166,10 @@ public class IceSpell : MagicSpell
 
         for (int i = 0; i < grandSpellBulletsCount; i++)
         {
+            Vector3 direction = helper.forward;
+            direction.y = 0;
             MagicBullet current_bullet = Instantiate(bullet).GetComponent<MagicBullet>();
-            current_bullet.transform.forward = helper.forward;
+            current_bullet.transform.forward = direction;
             current_bullet.transform.Rotate(Vector3.up, GrandAngle * i);
             current_bullet.transform.position = helper.position + current_bullet.transform.forward * 0.5f;
             grandBulletsList.Add(current_bullet);
@@ -190,5 +192,4 @@ public class IceSpell : MagicSpell
         }
         bullets.Clear();
     }
-
 }
