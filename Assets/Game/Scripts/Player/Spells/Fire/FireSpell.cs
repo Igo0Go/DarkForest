@@ -141,6 +141,7 @@ public class FireSpell : MagicSpell
                     {
 
                         enemy.GetDamage(1);
+                        GameCenter.CurrentRageValue++;
                         GrandSpellValue += 1;
                         currentRayDamage -= 1;
                     }
@@ -196,6 +197,7 @@ public class FireSpell : MagicSpell
 
     private void OnEnemyGetDamage(int damage)
     {
+        GameCenter.CurrentRageValue++;
         GrandSpellValue += damage;
     }
 }

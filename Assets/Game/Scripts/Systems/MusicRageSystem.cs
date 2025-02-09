@@ -14,6 +14,9 @@ public class MusicRageSystem : MonoBehaviour
     [SerializeField, Min(1)]
     private int lostRageForDamgeValue = 10;
 
+    [SerializeField]
+    private bool changeMusic = true;
+
     public Action<float, float, float, int> RageInfoChanged;
 
     [SerializeField, Min(1)]
@@ -68,7 +71,10 @@ public class MusicRageSystem : MonoBehaviour
 
         if (GameCenter.CurrentRageMultiplicator != 1 && value < rage2Threshold)
         {
-            ChangeMusic(pack.rage1Clip);
+            if (changeMusic)
+            {
+                ChangeMusic(pack.rage1Clip);
+            }
             GameCenter.CurrentRageMultiplicator = 1;
             currentMin = 0;
             currentMax = rage2Threshold;
@@ -76,7 +82,10 @@ public class MusicRageSystem : MonoBehaviour
         }
         else if (GameCenter.CurrentRageMultiplicator != 2 && value >= rage2Threshold && value < rage3Threshold)
         {
-            ChangeMusic(pack.rage2Clip);
+            if (changeMusic)
+            {
+                ChangeMusic(pack.rage2Clip);
+            }
             GameCenter.CurrentRageMultiplicator = 2;
             currentMin = rage2Threshold;
             currentMax = rage3Threshold;
@@ -84,7 +93,10 @@ public class MusicRageSystem : MonoBehaviour
         }
         else if (GameCenter.CurrentRageMultiplicator != 3 && value >= rage3Threshold)
         {
-            ChangeMusic(pack.rage3Clip);
+            if (changeMusic)
+            {
+                ChangeMusic(pack.rage3Clip);
+            }
             GameCenter.CurrentRageMultiplicator = 3;
             currentMin = currentMax = rage3Threshold;
         }

@@ -247,6 +247,7 @@ public class SparksSpell : MagicSpell
     }
     private void OnEnemyGetDamage(int  damage)
     {
+        GameCenter.CurrentRageValue++;
         GrandSpellValue += damage;
     }
 }

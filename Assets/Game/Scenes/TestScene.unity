@@ -9320,6 +9320,7 @@ MonoBehaviour:
     rage2Clip: {fileID: 8300000, guid: 42a1c3c9073ee624bbb74b397279f54f, type: 3}
     rage3Clip: {fileID: 8300000, guid: a5a56d96da6596848809fb0c97a6b377, type: 3}
     changer: {fileID: 8300000, guid: 81bf7ed3fe573554d851f7a491430e73, type: 3}
+  lostRageForDamgeValue: 10
   rage2Threshold: 5
   rage3Threshold: 15
 --- !u!1 &151978015
@@ -21966,6 +21967,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  destroy: 1
 --- !u!135 &576920100
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -31200,10 +31202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078e079d73fa8a94ea0551f7a57c19cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeItems: []
   upgradePanel: {fileID: 808769112}
-  iceUpgradeButton: {fileID: 826624335}
-  fireUpgradeButton: {fileID: 1236254293}
-  sparksUpgradeButton: {fileID: 985160011}
 --- !u!114 &715292724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60389,7 +60389,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FPS: 60
-  mainSource: {fileID: 1333775861}
 --- !u!1001 &1334858009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65236,7 +65235,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.55
+  m_fontSize: 25.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -78573,6 +78572,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  destroy: 1
 --- !u!135 &1826789943
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -91045,6 +91045,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  destroy: 1
 --- !u!135 &2124050087
 SphereCollider:
   m_ObjectHideFlags: 0
