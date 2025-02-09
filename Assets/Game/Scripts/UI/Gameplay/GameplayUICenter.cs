@@ -135,6 +135,7 @@ public class GameplayUICenter : MonoBehaviour
 
         if(pauseCounter > 0)
         {
+            GameCenter.pause = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0;
@@ -142,6 +143,7 @@ public class GameplayUICenter : MonoBehaviour
 
         else
         {
+            GameCenter.pause = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;

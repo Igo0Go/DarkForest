@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class KineticSpell : MagicSpell
 {
@@ -73,7 +74,7 @@ public class KineticSpell : MagicSpell
             return;
 
 
-        if (Input.GetMouseButton(0) && !useSpell)
+        if (Input.GetMouseButton(0) && !useSpell && !EventSystem.current.IsPointerOverGameObject())
         {
             hands.SetFloat("AnimationSpeed", MagicStats.KineticMainSpeedMultiplicator);
             useSpell = true;
@@ -94,7 +95,7 @@ public class KineticSpell : MagicSpell
         if (useGrand)
             return;
 
-        if (Input.GetMouseButton(1) && !useSpell)
+        if (Input.GetMouseButton(1) && !useSpell && !GameCenter.pause)
         {
             useSpell = true;
             altSplash.SetActive(true);
@@ -107,7 +108,7 @@ public class KineticSpell : MagicSpell
         if (useGrand)
             return;
 
-        if (Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
+        if (Input.GetKeyDown(KeyCode.E) && !GameCenter.pause && GrandSpellValue >= GrandSpellRate)
         {
             useGrand = true;
             hands.SetBool("UseTwo", true);

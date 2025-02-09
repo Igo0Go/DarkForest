@@ -19,6 +19,7 @@ public class GameSettingsCenter : MonoBehaviour
 
 public static class GameCenter
 {
+    public static bool pause = false;
     public static int maxLevel = 0;
 
     public static GameSettingsCenter settings;

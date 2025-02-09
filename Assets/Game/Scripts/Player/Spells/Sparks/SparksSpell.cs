@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SparksSpell : MagicSpell
 {
@@ -58,7 +59,7 @@ public class SparksSpell : MagicSpell
 
     public override void UseMainSpel()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             hands.SetBool("UseTwo", true);
             ActivateSparks();
@@ -76,7 +77,7 @@ public class SparksSpell : MagicSpell
 
     public override void UseAltSpell()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1) && !GameCenter.pause)
         {
             currentSparksTrap = Instantiate(sparksTrapPrefab, spellCamera.cam.transform.position + spellCamera.cam.transform.forward,
                 spawnPoint.rotation).GetComponent<LineTrap>();
@@ -99,7 +100,7 @@ public class SparksSpell : MagicSpell
 
     public override void UseGrandSpell()
     {
-        if (Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
+        if (Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate && !GameCenter.pause)
         {
             GrandSpellValue = 0;
 

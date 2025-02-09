@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FireSpell : MagicSpell
 {
@@ -74,7 +75,7 @@ public class FireSpell : MagicSpell
 
     public override void UseMainSpel()
     {
-        if (Input.GetMouseButtonDown(0) && !useFireBall)
+        if (Input.GetMouseButtonDown(0) && !useFireBall && !EventSystem.current.IsPointerOverGameObject())
         {
             StartCoroutine(GrowFireBall());
         }
@@ -117,7 +118,7 @@ public class FireSpell : MagicSpell
 
     public override void UseAltSpell()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !GameCenter.pause)
         {
             currentDamage = 0;
             useRay = true;
@@ -164,7 +165,7 @@ public class FireSpell : MagicSpell
 
     public override void UseGrandSpell()
     {
-        if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue == GrandSpellRate)
+        if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue == GrandSpellRate && !GameCenter.pause)
         {
             GrandSpellValue = 0;
             ChangeSwitchKey.Invoke(false);

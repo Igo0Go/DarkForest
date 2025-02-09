@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class IceSpell : MagicSpell
 {
@@ -75,7 +76,7 @@ public class IceSpell : MagicSpell
 
     public override void UseMainSpel()
     {
-        if (Input.GetMouseButtonDown(0) && !useSpell)
+        if (Input.GetMouseButtonDown(0) && !useSpell && !EventSystem.current.IsPointerOverGameObject())
         {
             useSpell = true;
             spawnCoroutine = StartCoroutine(PrepareMainSpellCoroutine());
@@ -132,7 +133,7 @@ public class IceSpell : MagicSpell
 
     public override void UseAltSpell()
     {
-        if(Input.GetMouseButtonDown(1) && !useSpell && GrandSpellValue >= requredConcentrationCount)
+        if(Input.GetMouseButtonDown(1) && !useSpell && GrandSpellValue >= requredConcentrationCount && !GameCenter.pause)
         {
             useSpell = true;
             GrandSpellValue -= requredConcentrationCount;
@@ -153,7 +154,7 @@ public class IceSpell : MagicSpell
 
     public override void UseGrandSpell()
     {
-        if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate)
+        if(Input.GetKeyDown(KeyCode.E) && GrandSpellValue >= GrandSpellRate && !GameCenter.pause)
         {
             hands.SetTrigger("UseGrand");
             GrandSpellValue = 0;
