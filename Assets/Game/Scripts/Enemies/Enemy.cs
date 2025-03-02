@@ -50,6 +50,11 @@ public abstract class Enemy : MonoBehaviour, ICanGetDamage
 
     }
 
+    public virtual void GetDamage(int damage, Vector3 direction)
+    {
+        GetDamage(damage);
+    }
+
     public void Heal(int hp)
     {
         HP += hp;

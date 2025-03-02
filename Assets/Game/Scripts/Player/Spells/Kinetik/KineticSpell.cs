@@ -22,7 +22,7 @@ public class KineticSpell : MagicSpell
     [Space(20)]
     [Header("Разрез")]
     [SerializeField]
-    private GameObject altSplash;
+    private Splash altSplash;
 
 
     [Space(20)]
@@ -41,21 +41,14 @@ public class KineticSpell : MagicSpell
         AnimatorEventObserver observer = hands.gameObject.GetComponent<AnimatorEventObserver>();
 
         observer.OneHandPushEnd += OnEndSpell;
+        observer.SplashAttackPhase += OnSplashActivePhase;
         observer.SplashEnd += OnEndSplash;
+        observer.PrepareNewAttack += OnEndSpell;
 
         SetUpSpell();
     }
 
-    private void OnEndSplash()
-    {
-        OnEndSpell();
-        altSplash.SetActive(false);
-    }
 
-    private void OnEndSpell()
-    {
-        useSpell = false;
-    }
 
     public override void SetUpSpell()
     {
@@ -63,7 +56,7 @@ public class KineticSpell : MagicSpell
         useGrand = false;
         useSpell = false;
         GrandSpellValue = GrandSpellValue;//эвент в интерфейс
-        altSplash.SetActive(false);
+        altSplash.Active = false;
         StopAllCoroutines();
         rune.Stop();
     }
@@ -98,7 +91,7 @@ public class KineticSpell : MagicSpell
         if (Input.GetMouseButton(1) && !useSpell && !GameCenter.pause)
         {
             useSpell = true;
-            altSplash.SetActive(true);
+            altSplash.Active = true;
             hands.SetTrigger("Splash");
         }
     }
@@ -143,5 +136,20 @@ public class KineticSpell : MagicSpell
     {
         GrandSpellValue += damage * GameCenter.CurrentRageMultiplicator;
         GameCenter.CurrentRageValue++;
+    }
+
+    private void OnSplashActivePhase()
+    {
+        altSplash.Attack();
+    }
+
+    private void OnEndSplash()
+    {
+        altSplash.Active = false;
+    }
+
+    private void OnEndSpell()
+    {
+        useSpell = false;
     }
 }

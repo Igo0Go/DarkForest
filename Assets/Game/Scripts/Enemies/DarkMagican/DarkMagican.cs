@@ -232,6 +232,18 @@ public class DarkMagican : Enemy
         shieldTime = 1;
     }
 
+    public override void GetDamage(int damage, Vector3 direction)
+    {
+        if(shield.activeSelf)
+        {
+            shieldTime += 1;
+        }
+        else
+        {
+            base.GetDamage(damage);
+        }
+    }
+
     protected override void Dead()
     {
         currentAction = emptyAction;

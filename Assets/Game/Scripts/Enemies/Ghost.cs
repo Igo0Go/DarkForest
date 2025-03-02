@@ -73,4 +73,9 @@ public class Ghost : Enemy
         Instantiate(deadDecal, transform.position, Quaternion.identity);
         base.Dead();
     }
+
+    public override void GetDamage(int damage, Vector3 direction)
+    {
+
+    }
 }

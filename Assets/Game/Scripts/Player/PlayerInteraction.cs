@@ -42,7 +42,6 @@ public class PlayerInteraction : PlayerPart
 
     private float regenReloadTime = 0;
 
-
     public override void Activate()
     {
         hp = maxHp;
