@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape))
+        if(Input.GetKeyUp(KeyCode.Escape) && !LevelResultPanel.message)
         {
             if(sceneSelector.gameObject.activeSelf)
             {
