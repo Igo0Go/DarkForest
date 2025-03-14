@@ -23,6 +23,8 @@ public class SceneSelector : MonoBehaviour
     private AudioSource source;
     [SerializeField]
     private List<LevelInfoItem> levelInfoItems;
+    [SerializeField]
+    private AudioClip defaultClip;
 
 
     private int currentScene;
@@ -38,6 +40,15 @@ public class SceneSelector : MonoBehaviour
         sceneSelectorPanel.SetActive(true);
         CheckLevelSelectorButtons();
         SetLevelInfo();
+    }
+    public void CloseSelector()
+    {
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+        }
+        currentCoroutine = StartCoroutine(ChangeMusicCoroutine(defaultClip));
+        sceneSelectorPanel.SetActive(false);
     }
 
     public void NextScene()

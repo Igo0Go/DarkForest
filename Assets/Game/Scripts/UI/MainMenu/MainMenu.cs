@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private GameObject mainPanel;
+    private GameObject buttonsPanel;
     [SerializeField]
     private SceneSelector sceneSelector;
     [SerializeField]
@@ -19,13 +14,22 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 1;
-        mainPanel.SetActive(true);
+        buttonsPanel.SetActive(true);
         sceneSelector.Init();
         settingsPanel.Init();
     }
 
     private void Update()
     {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            if(sceneSelector.gameObject.activeSelf)
+            {
+                sceneSelector.CloseSelector();
+                buttonsPanel.SetActive(true);
+            }
+        }
+
         if(Input.GetKeyDown(KeyCode.Q))
         {
             sceneSelector.TestUnlockNextLevel();
@@ -35,6 +39,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         sceneSelector.ShowSelector();
+        buttonsPanel.SetActive(false);
     }
 
     public void ExitGame()
