@@ -154,16 +154,23 @@ public class DarkMagican : Enemy
     {
         for (int i = 0; i < enemiesForHealCount; i++)
         {
-            Enemy enemy = enemiesForHeal[i];
-
-            Instantiate(healAura, enemiesForHeal[i].transform.position,
-                Quaternion.identity, enemy.transform);
-
-            yield return new WaitForSeconds(healDelayTime);
-
-            if (enemy != null)
+            try
             {
-                enemy.Heal(healForce);
+                Enemy enemy = enemiesForHeal[i];
+
+                Instantiate(healAura, enemiesForHeal[i].transform.position,
+                    Quaternion.identity, enemy.transform);
+
+                yield return new WaitForSeconds(healDelayTime);
+
+                if (enemy != null)
+                {
+                    enemy.Heal(healForce);
+                }
+            }
+            finally
+            {
+
             }
         }
 
