@@ -44,13 +44,14 @@ public class MusicRageSystem : MonoBehaviour
 
     public void ChangeMusicToArena()
     {
-        if(!changeMusic)
+        inFight = true;
+
+        if (!changeMusic)
         {
             return;
         }
 
-        inFight = true;
-        if(currentCoroutine != null)
+        if (currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
         }
