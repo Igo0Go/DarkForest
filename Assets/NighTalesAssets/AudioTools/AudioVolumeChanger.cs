@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioVolumeChanger : MonoBehaviour
 {
     [SerializeField]
-    private AudioType type;
+    private InGameAudioType type;
 
     private AudioSource source;
 
@@ -25,18 +25,18 @@ public class AudioVolumeChanger : MonoBehaviour
 
     private void Start()
     {
-        if (type == AudioType.sounds)
+        if (type == InGameAudioType.sounds)
         {
 
             source.volume = GameSettings.soundVolume;
         }
-        else if (type == AudioType.music)
+        else if (type == InGameAudioType.music)
         {
             source.volume = GameSettings.musicVolume;
         }
     }
 
-    public void SetValue(AudioType targetType, float newWalue)
+    public void SetValue(InGameAudioType targetType, float newWalue)
     {
         if(targetType == type)
         {

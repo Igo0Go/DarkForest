@@ -8,6 +8,10 @@ public class MainMenu : MonoBehaviour
     private SceneSelector sceneSelector;
     [SerializeField]
     private SettingsPanel settingsPanel;
+    [SerializeField]
+    private ArenaPanel arenaPanel;
+    [SerializeField]
+    MusicPlayer musicPlayer;
 
     private void Start()
     {
@@ -23,9 +27,11 @@ public class MainMenu : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.Escape) && !LevelResultPanel.message)
         {
-            if(sceneSelector.gameObject.activeSelf)
+            if(!buttonsPanel.activeSelf)
             {
+                musicPlayer.ToDefault();
                 sceneSelector.CloseSelector();
+                arenaPanel.ClosePanel();
                 buttonsPanel.SetActive(true);
             }
         }
@@ -39,6 +45,12 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         sceneSelector.ShowSelector();
+        buttonsPanel.SetActive(false);
+    }
+
+    public void ToArena()
+    {
+        arenaPanel.ShowArenaPanel();
         buttonsPanel.SetActive(false);
     }
 

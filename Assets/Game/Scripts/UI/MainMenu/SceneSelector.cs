@@ -19,13 +19,16 @@ public class SceneSelector : MonoBehaviour
     private GameObject leftButton;
     [SerializeField]
     private GameObject rightButton;
-    [SerializeField]
-    private AudioSource source;
+
     [SerializeField]
     private List<LevelInfoItem> levelInfoItems;
-    [SerializeField]
-    private AudioClip defaultClip;
 
+
+    [SerializeField]
+    private MusicPlayer musicPlayer;
+
+    [SerializeField]
+    private bool arenaMode = false;
 
     private int currentScene;
 
@@ -43,11 +46,6 @@ public class SceneSelector : MonoBehaviour
     }
     public void CloseSelector()
     {
-        if (currentCoroutine != null)
-        {
-            StopCoroutine(currentCoroutine);
-        }
-        currentCoroutine = StartCoroutine(ChangeMusicCoroutine(defaultClip));
         sceneSelectorPanel.SetActive(false);
     }
 
@@ -69,6 +67,11 @@ public class SceneSelector : MonoBehaviour
         SceneManager.LoadScene(levelInfoItems[currentScene].sceneIndex);
     }
 
+    public void SaveForForArena()
+    {
+        ArenaSettingsHolder.sceneInfo = levelInfoItems[currentScene];
+    }
+
     [ContextMenu("Открыть второй уровень")]
     public void TestUnlockNextLevel()
     {
@@ -81,16 +84,20 @@ public class SceneSelector : MonoBehaviour
         levelNameText.text = levelInfoItems[currentScene].levelName;
         levelIcon.sprite = levelInfoItems[currentScene].levelIcon;
         levelDescriptionText.text = levelInfoItems[currentScene].levelDescription;
-
-        if (currentCoroutine != null)
-        {
-            StopCoroutine(currentCoroutine);
-        }
-        currentCoroutine = StartCoroutine(ChangeMusicCoroutine(levelInfoItems[currentScene].levelMusic));
+        musicPlayer.PlayNewClip(levelInfoItems[currentScene].levelMusic);
     }
     private void CheckLevelSelectorButtons()
     {
-        if (currentScene >= GameCenter.maxLevel)
+        int max = GameCenter.maxLevel;
+
+        if(arenaMode)
+        {
+            max = levelInfoItems.Count-1;
+        }
+
+
+
+        if (currentScene >= max)
         {
             rightButton.SetActive(false);
         }
@@ -107,28 +114,6 @@ public class SceneSelector : MonoBehaviour
         {
             leftButton.SetActive(true);
         }
-    }
-
-    private Coroutine currentCoroutine;
-    private IEnumerator ChangeMusicCoroutine(AudioClip clip)
-    {
-        while (source.volume > 0)
-        {
-            source.volume -= Time.deltaTime;
-            yield return null;
-        }
-
-        source.Stop();
-        source.clip = clip;
-        source.Play();
-
-        while (source.volume < 1)
-        {
-            source.volume += Time.deltaTime;
-            yield return null;
-        }
-
-        source.volume = 1;
     }
 }
 

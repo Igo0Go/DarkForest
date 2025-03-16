@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Gameplay/02 Castle/02 Castle.unity
     guid: aecc131140f1c8e418f5aca62c1b68bc
+  - enabled: 1
+    path: Assets/Game/Scenes/Gameplay/Arena/Arena_Hell.unity
+    guid: 9508022ad7e5ec84a8ae3ee1770b31fd
+  - enabled: 1
+    path: Assets/Game/Scenes/Gameplay/Arena/Arena_Dark.unity
+    guid: 3afdf3b332402da44b3931d10751189c
   m_configObjects: {}

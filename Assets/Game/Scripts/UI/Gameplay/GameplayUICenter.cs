@@ -39,6 +39,7 @@ public class GameplayUICenter : MonoBehaviour
         musicRageSystem.Init();
 
 
+
         FindObjectOfType<SettingsPanel>().Init();
 
         UpgradeSystem upgradeSystem = FindObjectOfType<UpgradeSystem>();

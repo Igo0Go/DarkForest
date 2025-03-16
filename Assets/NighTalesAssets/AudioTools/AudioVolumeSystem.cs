@@ -20,7 +20,7 @@ public class AudioVolumeSystem : MonoBehaviour
         set
         {
             GameSettings.musicVolume = value;
-            VolumeChanged?.Invoke(AudioType.music, value);
+            VolumeChanged?.Invoke(InGameAudioType.music, value);
         }
     }
     public float SoundVolume
@@ -32,11 +32,11 @@ public class AudioVolumeSystem : MonoBehaviour
         set
         {
             GameSettings.soundVolume = value;
-            VolumeChanged?.Invoke(AudioType.sounds, value);
+            VolumeChanged?.Invoke(InGameAudioType.sounds, value);
         }
     }
 
-    public Action<AudioType, float> VolumeChanged;
+    public Action<InGameAudioType, float> VolumeChanged;
 
     private void Awake()
     {
@@ -49,7 +49,7 @@ public class AudioVolumeSystem : MonoBehaviour
         SoundVolume = soundVolume;
     }
 }
-public enum AudioType
+public enum InGameAudioType
 {
     music,
     sounds

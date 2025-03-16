@@ -44,6 +44,11 @@ public class MusicRageSystem : MonoBehaviour
 
     public void ChangeMusicToArena()
     {
+        if(!changeMusic)
+        {
+            return;
+        }
+
         inFight = true;
         if(currentCoroutine != null)
         {
@@ -53,6 +58,11 @@ public class MusicRageSystem : MonoBehaviour
     }
     public void ChangeMusicToDefault()
     {
+        if (!changeMusic)
+        {
+            return;
+        }
+
         GameCenter.CurrentRageValue = 0;
         inFight = false;
         if (currentCoroutine != null)
@@ -106,9 +116,20 @@ public class MusicRageSystem : MonoBehaviour
     }
     private void ChangeMusic(AudioClip clip)
     {
+        if(changeMusic)
+        {
+            arenaMusicSource.Stop();
+            arenaMusicSource.PlayOneShot(pack.changer);
+            arenaMusicSource.clip = clip;
+            arenaMusicSource.Play();
+        }
+    }
+
+    public void HardChangeMusic(AudioClip clip)
+    {
         arenaMusicSource.Stop();
-        arenaMusicSource.PlayOneShot(pack.changer);
         arenaMusicSource.clip = clip;
+        arenaMusicSource.loop = true;
         arenaMusicSource.Play();
     }
 
