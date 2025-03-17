@@ -52,7 +52,7 @@ public class SettingsPanel : MonoBehaviour
 
 public static class GameSettings
 {
-    public static float musicVolume = 1f;
+    public static float musicVolume = 0.5f;
     public static float soundVolume = 1f;
     public static float sensivity = 1f;
 }

@@ -6,11 +6,6 @@ public class AudioVolumeSystem : MonoBehaviour
     [SerializeField]
     private AudioSource mainSource;
 
-    [SerializeField, Range(0, 1)]
-    private float musicVolume;
-    [SerializeField, Range(0, 1)]
-    private float soundVolume;
-
     public float MusicVolume 
     { 
         get
@@ -45,8 +40,8 @@ public class AudioVolumeSystem : MonoBehaviour
 
     private void Start()
     {
-        MusicVolume = musicVolume;
-        SoundVolume = soundVolume;
+        MusicVolume = GameSettings.musicVolume;
+        SoundVolume = GameSettings.soundVolume;
     }
 }
 public enum InGameAudioType
