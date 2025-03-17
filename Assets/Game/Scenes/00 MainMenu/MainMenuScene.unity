@@ -3510,7 +3510,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: v0.0.1-prototype
+  m_text: v0.0.2-arena_prototype
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2977dde57295afd4f8916b427d499ded, type: 2}
   m_sharedMaterial: {fileID: -6907001802574944737, guid: 2977dde57295afd4f8916b427d499ded,
@@ -11082,8 +11082,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainSource: {fileID: 956663227}
-  musicVolume: 0.496
-  soundVolume: 0.492
 --- !u!1 &350713683044726890
 GameObject:
   m_ObjectHideFlags: 0
