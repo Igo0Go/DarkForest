@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -59,5 +60,10 @@ public class CustomMusicHolder : MonoBehaviour
         }
 
         loadComplete?.Invoke();
+    }
+
+    public void OpenFolder()
+    {
+        Process.Start(musicFolderPath);
     }
 }

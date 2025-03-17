@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1851768068223721796}
   - component: {fileID: 1851768068223721797}
   m_Layer: 5
-  m_Name: FastLevelTipText (TMP)
+  m_Name: txt_MusicName (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,10 +33,10 @@ RectTransform:
   m_Father: {fileID: 1851768068892620866}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 684.32, y: 0}
+  m_AnchorMin: {x: 0.0137547385, y: 0}
+  m_AnchorMax: {x: 0.97152835, y: 1}
+  m_AnchoredPosition: {x: 1.1659851, y: 0}
+  m_SizeDelta: {x: -0.2871704, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1851768068223721796
 CanvasRenderer:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.000061035156, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

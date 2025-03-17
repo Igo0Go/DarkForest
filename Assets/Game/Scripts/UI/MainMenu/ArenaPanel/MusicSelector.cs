@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,7 +46,7 @@ public class MusicSelector : MonoBehaviour
         levelIcon.gameObject.SetActive(true);
         musicText.gameObject.SetActive(true);
         levelText.gameObject.SetActive(true);
-
+        ClearMusicList();
         levelIcon.sprite = ArenaSettingsHolder.sceneInfo.levelIcon;
         levelText.text = ArenaSettingsHolder.sceneInfo.levelName;
 
@@ -68,5 +69,15 @@ public class MusicSelector : MonoBehaviour
         ArenaSettingsHolder.music = clip;
         musicPlayer.PlayNewClip(clip);
         musicText.text = clip.name;
+    }
+
+    private void ClearMusicList()
+    {
+        for (int i = 0; i < musicItemsContainer.childCount; i++)
+        {
+            MusicUIItem item = musicItemsContainer.GetChild(i).GetComponent<MusicUIItem>();
+            item.choseClip.RemoveAllListeners();
+            Destroy(item.gameObject);
+        }
     }
 }
