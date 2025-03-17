@@ -14,6 +14,7 @@ public class PlayerMagic : PlayerPart
     [HideInInspector]
     public Action<float> MagicMaxValueChanget;
 
+    private int currentSpellIndex = 0;
     private MagicSpell currentSpell;
 
     private bool spellSwitchKey = true;
@@ -81,6 +82,12 @@ public class PlayerMagic : PlayerPart
 
     private void SetSpell(int number)
     {
+        if(currentSpellIndex == number)
+        {
+            return;
+        }
+        currentSpellIndex = number;
+
         foreach (MagicSpell spell in spells)
         {
             spell.gameObject.SetActive(false);
